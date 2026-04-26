@@ -67,6 +67,41 @@ class BuildDashboardPayloadTests(unittest.TestCase):
         self.assertEqual(payload['equitySeries'][-1]['Pilot 1'], 11559780)
         self.assertEqual(payload['latestDate'], '2026-04-18')
 
+    def test_equity_series_fills_missing_calendar_dates_with_prior_nav(self):
+        pilot_rows = {
+            'Pilot 1': [
+                {
+                    'pilot': 'Pilot 1',
+                    'strategy': 'Trend Following',
+                    'date': '2026-04-14',
+                    'log': 'Day 1',
+                    'start': 10_000_000,
+                    'end': 10_100_000,
+                    'cash': 0,
+                    'transactions': 'Rebalanced to BTC 100%',
+                    'research': '',
+                },
+                {
+                    'pilot': 'Pilot 1',
+                    'strategy': 'Trend Following',
+                    'date': '2026-04-17',
+                    'log': 'Day 4',
+                    'start': 10_100_000,
+                    'end': 10_400_000,
+                    'cash': 0,
+                    'transactions': 'Rebalanced to ETH 100%',
+                    'research': '',
+                },
+            ],
+        }
+
+        payload = build_dashboard_payload(pilot_rows)
+
+        self.assertEqual([row['date'] for row in payload['equitySeries']], ['2026-04-14', '2026-04-15', '2026-04-16', '2026-04-17'])
+        self.assertEqual(payload['equitySeries'][1]['Pilot 1'], 10_100_000)
+        self.assertEqual(payload['equitySeries'][2]['Pilot 1'], 10_100_000)
+        self.assertEqual(payload['equitySeries'][3]['Pilot 1'], 10_400_000)
+
 
 if __name__ == '__main__':
     unittest.main()

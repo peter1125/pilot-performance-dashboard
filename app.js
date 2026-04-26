@@ -7,6 +7,7 @@ import {
   filterTransactions,
   flattenTransactions,
   formatCurrency,
+  formatKstDateTime,
   formatPercent,
   normalizeTransactionFilters,
 } from './utils.js';
@@ -83,7 +84,7 @@ async function loadDashboardData(force = false) {
     }
     const payload = await response.json();
     applyPayload(payload);
-    const refreshed = state.refreshedAt ? new Date(state.refreshedAt).toLocaleString() : '';
+    const refreshed = formatKstDateTime(state.refreshedAt);
     const sourceLabel = state.source === 'github-pages-notion-sync' ? 'Live data synced from Notion' : 'Live dashboard data';
     setStatus('status-live', sourceLabel, refreshed ? `Refreshed ${refreshed}` : '');
   } catch (error) {

@@ -50,7 +50,8 @@ export function computeLeaderboard(summaries) {
 }
 
 export function buildEquitySeries(pilotHistory) {
-  const dates = [...new Set(Object.values(pilotHistory).flat().map((row) => row.date))].sort();
+  const observedDates = [...new Set(Object.values(pilotHistory).flat().map((row) => row.date))].sort();
+  const dates = buildCalendarDateRange(observedDates);
   const latestByPilot = Object.fromEntries(Object.keys(pilotHistory).map((pilot) => [pilot, null]));
 
   return dates.map((date) => {
@@ -62,6 +63,37 @@ export function buildEquitySeries(pilotHistory) {
     }
     return entry;
   });
+}
+
+export function buildCalendarDateRange(dates) {
+  if (!dates.length) return [];
+  const start = parseIsoDateOnly(dates[0]);
+  const end = parseIsoDateOnly(dates.at(-1));
+  const values = [];
+  for (let cursor = new Date(start); cursor <= end; cursor.setUTCDate(cursor.getUTCDate() + 1)) {
+    values.push(cursor.toISOString().slice(0, 10));
+  }
+  return values;
+}
+
+function parseIsoDateOnly(dateText) {
+  const [year, month, day] = dateText.split('-').map(Number);
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
+export function formatKstDateTime(value) {
+  if (!value) return '';
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+    timeZoneName: 'short',
+  }).format(new Date(value));
 }
 
 export function filterTransactions(rows, filters) {

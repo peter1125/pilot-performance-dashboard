@@ -2,7 +2,7 @@ import json
 import os
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from typing import Any, Dict, List
 
 NOTION_VERSION = '2025-09-03'
@@ -150,14 +150,25 @@ def compute_leaderboard(summaries: List[Dict[str, Any]]) -> List[Dict[str, Any]]
     return [{**row, 'rank': index + 1} for index, row in enumerate(ordered)]
 
 
+def calendar_date_range(dates: List[str]) -> List[str]:
+    """Return every ISO date from the first to the last date, inclusive."""
+    if not dates:
+        return []
+    start = date.fromisoformat(min(dates))
+    end = date.fromisoformat(max(dates))
+    days = (end - start).days
+    return [(start + timedelta(days=offset)).isoformat() for offset in range(days + 1)]
+
+
 def build_equity_series(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
-    dates = sorted({row['date'] for rows in pilot_rows.values() for row in rows if is_usable_row(row) and row.get('date')})
+    observed_dates = sorted({row['date'] for rows in pilot_rows.values() for row in rows if is_usable_row(row) and row.get('date')})
+    dates = calendar_date_range(observed_dates)
     latest_by_pilot: Dict[str, Any] = {pilot: None for pilot in pilot_rows.keys()}
     series: List[Dict[str, Any]] = []
-    for date in dates:
-        item = {'date': date}
+    for series_date in dates:
+        item = {'date': series_date}
         for pilot, rows in pilot_rows.items():
-            exact = next((row for row in rows if is_usable_row(row) and row.get('date') == date), None)
+            exact = next((row for row in rows if is_usable_row(row) and row.get('date') == series_date), None)
             if exact:
                 latest_by_pilot[pilot] = round(exact.get('end') or exact.get('start') or 0)
             item[pilot] = latest_by_pilot[pilot]
