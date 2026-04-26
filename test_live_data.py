@@ -101,6 +101,10 @@ class BuildDashboardPayloadTests(unittest.TestCase):
         self.assertEqual(payload['equitySeries'][1]['Pilot 1'], 10_100_000)
         self.assertEqual(payload['equitySeries'][2]['Pilot 1'], 10_100_000)
         self.assertEqual(payload['equitySeries'][3]['Pilot 1'], 10_400_000)
+        carry_forward_rows = [row for row in payload['transactions'] if row.get('isCarryForward')]
+        self.assertEqual([row['date'] for row in sorted(carry_forward_rows, key=lambda row: row['date'])], ['2026-04-15', '2026-04-16'])
+        self.assertEqual(carry_forward_rows[0]['start'], carry_forward_rows[0]['end'])
+        self.assertIn('not a market revaluation', carry_forward_rows[0]['transactions'])
 
 
 if __name__ == '__main__':

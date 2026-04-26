@@ -325,8 +325,10 @@ function renderTransactions() {
       const pnl = row.end - row.start;
       const returnPct = row.start ? ((row.end - row.start) / row.start) * 100 : 0;
       const meta = state.pilotMeta[row.pilot] || { color: '#64748b' };
+      const rowClass = row.isCarryForward ? 'carry-forward-row' : '';
+      const transactionText = row.isCarryForward ? `<span class="carry-forward-badge">Carry-forward</span> ${row.transactions}` : row.transactions;
       return `
-        <tr>
+        <tr class="${rowClass}">
           <td>${row.date}</td>
           <td>
             <span class="table-chip">
@@ -342,7 +344,7 @@ function renderTransactions() {
             <div class="${pnl >= 0 ? 'positive' : 'negative'}">${pnl >= 0 ? '+' : '-'}${formatCurrency(Math.abs(pnl))}</div>
             <div class="mini-label ${returnPct >= 0 ? 'positive' : 'negative'}">${formatPercent(returnPct)}</div>
           </td>
-          <td class="transaction-copy">${row.transactions}</td>
+          <td class="transaction-copy">${transactionText}</td>
         </tr>
       `;
     })
