@@ -27,6 +27,36 @@ PILOT_META = {
     'Pilot 3': {'color': '#f97316', 'accent': 'rgba(249, 115, 22, 0.18)'},
 }
 
+# Indicative retroactive marks for the 2026-04-20..2026-04-25 dashboard gap.
+# Basis: 2026-04-19 23:53 KST allocation, Upbit KRW 30m close at 23:30 KST for
+# the base and each daily mark. These are estimates, not originally recorded Notion marks.
+RETRO_MARKS = {
+    'Pilot 1': {
+        '2026-04-20': {'end': 10_882_532, 'cash': 2_207_240, 'returnPct': -1.3924},
+        '2026-04-21': {'end': 10_969_720, 'cash': 2_207_240, 'returnPct': -0.6024},
+        '2026-04-22': {'end': 11_248_201, 'cash': 2_207_240, 'returnPct': 1.9209},
+        '2026-04-23': {'end': 11_104_277, 'cash': 2_207_240, 'returnPct': 0.6168},
+        '2026-04-24': {'end': 11_153_892, 'cash': 2_207_240, 'returnPct': 1.0664},
+        '2026-04-25': {'end': 11_138_959, 'cash': 2_207_240, 'returnPct': 0.9311},
+    },
+    'Pilot 2': {
+        '2026-04-20': {'end': 11_245_984, 'cash': 9_605_337, 'returnPct': -0.4815},
+        '2026-04-21': {'end': 11_262_544, 'cash': 9_605_337, 'returnPct': -0.3350},
+        '2026-04-22': {'end': 11_303_945, 'cash': 9_605_337, 'returnPct': 0.0314},
+        '2026-04-23': {'end': 11_267_276, 'cash': 9_605_337, 'returnPct': -0.2931},
+        '2026-04-24': {'end': 11_276_739, 'cash': 9_605_337, 'returnPct': -0.2094},
+        '2026-04-25': {'end': 11_270_824, 'cash': 9_605_337, 'returnPct': -0.2617},
+    },
+    'Pilot 3': {
+        '2026-04-20': {'end': 12_077_729, 'cash': 12_077_729, 'returnPct': 0.0},
+        '2026-04-21': {'end': 12_077_729, 'cash': 12_077_729, 'returnPct': 0.0},
+        '2026-04-22': {'end': 12_077_729, 'cash': 12_077_729, 'returnPct': 0.0},
+        '2026-04-23': {'end': 12_077_729, 'cash': 12_077_729, 'returnPct': 0.0},
+        '2026-04-24': {'end': 12_077_729, 'cash': 12_077_729, 'returnPct': 0.0},
+        '2026-04-25': {'end': 12_077_729, 'cash': 12_077_729, 'returnPct': 0.0},
+    },
+}
+
 
 class NotionApiError(RuntimeError):
     pass
@@ -160,6 +190,10 @@ def calendar_date_range(dates: List[str]) -> List[str]:
     return [(start + timedelta(days=offset)).isoformat() for offset in range(days + 1)]
 
 
+def get_retro_mark(pilot: str, mark_date: str) -> Dict[str, Any]:
+    return RETRO_MARKS.get(pilot, {}).get(mark_date)
+
+
 def build_equity_series(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
     observed_dates = sorted({row['date'] for rows in pilot_rows.values() for row in rows if is_usable_row(row) and row.get('date')})
     dates = calendar_date_range(observed_dates)
@@ -169,8 +203,11 @@ def build_equity_series(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[Dic
         item = {'date': series_date}
         for pilot, rows in pilot_rows.items():
             exact = next((row for row in rows if is_usable_row(row) and row.get('date') == series_date), None)
+            retro_mark = get_retro_mark(pilot, series_date)
             if exact:
                 latest_by_pilot[pilot] = round(exact.get('end') or exact.get('start') or 0)
+            elif retro_mark and latest_by_pilot[pilot] is not None:
+                latest_by_pilot[pilot] = round(retro_mark['end'])
             item[pilot] = latest_by_pilot[pilot]
         series.append(item)
     return series
@@ -185,13 +222,38 @@ def build_transaction_feed(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[
         usable = sorted((row for row in rows if is_usable_row(row)), key=lambda row: row['date'])
         rows_by_date = {row['date']: row for row in usable}
         latest_actual = None
+        previous_nav = None
+        previous_cash = None
         for feed_date in dates:
             actual = rows_by_date.get(feed_date)
+            retro_mark = get_retro_mark(pilot, feed_date)
             if actual:
                 latest_actual = actual
-                feed.append(clean_transaction_row(actual, is_carry_forward=False))
+                previous_nav = actual.get('end') or actual.get('start') or 0
+                previous_cash = actual.get('cash') or 0
+                feed.append(clean_transaction_row(actual, is_carry_forward=False, is_estimated_retro_mark=False))
+            elif retro_mark and latest_actual and previous_nav is not None:
+                feed.append(
+                    clean_transaction_row(
+                        {
+                            **latest_actual,
+                            'date': feed_date,
+                            'log': f'{feed_date} estimated retroactive mark',
+                            'start': previous_nav,
+                            'end': retro_mark['end'],
+                            'cash': retro_mark['cash'],
+                            'transactions': retro_mark_transaction_text(pilot),
+                            'research': retro_mark_research_text(pilot, feed_date, retro_mark),
+                        },
+                        is_carry_forward=False,
+                        is_estimated_retro_mark=True,
+                    )
+                )
+                previous_nav = retro_mark['end']
+                previous_cash = retro_mark['cash']
             elif latest_actual:
-                current_nav = latest_actual.get('end') or latest_actual.get('start') or 0
+                current_nav = previous_nav if previous_nav is not None else latest_actual.get('end') or latest_actual.get('start') or 0
+                current_cash = previous_cash if previous_cash is not None else latest_actual.get('cash') or 0
                 feed.append(
                     clean_transaction_row(
                         {
@@ -200,10 +262,12 @@ def build_transaction_feed(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[
                             'log': f'{feed_date} carry-forward mark',
                             'start': current_nav,
                             'end': current_nav,
-                            'transactions': 'No dashboard update recorded for this date; carrying forward the last Notion mark. This is not a market revaluation.',
-                            'research': 'Synthetic carry-forward row generated by the public dashboard so missing dates are visible. NAV stayed unchanged here only because no new Notion mark was recorded for this date.',
+                            'cash': current_cash,
+                            'transactions': 'No dashboard update or retroactive estimate recorded for this date; carrying forward the last Notion mark. This is not a market revaluation.',
+                            'research': 'Synthetic carry-forward row generated by the public dashboard so missing dates are visible. NAV stayed unchanged here only because no new Notion mark or retroactive estimate was recorded for this date.',
                         },
                         is_carry_forward=True,
+                        is_estimated_retro_mark=False,
                     )
                 )
 
@@ -211,7 +275,7 @@ def build_transaction_feed(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[
     return feed
 
 
-def clean_transaction_row(row: Dict[str, Any], is_carry_forward: bool) -> Dict[str, Any]:
+def clean_transaction_row(row: Dict[str, Any], is_carry_forward: bool, is_estimated_retro_mark: bool) -> Dict[str, Any]:
     current_nav = row.get('end') or row.get('start') or 0
     start_amount = row.get('start') or current_nav
     return {
@@ -220,7 +284,27 @@ def clean_transaction_row(row: Dict[str, Any], is_carry_forward: bool) -> Dict[s
         'end': round(current_nav),
         'cash': round(row.get('cash') or 0),
         'isCarryForward': is_carry_forward,
+        'isEstimatedRetroMark': is_estimated_retro_mark,
     }
+
+
+def retro_mark_transaction_text(pilot: str) -> str:
+    if pilot == 'Pilot 1':
+        return 'Estimated retro mark from 2026-04-19 allocation: PEPE 35%, XRP 25%, BTC 20%, Cash 20%. No trade recorded.'
+    if pilot == 'Pilot 2':
+        return 'Estimated retro mark from 2026-04-19 allocation: SUI 15%, Cash 85%. No trade recorded.'
+    if pilot == 'Pilot 3':
+        return 'Estimated retro mark from 2026-04-19 allocation: Cash 100%. No trade recorded.'
+    return 'Estimated retroactive market mark. No trade recorded.'
+
+
+def retro_mark_research_text(pilot: str, mark_date: str, retro_mark: Dict[str, Any]) -> str:
+    return (
+        f'{mark_date} estimated retroactive mark for {pilot}. Basis: 2026-04-19 23:53 KST allocation, '
+        'Upbit KRW 30-minute candle close at 23:30 KST for the base and the daily mark. '
+        f'Estimated NAV KRW {round(retro_mark["end"]):,}; estimated return vs 2026-04-19 mark {retro_mark["returnPct"]:+.4f}%. '
+        'This was not an originally recorded Notion/dashboard update.'
+    )
 
 
 def build_dashboard_payload(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> Dict[str, Any]:

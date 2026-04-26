@@ -106,6 +106,43 @@ class BuildDashboardPayloadTests(unittest.TestCase):
         self.assertEqual(carry_forward_rows[0]['start'], carry_forward_rows[0]['end'])
         self.assertIn('not a market revaluation', carry_forward_rows[0]['transactions'])
 
+    def test_known_gap_uses_estimated_retro_marks_instead_of_flat_carry_forward(self):
+        pilot_rows = {
+            'Pilot 1': [
+                {
+                    'pilot': 'Pilot 1',
+                    'strategy': 'Trend Following',
+                    'date': '2026-04-19',
+                    'log': 'Day 6',
+                    'start': 11_488_838,
+                    'end': 11_036_202,
+                    'cash': 2_207_240,
+                    'transactions': 'Rebalanced to PEPE 35%, XRP 25%, BTC 20%, Cash 20% at 23:53 KST',
+                    'research': '',
+                },
+                {
+                    'pilot': 'Pilot 1',
+                    'strategy': 'Trend Following',
+                    'date': '2026-04-26',
+                    'log': 'Day 13',
+                    'start': 11_036_202,
+                    'end': 11_331_344,
+                    'cash': 0,
+                    'transactions': 'Rebalanced to DOGE 45%, BTC 35%, ONDO 20%',
+                    'research': '',
+                },
+            ],
+        }
+
+        payload = build_dashboard_payload(pilot_rows)
+
+        by_date = {row['date']: row for row in payload['equitySeries']}
+        self.assertEqual(by_date['2026-04-20']['Pilot 1'], 10_882_532)
+        self.assertEqual(by_date['2026-04-25']['Pilot 1'], 11_138_959)
+        retro_rows = [row for row in payload['transactions'] if row.get('isEstimatedRetroMark')]
+        self.assertEqual(len(retro_rows), 6)
+        self.assertTrue(all('No trade recorded' in row['transactions'] for row in retro_rows))
+
 
 if __name__ == '__main__':
     unittest.main()

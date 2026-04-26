@@ -325,8 +325,12 @@ function renderTransactions() {
       const pnl = row.end - row.start;
       const returnPct = row.start ? ((row.end - row.start) / row.start) * 100 : 0;
       const meta = state.pilotMeta[row.pilot] || { color: '#64748b' };
-      const rowClass = row.isCarryForward ? 'carry-forward-row' : '';
-      const transactionText = row.isCarryForward ? `<span class="carry-forward-badge">Carry-forward</span> ${row.transactions}` : row.transactions;
+      const rowClass = row.isEstimatedRetroMark ? 'estimated-retro-row' : row.isCarryForward ? 'carry-forward-row' : '';
+      const transactionText = row.isEstimatedRetroMark
+        ? `<span class="estimated-retro-badge">Estimated</span> ${row.transactions}`
+        : row.isCarryForward
+          ? `<span class="carry-forward-badge">Carry-forward</span> ${row.transactions}`
+          : row.transactions;
       return `
         <tr class="${rowClass}">
           <td>${row.date}</td>
