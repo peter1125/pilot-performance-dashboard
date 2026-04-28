@@ -305,9 +305,15 @@ def build_snapshot_equity_series(snapshot_rows: List[Dict[str, Any]]) -> List[Di
     return series
 
 
-def parse_snapshot_cash(note: str) -> int:
-    match = re.search(r'Cash\s+KRW\s+([0-9,]+)', note or '')
-    return int(match.group(1).replace(',', '')) if match else 0
+def parse_snapshot_cash(note: str, nav: float = None) -> int:
+    note = note or ''
+    amount_match = re.search(r'Cash\s+KRW\s+([0-9,]+)', note)
+    if amount_match:
+        return int(amount_match.group(1).replace(',', ''))
+    percent_match = re.search(r'Cash\s+([0-9]+(?:\.[0-9]+)?)%', note)
+    if percent_match and nav is not None:
+        return round(nav * (float(percent_match.group(1)) / 100))
+    return 0
 
 
 def build_snapshot_transaction_feed(snapshot_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -325,7 +331,7 @@ def build_snapshot_transaction_feed(snapshot_rows: List[Dict[str, Any]]) -> List
             daily_pnl = end_nav - start_nav
             daily_return_pct = (daily_pnl / start_nav) * 100 if start_nav else 0.0
             note = end_row.get(f'{pilot}Text') or f'{pilot} daily snapshot mark'
-            cash = parse_snapshot_cash(note)
+            cash = parse_snapshot_cash(note, end_nav)
             feed.append(
                 {
                     'pilot': pilot,
