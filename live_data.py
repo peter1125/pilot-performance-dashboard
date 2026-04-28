@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import urllib.error
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
@@ -292,6 +293,11 @@ def build_snapshot_equity_series(snapshot_rows: List[Dict[str, Any]]) -> List[Di
     return series
 
 
+def parse_snapshot_cash(note: str) -> int:
+    match = re.search(r'Cash\s+KRW\s+([0-9,]+)', note or '')
+    return int(match.group(1).replace(',', '')) if match else 0
+
+
 def build_snapshot_transaction_feed(snapshot_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     usable = sorted((row for row in snapshot_rows if is_usable_snapshot(row)), key=lambda row: row['timestamp'])
     previous_by_pilot: Dict[str, Dict[str, Any]] = {pilot: None for pilot in PILOT_SOURCES.keys()}
@@ -308,6 +314,7 @@ def build_snapshot_transaction_feed(snapshot_rows: List[Dict[str, Any]]) -> List
             interval_pnl = current - start_nav
             interval_return_pct = (interval_pnl / start_nav) * 100 if start_nav else 0.0
             note = row.get(f'{pilot}Text') or f'{pilot} snapshot mark'
+            cash = parse_snapshot_cash(note)
             feed.append(
                 {
                     'pilot': pilot,
@@ -318,7 +325,7 @@ def build_snapshot_transaction_feed(snapshot_rows: List[Dict[str, Any]]) -> List
                     'log': f'{label} Snapshot Log mark',
                     'start': round(start_nav),
                     'end': round(current),
-                    'cash': 0,
+                    'cash': cash,
                     'transactions': note,
                     'research': 'Snapshot Log interval mark. Start NAV comes from the previous snapshot row, so P&L is interval-consistent rather than repeated from a daily sleeve row.',
                     'dailyPnl': round(interval_pnl),
