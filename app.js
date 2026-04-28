@@ -273,7 +273,14 @@ function renderChart() {
   }).join('');
 
   const xLabels = state.equitySeries
-    .map((row, index) => `<text class="chart-label" x="${xFor(index)}" y="${height - 12}" text-anchor="middle">${row.date.slice(5)}</text>`)
+    .map((row, index) => {
+      const maxLabels = 12;
+      const stride = Math.max(1, Math.ceil(state.equitySeries.length / maxLabels));
+      const shouldShow = index === 0 || index === state.equitySeries.length - 1 || index % stride === 0;
+      if (!shouldShow) return '';
+      const label = row.date.includes(' KST') ? row.date.slice(5, 16) : row.date.slice(5);
+      return `<text class="chart-label" x="${xFor(index)}" y="${height - 12}" text-anchor="middle">${label}</text>`;
+    })
     .join('');
 
   const lines = series
@@ -341,16 +348,18 @@ function renderTransactions() {
       const pnl = row.dailyPnl ?? row.end - row.start;
       const returnPct = row.dailyReturnPct ?? (row.start ? ((row.end - row.start) / row.start) * 100 : 0);
       const meta = state.pilotMeta[row.pilot] || { color: '#64748b' };
-      const rowClass = row.isEstimatedRetroMark ? 'estimated-retro-row' : row.isCarryForward ? 'carry-forward-row' : '';
+      const rowClass = row.isSnapshotLog ? 'snapshot-row' : row.isEstimatedRetroMark ? 'estimated-retro-row' : row.isCarryForward ? 'carry-forward-row' : '';
       const transactionRecord = row.transactionRecord || row.transactions;
-      const transactionText = row.isEstimatedRetroMark
-        ? `<span class="estimated-retro-badge">Estimated</span> ${transactionRecord}`
-        : row.isCarryForward
-          ? `<span class="carry-forward-badge">Carry-forward</span> ${transactionRecord}`
-          : transactionRecord;
+      const transactionText = row.isSnapshotLog
+        ? `<span class="snapshot-badge">Snapshot</span> ${transactionRecord}`
+        : row.isEstimatedRetroMark
+          ? `<span class="estimated-retro-badge">Estimated</span> ${transactionRecord}`
+          : row.isCarryForward
+            ? `<span class="carry-forward-badge">Carry-forward</span> ${transactionRecord}`
+            : transactionRecord;
       return `
         <tr class="${rowClass}">
-          <td>${row.date}</td>
+          <td>${row.startDate && row.endDate && row.startDate !== row.endDate ? `${row.startDate}<br><span class="mini-label">to ${row.endDate}</span>` : row.startDate || row.date}</td>
           <td>
             <span class="table-chip">
               <span class="dot" style="background:${meta.color}"></span>

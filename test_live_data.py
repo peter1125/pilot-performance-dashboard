@@ -149,6 +149,66 @@ class BuildDashboardPayloadTests(unittest.TestCase):
         retro_rows = [row for row in payload['transactions'] if row.get('isEstimatedRetroMark')]
         self.assertEqual(len(retro_rows), 6)
         self.assertTrue(all('No trade recorded' in row['transactions'] for row in retro_rows))
+    def test_snapshot_log_drives_interval_consistent_feed_and_graph_when_available(self):
+        pilot_rows = {
+            'Pilot 3': [
+                {
+                    'pilot': 'Pilot 3',
+                    'strategy': 'Breakout Rotation',
+                    'date': '2026-04-27',
+                    'log': 'carry-forward mark',
+                    'start': 12_077_729,
+                    'end': 12_077_729,
+                    'cash': 12_077_729,
+                    'transactions': 'Cash 100%',
+                    'research': '',
+                },
+                {
+                    'pilot': 'Pilot 3',
+                    'strategy': 'Breakout Rotation',
+                    'date': '2026-04-28',
+                    'log': 'daily row overwritten later',
+                    'start': 12_575_311,
+                    'end': 12_576_133,
+                    'cash': 0,
+                    'transactions': 'AAVE 60%, DOGE 25%, PEPE 15%',
+                    'research': '',
+                },
+            ],
+        }
+        snapshot_rows = [
+            {
+                'time': '2026-04-28 19:08 KST',
+                'timestamp': '2026-04-28T19:08:00.000+09:00',
+                'Pilot 3': 12_574_625,
+                'Pilot 3Text': 'AAVE 60%, DOGE 25%, PEPE 15% | NAV KRW 12,574,625',
+            },
+            {
+                'time': '2026-04-28 19:13 KST',
+                'timestamp': '2026-04-28T19:13:00.000+09:00',
+                'Pilot 3': 12_575_311,
+                'Pilot 3Text': 'AAVE 60%, DOGE 25%, PEPE 15% | NAV KRW 12,575,311',
+            },
+            {
+                'time': '2026-04-28 19:20 KST',
+                'timestamp': '2026-04-28T19:20:00.000+09:00',
+                'Pilot 3': 12_576_133,
+                'Pilot 3Text': 'AAVE 60%, DOGE 25%, PEPE 15% | NAV KRW 12,576,133',
+            },
+        ]
+
+        payload = build_dashboard_payload(pilot_rows, snapshot_rows)
+
+        self.assertEqual(payload['equitySeries'][-1]['date'], '2026-04-28 19:20 KST')
+        self.assertEqual(payload['equitySeries'][-1]['Pilot 3Start'], 12_575_311)
+        self.assertEqual(payload['equitySeries'][-1]['Pilot 3DailyPnl'], 822)
+        latest_snapshot = next(row for row in payload['transactions'] if row['pilot'] == 'Pilot 3' and row['date'] == '2026-04-28 19:20 KST')
+        self.assertEqual(latest_snapshot['startDate'], '2026-04-28 19:13 KST')
+        self.assertEqual(latest_snapshot['start'], 12_575_311)
+        self.assertEqual(latest_snapshot['end'], 12_576_133)
+        self.assertEqual(latest_snapshot['dailyPnl'], 822)
+        self.assertTrue(latest_snapshot['isSnapshotLog'])
+        self.assertIn('From 2026-04-28 19:13 KST to 2026-04-28 19:20 KST', latest_snapshot['transactionRecord'])
 
 
 if __name__ == '__main__':

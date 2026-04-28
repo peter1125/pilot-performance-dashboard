@@ -26,6 +26,7 @@ PILOT_META = {
     'Pilot 2': {'color': '#06b6d4', 'accent': 'rgba(6, 182, 212, 0.18)'},
     'Pilot 3': {'color': '#f97316', 'accent': 'rgba(249, 115, 22, 0.18)'},
 }
+SNAPSHOT_LOG_SOURCE_ID = '3d621a54-5869-47a1-a3df-d61c667e60f6'
 
 # Indicative retroactive marks for the 2026-04-20..2026-04-25 dashboard gap.
 # Basis: 2026-04-19 23:53 KST allocation, Upbit KRW 30m close at 23:30 KST for
@@ -247,6 +248,97 @@ def build_equity_series(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[Dic
     return series
 
 
+def parse_snapshot_row(page: Dict[str, Any]) -> Dict[str, Any]:
+    props = page.get('properties', {})
+    timestamp_obj = props.get('Timestamp', {}).get('date') or {}
+    row = {
+        'time': plain_text(props.get('Time', {}).get('title', [])),
+        'timestamp': timestamp_obj.get('start'),
+    }
+    for pilot in PILOT_SOURCES.keys():
+        row[pilot] = props.get(f'{pilot} Value', {}).get('number')
+        row[f'{pilot}Text'] = plain_text(props.get(pilot, {}).get('rich_text', []))
+    return row
+
+
+def is_usable_snapshot(row: Dict[str, Any]) -> bool:
+    return bool(row.get('timestamp') and any(row.get(pilot) is not None for pilot in PILOT_SOURCES.keys()))
+
+
+def build_snapshot_equity_series(snapshot_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    usable = sorted((row for row in snapshot_rows if is_usable_snapshot(row)), key=lambda row: row['timestamp'])
+    latest_by_pilot: Dict[str, Any] = {pilot: None for pilot in PILOT_SOURCES.keys()}
+    series = []
+    for row in usable:
+        label = row.get('time') or row.get('timestamp')
+        item = {'date': label, 'timestamp': row.get('timestamp')}
+        for pilot in PILOT_SOURCES.keys():
+            current = row.get(pilot)
+            previous = latest_by_pilot[pilot]
+            if current is None:
+                current = previous
+            item[pilot] = round(current) if current is not None else None
+            item[f'{pilot}Start'] = round(previous) if previous is not None else (round(current) if current is not None else None)
+            if current is not None and previous is not None:
+                interval_pnl = current - previous
+                item[f'{pilot}DailyPnl'] = round(interval_pnl)
+                item[f'{pilot}DailyReturnPct'] = round((interval_pnl / previous) * 100, 4) if previous else 0.0
+            else:
+                item[f'{pilot}DailyPnl'] = 0 if current is not None else None
+                item[f'{pilot}DailyReturnPct'] = 0.0 if current is not None else None
+            if row.get(pilot) is not None:
+                latest_by_pilot[pilot] = current
+        series.append(item)
+    return series
+
+
+def build_snapshot_transaction_feed(snapshot_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    usable = sorted((row for row in snapshot_rows if is_usable_snapshot(row)), key=lambda row: row['timestamp'])
+    previous_by_pilot: Dict[str, Dict[str, Any]] = {pilot: None for pilot in PILOT_SOURCES.keys()}
+    feed: List[Dict[str, Any]] = []
+    for row in usable:
+        label = row.get('time') or row.get('timestamp')
+        for pilot, config in PILOT_SOURCES.items():
+            current = row.get(pilot)
+            if current is None:
+                continue
+            previous = previous_by_pilot[pilot]
+            start_nav = previous['value'] if previous else current
+            start_label = previous['label'] if previous else label
+            interval_pnl = current - start_nav
+            interval_return_pct = (interval_pnl / start_nav) * 100 if start_nav else 0.0
+            note = row.get(f'{pilot}Text') or f'{pilot} snapshot mark'
+            feed.append(
+                {
+                    'pilot': pilot,
+                    'strategy': config['strategy'],
+                    'date': label,
+                    'startDate': start_label,
+                    'endDate': label,
+                    'log': f'{label} Snapshot Log mark',
+                    'start': round(start_nav),
+                    'end': round(current),
+                    'cash': 0,
+                    'transactions': note,
+                    'research': 'Snapshot Log interval mark. Start NAV comes from the previous snapshot row, so P&L is interval-consistent rather than repeated from a daily sleeve row.',
+                    'dailyPnl': round(interval_pnl),
+                    'dailyReturnPct': round(interval_return_pct, 4),
+                    'transactionRecord': (
+                        f"From {start_label} to {label}: Start KRW {round(start_nav):,}; "
+                        f"End KRW {round(current):,}; "
+                        f"Interval P&L {'+' if interval_pnl >= 0 else '-'}KRW {abs(round(interval_pnl)):,} "
+                        f"({interval_return_pct:+.2f}%). {note}"
+                    ),
+                    'isSnapshotLog': True,
+                    'isCarryForward': False,
+                    'isEstimatedRetroMark': False,
+                }
+            )
+            previous_by_pilot[pilot] = {'value': current, 'label': label}
+    feed.sort(key=lambda item: (item.get('endDate') or item.get('date'), item['pilot']), reverse=True)
+    return feed
+
+
 def build_transaction_feed(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
     observed_dates = sorted({row['date'] for rows in pilot_rows.values() for row in rows if is_usable_row(row) and row.get('date')})
     dates = calendar_date_range(observed_dates)
@@ -353,16 +445,20 @@ def retro_mark_research_text(pilot: str, mark_date: str, retro_mark: Dict[str, A
     )
 
 
-def build_dashboard_payload(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> Dict[str, Any]:
+def build_dashboard_payload(pilot_rows: Dict[str, List[Dict[str, Any]]], snapshot_rows: List[Dict[str, Any]] = None) -> Dict[str, Any]:
+    snapshot_rows = snapshot_rows or []
     summaries = build_summaries(pilot_rows)
     leaderboard = compute_leaderboard(summaries)
     latest_date = max((row['latestDate'] for row in summaries), default=None)
+    snapshot_equity_series = build_snapshot_equity_series(snapshot_rows) if snapshot_rows else []
+    snapshot_transactions = build_snapshot_transaction_feed(snapshot_rows) if snapshot_rows else []
     return {
         'pilotMeta': PILOT_META,
         'summaries': leaderboard,
         'leaderboard': leaderboard,
-        'equitySeries': build_equity_series(pilot_rows),
-        'transactions': build_transaction_feed(pilot_rows),
+        'equitySeries': snapshot_equity_series or build_equity_series(pilot_rows),
+        'transactions': snapshot_transactions or build_transaction_feed(pilot_rows),
+        'dailySleeveTransactions': build_transaction_feed(pilot_rows),
         'latestDate': latest_date,
         'refreshedAt': datetime.now(timezone.utc).isoformat(),
         'source': 'notion-live',
@@ -381,8 +477,26 @@ def fetch_live_pilot_rows(token: str) -> Dict[str, List[Dict[str, Any]]]:
     return pilot_rows
 
 
+def fetch_snapshot_rows(token: str) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    cursor = None
+    while True:
+        payload = {
+            'page_size': 100,
+            'sorts': [{'property': 'Timestamp', 'direction': 'ascending'}],
+        }
+        if cursor:
+            payload['start_cursor'] = cursor
+        response = notion_request('POST', f'/data_sources/{SNAPSHOT_LOG_SOURCE_ID}/query', token, payload)
+        rows.extend(parse_snapshot_row(item) for item in response.get('results', []))
+        if not response.get('has_more'):
+            break
+        cursor = response.get('next_cursor')
+    return rows
+
+
 def load_live_dashboard_payload(token: str = None) -> Dict[str, Any]:
     notion_token = token or os.getenv('NOTION_API_KEY')
     if not notion_token:
         raise NotionApiError('NOTION_API_KEY is not set for the live dashboard server.')
-    return build_dashboard_payload(fetch_live_pilot_rows(notion_token))
+    return build_dashboard_payload(fetch_live_pilot_rows(notion_token), fetch_snapshot_rows(notion_token))
