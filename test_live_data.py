@@ -149,7 +149,7 @@ class BuildDashboardPayloadTests(unittest.TestCase):
         retro_rows = [row for row in payload['transactions'] if row.get('isEstimatedRetroMark')]
         self.assertEqual(len(retro_rows), 6)
         self.assertTrue(all('No trade recorded' in row['transactions'] for row in retro_rows))
-    def test_snapshot_log_drives_interval_consistent_feed_and_graph_when_available(self):
+    def test_snapshot_log_drives_daily_consistent_feed_and_graph_when_available(self):
         pilot_rows = {
             'Pilot 3': [
                 {
@@ -199,16 +199,17 @@ class BuildDashboardPayloadTests(unittest.TestCase):
 
         payload = build_dashboard_payload(pilot_rows, snapshot_rows)
 
-        self.assertEqual(payload['equitySeries'][-1]['date'], '2026-04-28 19:20 KST')
-        self.assertEqual(payload['equitySeries'][-1]['Pilot 3Start'], 12_575_311)
-        self.assertEqual(payload['equitySeries'][-1]['Pilot 3DailyPnl'], 822)
-        latest_snapshot = next(row for row in payload['transactions'] if row['pilot'] == 'Pilot 3' and row['date'] == '2026-04-28 19:20 KST')
-        self.assertEqual(latest_snapshot['startDate'], '2026-04-28 19:13 KST')
-        self.assertEqual(latest_snapshot['start'], 12_575_311)
+        self.assertEqual(payload['equitySeries'][-1]['date'], '2026-04-28')
+        self.assertEqual(payload['equitySeries'][-1]['Pilot 3Start'], 12_574_625)
+        self.assertEqual(payload['equitySeries'][-1]['Pilot 3DailyPnl'], 1508)
+        latest_snapshot = next(row for row in payload['transactions'] if row['pilot'] == 'Pilot 3' and row['date'] == '2026-04-28')
+        self.assertEqual(latest_snapshot['startDate'], '2026-04-28')
+        self.assertEqual(latest_snapshot['start'], 12_574_625)
         self.assertEqual(latest_snapshot['end'], 12_576_133)
-        self.assertEqual(latest_snapshot['dailyPnl'], 822)
+        self.assertEqual(latest_snapshot['dailyPnl'], 1508)
         self.assertTrue(latest_snapshot['isSnapshotLog'])
-        self.assertIn('From 2026-04-28 19:13 KST to 2026-04-28 19:20 KST', latest_snapshot['transactionRecord'])
+        self.assertTrue(latest_snapshot['isDailyAggregate'])
+        self.assertIn('Daily aggregate 2026-04-28', latest_snapshot['transactionRecord'])
 
 
 if __name__ == '__main__':

@@ -35,7 +35,7 @@
           <div>
             <p class="panel-kicker">Performance comparison</p>
             <h2>Equity curve</h2>
-            <p class="panel-note">Chart points use Snapshot Log interval marks when available, so each point has a previous-snapshot start NAV, end NAV, and interval P&amp;L.</p>
+            <p class="panel-note">Chart points use daily aggregates from Snapshot Log marks when available, so each point has a daily start NAV, end NAV, and daily P&amp;L.</p>
           </div>
           <div class="legend" id="chartLegend"></div>
         </div>
@@ -71,7 +71,7 @@
           <div>
             <p class="panel-kicker">Execution history</p>
             <h2>Transaction feed</h2>
-            <p class="panel-note">Snapshot rows show interval P&amp;L from the previous Snapshot Log mark to the current mark. Daily sleeve/backfill rows are retained in the data payload for audit fallback.</p>
+            <p class="panel-note">Transaction feed is aggregated to one row per pilot per calendar date from Snapshot Log marks. Daily sleeve/backfill rows are retained in the data payload for audit fallback.</p>
           </div>
           <div class="filters">
             <div class="segmented" id="pilotFilters"></div>

@@ -266,29 +266,41 @@ def is_usable_snapshot(row: Dict[str, Any]) -> bool:
     return bool(row.get('timestamp') and any(row.get(pilot) is not None for pilot in PILOT_SOURCES.keys()))
 
 
+def snapshot_date(row: Dict[str, Any]) -> str:
+    timestamp = row.get('timestamp') or ''
+    if len(timestamp) >= 10:
+        return timestamp[:10]
+    time_text = row.get('time') or ''
+    return time_text[:10]
+
+
+def group_snapshots_by_day(snapshot_rows: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+    grouped: Dict[str, List[Dict[str, Any]]] = {}
+    for row in sorted((row for row in snapshot_rows if is_usable_snapshot(row)), key=lambda row: row['timestamp']):
+        grouped.setdefault(snapshot_date(row), []).append(row)
+    return grouped
+
+
 def build_snapshot_equity_series(snapshot_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    usable = sorted((row for row in snapshot_rows if is_usable_snapshot(row)), key=lambda row: row['timestamp'])
-    latest_by_pilot: Dict[str, Any] = {pilot: None for pilot in PILOT_SOURCES.keys()}
+    grouped = group_snapshots_by_day(snapshot_rows)
     series = []
-    for row in usable:
-        label = row.get('time') or row.get('timestamp')
-        item = {'date': label, 'timestamp': row.get('timestamp')}
+    for day, rows in sorted(grouped.items()):
+        item = {'date': day, 'timestamp': rows[-1].get('timestamp')}
         for pilot in PILOT_SOURCES.keys():
-            current = row.get(pilot)
-            previous = latest_by_pilot[pilot]
-            if current is None:
-                current = previous
-            item[pilot] = round(current) if current is not None else None
-            item[f'{pilot}Start'] = round(previous) if previous is not None else (round(current) if current is not None else None)
-            if current is not None and previous is not None:
-                interval_pnl = current - previous
-                item[f'{pilot}DailyPnl'] = round(interval_pnl)
-                item[f'{pilot}DailyReturnPct'] = round((interval_pnl / previous) * 100, 4) if previous else 0.0
-            else:
-                item[f'{pilot}DailyPnl'] = 0 if current is not None else None
-                item[f'{pilot}DailyReturnPct'] = 0.0 if current is not None else None
-            if row.get(pilot) is not None:
-                latest_by_pilot[pilot] = current
+            pilot_rows = [row for row in rows if row.get(pilot) is not None]
+            if not pilot_rows:
+                item[pilot] = None
+                item[f'{pilot}Start'] = None
+                item[f'{pilot}DailyPnl'] = None
+                item[f'{pilot}DailyReturnPct'] = None
+                continue
+            start_nav = pilot_rows[0][pilot]
+            end_nav = pilot_rows[-1][pilot]
+            daily_pnl = end_nav - start_nav
+            item[pilot] = round(end_nav)
+            item[f'{pilot}Start'] = round(start_nav)
+            item[f'{pilot}DailyPnl'] = round(daily_pnl)
+            item[f'{pilot}DailyReturnPct'] = round((daily_pnl / start_nav) * 100, 4) if start_nav else 0.0
         series.append(item)
     return series
 
@@ -299,50 +311,52 @@ def parse_snapshot_cash(note: str) -> int:
 
 
 def build_snapshot_transaction_feed(snapshot_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    usable = sorted((row for row in snapshot_rows if is_usable_snapshot(row)), key=lambda row: row['timestamp'])
-    previous_by_pilot: Dict[str, Dict[str, Any]] = {pilot: None for pilot in PILOT_SOURCES.keys()}
+    grouped = group_snapshots_by_day(snapshot_rows)
     feed: List[Dict[str, Any]] = []
-    for row in usable:
-        label = row.get('time') or row.get('timestamp')
+    for day, rows in sorted(grouped.items()):
         for pilot, config in PILOT_SOURCES.items():
-            current = row.get(pilot)
-            if current is None:
+            pilot_rows = [row for row in rows if row.get(pilot) is not None]
+            if not pilot_rows:
                 continue
-            previous = previous_by_pilot[pilot]
-            start_nav = previous['value'] if previous else current
-            start_label = previous['label'] if previous else label
-            interval_pnl = current - start_nav
-            interval_return_pct = (interval_pnl / start_nav) * 100 if start_nav else 0.0
-            note = row.get(f'{pilot}Text') or f'{pilot} snapshot mark'
+            start_row = pilot_rows[0]
+            end_row = pilot_rows[-1]
+            start_nav = start_row[pilot]
+            end_nav = end_row[pilot]
+            daily_pnl = end_nav - start_nav
+            daily_return_pct = (daily_pnl / start_nav) * 100 if start_nav else 0.0
+            note = end_row.get(f'{pilot}Text') or f'{pilot} daily snapshot mark'
             cash = parse_snapshot_cash(note)
             feed.append(
                 {
                     'pilot': pilot,
                     'strategy': config['strategy'],
-                    'date': label,
-                    'startDate': start_label,
-                    'endDate': label,
-                    'log': f'{label} Snapshot Log mark',
+                    'date': day,
+                    'startDate': day,
+                    'endDate': day,
+                    'startTime': start_row.get('time') or start_row.get('timestamp'),
+                    'endTime': end_row.get('time') or end_row.get('timestamp'),
+                    'log': f'{day} daily Snapshot Log aggregate',
                     'start': round(start_nav),
-                    'end': round(current),
+                    'end': round(end_nav),
                     'cash': cash,
                     'transactions': note,
-                    'research': 'Snapshot Log interval mark. Start NAV comes from the previous snapshot row, so P&L is interval-consistent rather than repeated from a daily sleeve row.',
-                    'dailyPnl': round(interval_pnl),
-                    'dailyReturnPct': round(interval_return_pct, 4),
+                    'research': 'Daily aggregate from Snapshot Log marks. Start NAV is the first recorded snapshot for the calendar date; End NAV is the last recorded snapshot for the same date.',
+                    'dailyPnl': round(daily_pnl),
+                    'dailyReturnPct': round(daily_return_pct, 4),
                     'transactionRecord': (
-                        f"From {start_label} to {label}: Start KRW {round(start_nav):,}; "
-                        f"End KRW {round(current):,}; "
-                        f"Interval P&L {'+' if interval_pnl >= 0 else '-'}KRW {abs(round(interval_pnl)):,} "
-                        f"({interval_return_pct:+.2f}%). {note}"
+                        f"Daily aggregate {day}: Start KRW {round(start_nav):,} "
+                        f"({start_row.get('time') or start_row.get('timestamp')}); "
+                        f"End KRW {round(end_nav):,} ({end_row.get('time') or end_row.get('timestamp')}); "
+                        f"Daily P&L {'+' if daily_pnl >= 0 else '-'}KRW {abs(round(daily_pnl)):,} "
+                        f"({daily_return_pct:+.2f}%). {note}"
                     ),
+                    'isDailyAggregate': True,
                     'isSnapshotLog': True,
                     'isCarryForward': False,
                     'isEstimatedRetroMark': False,
                 }
             )
-            previous_by_pilot[pilot] = {'value': current, 'label': label}
-    feed.sort(key=lambda item: (item.get('endDate') or item.get('date'), item['pilot']), reverse=True)
+    feed.sort(key=lambda item: (item.get('date'), item['pilot']), reverse=True)
     return feed
 
 
@@ -452,13 +466,48 @@ def retro_mark_research_text(pilot: str, mark_date: str, retro_mark: Dict[str, A
     )
 
 
+def apply_snapshot_metrics_to_summaries(summaries: List[Dict[str, Any]], snapshot_equity_series: List[Dict[str, Any]], snapshot_transactions: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    if not snapshot_equity_series:
+        return summaries
+    latest = snapshot_equity_series[-1]
+    latest_transactions_by_pilot = {
+        row['pilot']: row for row in snapshot_transactions if row.get('date') == latest.get('date')
+    }
+    updated = []
+    for summary in summaries:
+        pilot = summary['pilot']
+        current_nav = latest.get(pilot)
+        if current_nav is None:
+            updated.append(summary)
+            continue
+        start_capital = summary.get('startingCapital') or 10_000_000
+        tx = latest_transactions_by_pilot.get(pilot, {})
+        updated.append(
+            {
+                **summary,
+                'currentNav': round(current_nav),
+                'dayPnl': latest.get(f'{pilot}DailyPnl') or 0,
+                'dayReturnPct': latest.get(f'{pilot}DailyReturnPct') or 0.0,
+                'totalReturnPct': round(((current_nav - start_capital) / start_capital) * 100, 4) if start_capital else 0.0,
+                'cash': tx.get('cash', summary.get('cash') or 0),
+                'latestDate': latest.get('date'),
+                'latestLog': tx.get('log', summary.get('latestLog')),
+                'latestTransaction': tx.get('transactions', summary.get('latestTransaction') or ''),
+                'latestResearch': tx.get('research', summary.get('latestResearch') or ''),
+                'latestAllocation': extract_allocation(tx.get('transactions') or summary.get('latestTransaction') or ''),
+            }
+        )
+    return updated
+
+
 def build_dashboard_payload(pilot_rows: Dict[str, List[Dict[str, Any]]], snapshot_rows: List[Dict[str, Any]] = None) -> Dict[str, Any]:
     snapshot_rows = snapshot_rows or []
     summaries = build_summaries(pilot_rows)
-    leaderboard = compute_leaderboard(summaries)
-    latest_date = max((row['latestDate'] for row in summaries), default=None)
     snapshot_equity_series = build_snapshot_equity_series(snapshot_rows) if snapshot_rows else []
     snapshot_transactions = build_snapshot_transaction_feed(snapshot_rows) if snapshot_rows else []
+    summaries = apply_snapshot_metrics_to_summaries(summaries, snapshot_equity_series, snapshot_transactions)
+    leaderboard = compute_leaderboard(summaries)
+    latest_date = max((row['latestDate'] for row in summaries), default=None)
     return {
         'pilotMeta': PILOT_META,
         'summaries': leaderboard,
