@@ -65,6 +65,13 @@ class BuildDashboardPayloadTests(unittest.TestCase):
         self.assertEqual(payload['leaderboard'][2]['pilot'], 'Pilot 2')
         self.assertEqual(payload['summaries'][0]['latestDate'], '2026-04-18')
         self.assertEqual(payload['equitySeries'][-1]['Pilot 1'], 11559780)
+        self.assertEqual(payload['equitySeries'][-1]['Pilot 1Start'], 11491750)
+        self.assertEqual(payload['equitySeries'][-1]['Pilot 1DailyPnl'], 68030)
+        self.assertAlmostEqual(payload['equitySeries'][-1]['Pilot 1DailyReturnPct'], 0.592, places=3)
+        latest_pilot1 = next(row for row in payload['transactions'] if row['pilot'] == 'Pilot 1' and row['date'] == '2026-04-18')
+        self.assertEqual(latest_pilot1['startDate'], '2026-04-18')
+        self.assertEqual(latest_pilot1['dailyPnl'], 68030)
+        self.assertIn('Daily P&L: +KRW 68,030', latest_pilot1['transactionRecord'])
         self.assertEqual(payload['latestDate'], '2026-04-18')
 
     def test_equity_series_fills_missing_calendar_dates_with_prior_nav(self):

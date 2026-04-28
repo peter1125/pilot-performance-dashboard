@@ -193,6 +193,19 @@ function buildChartSeries() {
     }));
   }
 
+  if (state.chartMode === 'dailyPnl') {
+    return state.leaderboard.map((summary) => ({
+      pilot: summary.pilot,
+      color: state.pilotMeta[summary.pilot]?.color || '#64748b',
+      values: state.equitySeries.map((row) => ({
+        date: row.date,
+        value: row[`${summary.pilot}DailyPnl`] ?? null,
+        start: row[`${summary.pilot}Start`] ?? null,
+        returnPct: row[`${summary.pilot}DailyReturnPct`] ?? null,
+      })),
+    }));
+  }
+
   return state.leaderboard.map((summary) => {
     const firstValue = state.equitySeries.find((row) => row[summary.pilot] != null)?.[summary.pilot] ?? 0;
     return {
@@ -243,7 +256,10 @@ function renderChart() {
 
   const yFor = (value) => margin.top + plotHeight - ((value - minValue) / range) * plotHeight;
   const xFor = (index) => margin.left + index * stepX;
-  const formatAxisValue = (value) => (state.chartMode === 'nav' ? formatCurrency(value) : formatPercent(value));
+  const formatAxisValue = (value) => {
+    if (state.chartMode === 'return') return formatPercent(value);
+    return formatCurrency(value);
+  };
 
   const gridLines = Array.from({ length: yTicks + 1 }, (_, index) => {
     const value = minValue + (range / yTicks) * index;
@@ -277,7 +293,7 @@ function renderChart() {
           const y = yFor(point.value);
           return `
             <circle class="chart-point" cx="${x}" cy="${y}" r="4" fill="${line.color}">
-              <title>${line.pilot} • ${point.date} • ${formatAxisValue(point.value)}</title>
+              <title>${line.pilot} • ${point.date} • ${formatAxisValue(point.value)}${state.chartMode === 'dailyPnl' && point.start != null ? ` daily P&L from ${formatCurrency(point.start)} start` : ''}</title>
             </circle>
           `;
         })
@@ -322,15 +338,16 @@ function renderTransactions() {
 
   transactionsBody.innerHTML = filtered
     .map((row) => {
-      const pnl = row.end - row.start;
-      const returnPct = row.start ? ((row.end - row.start) / row.start) * 100 : 0;
+      const pnl = row.dailyPnl ?? row.end - row.start;
+      const returnPct = row.dailyReturnPct ?? (row.start ? ((row.end - row.start) / row.start) * 100 : 0);
       const meta = state.pilotMeta[row.pilot] || { color: '#64748b' };
       const rowClass = row.isEstimatedRetroMark ? 'estimated-retro-row' : row.isCarryForward ? 'carry-forward-row' : '';
+      const transactionRecord = row.transactionRecord || row.transactions;
       const transactionText = row.isEstimatedRetroMark
-        ? `<span class="estimated-retro-badge">Estimated</span> ${row.transactions}`
+        ? `<span class="estimated-retro-badge">Estimated</span> ${transactionRecord}`
         : row.isCarryForward
-          ? `<span class="carry-forward-badge">Carry-forward</span> ${row.transactions}`
-          : row.transactions;
+          ? `<span class="carry-forward-badge">Carry-forward</span> ${transactionRecord}`
+          : transactionRecord;
       return `
         <tr class="${rowClass}">
           <td>${row.date}</td>

@@ -198,17 +198,51 @@ def build_equity_series(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[Dic
     observed_dates = sorted({row['date'] for rows in pilot_rows.values() for row in rows if is_usable_row(row) and row.get('date')})
     dates = calendar_date_range(observed_dates)
     latest_by_pilot: Dict[str, Any] = {pilot: None for pilot in pilot_rows.keys()}
+    latest_cash_by_pilot: Dict[str, Any] = {pilot: 0 for pilot in pilot_rows.keys()}
     series: List[Dict[str, Any]] = []
     for series_date in dates:
         item = {'date': series_date}
         for pilot, rows in pilot_rows.items():
             exact = next((row for row in rows if is_usable_row(row) and row.get('date') == series_date), None)
             retro_mark = get_retro_mark(pilot, series_date)
+            row_for_metrics = None
             if exact:
-                latest_by_pilot[pilot] = round(exact.get('end') or exact.get('start') or 0)
+                current_nav = exact.get('end') or exact.get('start') or 0
+                latest_by_pilot[pilot] = round(current_nav)
+                latest_cash_by_pilot[pilot] = round(exact.get('cash') or 0)
+                row_for_metrics = {
+                    **exact,
+                    'start': exact.get('start') or current_nav,
+                    'end': current_nav,
+                    'cash': exact.get('cash') or 0,
+                }
             elif retro_mark and latest_by_pilot[pilot] is not None:
+                row_for_metrics = {
+                    'start': latest_by_pilot[pilot],
+                    'end': retro_mark['end'],
+                    'cash': retro_mark['cash'],
+                }
                 latest_by_pilot[pilot] = round(retro_mark['end'])
+                latest_cash_by_pilot[pilot] = round(retro_mark['cash'])
+            elif latest_by_pilot[pilot] is not None:
+                row_for_metrics = {
+                    'start': latest_by_pilot[pilot],
+                    'end': latest_by_pilot[pilot],
+                    'cash': latest_cash_by_pilot[pilot],
+                }
+
             item[pilot] = latest_by_pilot[pilot]
+            if row_for_metrics:
+                start_amount = row_for_metrics.get('start') or row_for_metrics.get('end') or 0
+                end_amount = row_for_metrics.get('end') or start_amount
+                daily_pnl = end_amount - start_amount
+                item[f'{pilot}Start'] = round(start_amount)
+                item[f'{pilot}DailyPnl'] = round(daily_pnl)
+                item[f'{pilot}DailyReturnPct'] = round((daily_pnl / start_amount) * 100, 4) if start_amount else 0.0
+            else:
+                item[f'{pilot}Start'] = None
+                item[f'{pilot}DailyPnl'] = None
+                item[f'{pilot}DailyReturnPct'] = None
         series.append(item)
     return series
 
@@ -278,11 +312,23 @@ def build_transaction_feed(pilot_rows: Dict[str, List[Dict[str, Any]]]) -> List[
 def clean_transaction_row(row: Dict[str, Any], is_carry_forward: bool, is_estimated_retro_mark: bool) -> Dict[str, Any]:
     current_nav = row.get('end') or row.get('start') or 0
     start_amount = row.get('start') or current_nav
+    daily_pnl = current_nav - start_amount
+    daily_return_pct = (daily_pnl / start_amount) * 100 if start_amount else 0.0
     return {
         **row,
+        'startDate': row.get('date'),
         'start': round(start_amount),
         'end': round(current_nav),
         'cash': round(row.get('cash') or 0),
+        'dailyPnl': round(daily_pnl),
+        'dailyReturnPct': round(daily_return_pct, 4),
+        'transactionRecord': (
+            f"Start {row.get('date')}: KRW {round(start_amount):,}; "
+            f"End: KRW {round(current_nav):,}; "
+            f"Daily P&L: {'+' if daily_pnl >= 0 else '-'}KRW {abs(round(daily_pnl)):,} "
+            f"({daily_return_pct:+.2f}%). "
+            f"{row.get('transactions') or ''}"
+        ).strip(),
         'isCarryForward': is_carry_forward,
         'isEstimatedRetroMark': is_estimated_retro_mark,
     }
