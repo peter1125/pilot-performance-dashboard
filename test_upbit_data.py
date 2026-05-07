@@ -1,0 +1,78 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+from sync_upbit_data import build_upbit_payload, parse_execution_report
+
+
+class UpbitDataTests(unittest.TestCase):
+    def test_parse_execution_report_keeps_live_runs_and_flattens_allocations(self):
+        report = {
+            "timestamp_kst": "2026-05-08T05:51:18+09:00",
+            "mode": "live",
+            "regime_note": "caution; 24h breadth 57%",
+            "target_weights": {"JTO": 0.6, "FLOCK": 0.25, "CFG": 0.15},
+            "target_reason": "three strong breakouts -> 60% / 25% / 15%",
+            "observed_nav_before_krw": 987496,
+            "observed_nav_after_krw": 985324,
+            "weights_before": {"ONDO": 0.797, "Cash": 0.203},
+            "weights_after": {"JTO": 0.6, "FLOCK": 0.251, "CFG": 0.149},
+            "planned_sells": [{"side": "SELL", "symbol": "ONDO", "notional_krw_est": 787236}],
+            "planned_buys": [{"side": "BUY", "symbol": "JTO", "price_krw": 592498}],
+            "executions": [
+                {"request": {"side": "SELL", "symbol": "ONDO", "notional_krw_est": 787236}, "response": {"uuid": "sell-1", "state": "done"}},
+                {"request": {"side": "BUY", "symbol": "JTO"}, "submitted_price_krw": 592497, "response": {"uuid": "buy-1", "state": "done"}},
+            ],
+            "ranked_candidates": [{"symbol": "JTO", "r24_pct": 45.2, "r7_pct": 75.1, "score_pct": 60.2}],
+            "warnings": ["universe guardrails rejected 120 KRW markets"],
+        }
+
+        parsed = parse_execution_report(report, "sample.json")
+
+        self.assertIsNotNone(parsed)
+        self.assertEqual(parsed["time"], "2026-05-08T05:51:18+09:00")
+        self.assertEqual(parsed["navAfter"], 985324)
+        self.assertEqual(parsed["allocationText"], "JTO 60.0%, FLOCK 25.1%, CFG 14.9%")
+        self.assertEqual(len(parsed["executions"]), 2)
+        self.assertEqual(parsed["executions"][1]["notionalKrw"], 592497)
+
+    def test_build_payload_sorts_reports_and_computes_summary(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            older = {
+                "timestamp_kst": "2026-05-08T05:00:00+09:00",
+                "mode": "live",
+                "observed_nav_before_krw": 1000000,
+                "observed_nav_after_krw": 1010000,
+                "weights_after": {"ONDO": 0.8, "Cash": 0.2},
+                "target_weights": {"ONDO": 0.8, "Cash": 0.2},
+                "executions": [],
+                "warnings": [],
+                "ranked_candidates": [],
+            }
+            newer = {
+                "timestamp_kst": "2026-05-08T05:30:00+09:00",
+                "mode": "live",
+                "observed_nav_before_krw": 1010000,
+                "observed_nav_after_krw": 1030000,
+                "weights_after": {"JTO": 0.6, "FLOCK": 0.25, "CFG": 0.15},
+                "target_weights": {"JTO": 0.6, "FLOCK": 0.25, "CFG": 0.15},
+                "executions": [{"request": {"side": "BUY", "symbol": "JTO"}, "submitted_price_krw": 600000, "response": {"uuid": "u"}}],
+                "warnings": [],
+                "ranked_candidates": [],
+            }
+            (root / "b.json").write_text(json.dumps(newer))
+            (root / "a.json").write_text(json.dumps(older))
+
+            payload = build_upbit_payload(root)
+
+        self.assertEqual(payload["summary"]["currentNav"], 1030000)
+        self.assertEqual(payload["summary"]["startingNav"], 1000000)
+        self.assertAlmostEqual(payload["summary"]["totalReturnPct"], 3.0)
+        self.assertEqual([p["navAfter"] for p in payload["equitySeries"]], [1010000, 1030000])
+        self.assertEqual(payload["summary"]["currentAllocation"], "JTO 60.0%, FLOCK 25.0%, CFG 15.0%")
+
+
+if __name__ == "__main__":
+    unittest.main()

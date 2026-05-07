@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pilot 3 Upbit Live Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./upbit.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero upbit-hero">
+        <div>
+          <p class="eyebrow">Live Upbit execution dashboard</p>
+          <h1>Pilot 3 Upbit Live</h1>
+          <p class="hero-copy">
+            Real-account Pilot 3 breakout rotation with full Upbit KRW universe scanning, guardrails, allocation history, and execution audit feed.
+          </p>
+          <div class="status-row">
+            <span id="dataStatus" class="status-pill status-loading">Loading Upbit data…</span>
+            <span id="refreshMeta" class="refresh-meta"></span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button class="toggle-chip active" data-chart-mode="nav">Chart: NAV</button>
+          <button class="toggle-chip" data-chart-mode="return">Chart: Return %</button>
+          <button class="toggle-chip" data-chart-mode="pnl">Chart: Poll P&amp;L</button>
+          <button class="toggle-chip" id="refreshButton">Refresh data</button>
+          <a class="toggle-chip" href="./index.html">Paper pilots</a>
+        </div>
+      </header>
+
+      <section class="summary-grid upbit-summary" id="summaryGrid"></section>
+
+      <section class="grid-two">
+        <section class="panel chart-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Live account performance</p>
+              <h2>Equity curve</h2>
+              <p class="panel-note">Each point is a saved live executor report. NAV is verified from authenticated Upbit balances after each run.</p>
+            </div>
+            <div class="legend" id="chartLegend"></div>
+          </div>
+          <div class="chart-wrap">
+            <svg id="equityChart" viewBox="0 0 960 380" role="img" aria-label="Upbit live NAV chart"></svg>
+          </div>
+        </section>
+
+        <section class="panel notes-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Current target</p>
+              <h2>Allocation</h2>
+            </div>
+          </div>
+          <div id="allocationPanel" class="allocation-panel"></div>
+        </section>
+      </section>
+
+      <section class="grid-two">
+        <section class="panel notes-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Risk controls</p>
+              <h2>Universe guardrails</h2>
+            </div>
+          </div>
+          <div id="guardrailsPanel" class="notes-stack"></div>
+        </section>
+
+        <section class="panel notes-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Latest signal</p>
+              <h2>Breakout leaders</h2>
+            </div>
+          </div>
+          <div id="leadersPanel" class="leaders-panel"></div>
+        </section>
+      </section>
+
+      <section class="panel transactions-panel">
+        <div class="panel-header panel-header-wrap">
+          <div>
+            <p class="panel-kicker">Execution history</p>
+            <h2>Upbit order feed</h2>
+            <p class="panel-note">Includes submitted live orders from saved execution reports. Use this as an audit trail, not tax/accounting output.</p>
+          </div>
+          <div class="filters">
+            <label class="search-field">
+              <span>Search</span>
+              <input id="searchInput" type="search" placeholder="JTO, buy, uuid, warning..." />
+            </label>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Side</th>
+                <th>Symbol</th>
+                <th>Notional</th>
+                <th>State</th>
+                <th>UUID</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel transactions-panel">
+        <div class="panel-header panel-header-wrap">
+          <div>
+            <p class="panel-kicker">Run history</p>
+            <h2>Executor reports</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>NAV before</th>
+                <th>NAV after</th>
+                <th>P&amp;L</th>
+                <th>Allocation</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+            <tbody id="runsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <script src="./upbit-app.js"></script>
+  </body>
+</html>
