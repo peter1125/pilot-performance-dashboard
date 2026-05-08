@@ -1,21 +1,21 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-08T05:38:54.241864+00:00",
+  "refreshedAt": "2026-05-08T06:08:02.275720+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
-    "currentNav": 918594,
+    "currentNav": 923397,
     "startingNav": 1000247,
-    "totalPnlKrw": -81653,
-    "totalReturnPct": -8.163283668933774,
-    "latestTime": "2026-05-08T14:33:17+09:00",
-    "currentAllocation": "JTO 60.2%, CPOOL 24.8%, CFG 15.0%, Cash 0.0%",
-    "targetAllocation": "JTO 60.0%, CPOOL 25.0%, CFG 15.0%",
-    "latestRegime": "caution; 24h breadth 78%, 7d breadth 79%; 7d leaders JTO +60.3%, CFG +42.2%, ONDO +35.9%",
+    "totalPnlKrw": -76850,
+    "totalReturnPct": -7.6831022737383865,
+    "latestTime": "2026-05-08T15:03:17+09:00",
+    "currentAllocation": "JTO 60.1%, CPOOL 25.3%, SPK 14.7%, Cash 0.0%",
+    "targetAllocation": "JTO 60.0%, CPOOL 25.0%, SPK 15.0%",
+    "latestRegime": "caution; 24h breadth 75%, 7d breadth 77%; 7d leaders JTO +60.9%, CFG +39.9%, ONDO +35.9%",
     "latestReason": "three strong breakouts -> 60% / 25% / 15%",
-    "reportCount": 74,
-    "tradeCount": 59,
-    "cumulativeFeesKrw": 5764.587499999999,
+    "reportCount": 75,
+    "tradeCount": 61,
+    "cumulativeFeesKrw": 5900.315499999999,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional."
   },
   "equitySeries": [
@@ -7561,6 +7561,144 @@
         "leverage_implemented": false,
         "non_pilot3_discretionary_trades_allowed": false
       }
+    },
+    {
+      "time": "2026-05-08T15:03:17+09:00",
+      "date": "2026-05-08",
+      "sourceFile": "pilot3_live_executor_20260508_150317.json",
+      "regime": "caution",
+      "regimeNote": "caution; 24h breadth 75%, 7d breadth 77%; 7d leaders JTO +60.9%, CFG +39.9%, ONDO +35.9%",
+      "targetReason": "three strong breakouts -> 60% / 25% / 15%",
+      "targetWeights": {
+        "JTO": 0.6,
+        "CPOOL": 0.25,
+        "SPK": 0.15
+      },
+      "targetText": "JTO 60.0%, CPOOL 25.0%, SPK 15.0%",
+      "weightsBefore": {
+        "Cash": 0.00010885601531149543,
+        "CFG": 0.14710524083675208,
+        "JTO": 0.6002970893423686,
+        "CPOOL": 0.2524888138055678
+      },
+      "weightsAfter": {
+        "Cash": 0.00010927817100590955,
+        "JTO": 0.6008163063845555,
+        "SPK": 0.14656963223005304,
+        "CPOOL": 0.25250478321438563
+      },
+      "allocationText": "JTO 60.1%, CPOOL 25.3%, SPK 14.7%, Cash 0.0%",
+      "navBefore": 925281,
+      "navAfter": 923397,
+      "pnlKrw": -1884,
+      "returnPct": -0.20361382109867165,
+      "plannedSells": [
+        {
+          "side": "SELL",
+          "symbol": "CFG",
+          "market": "KRW-CFG",
+          "volume": 318.02252252,
+          "notional_krw_est": 136113.63963856,
+          "ref_price": 428.0
+        }
+      ],
+      "plannedBuys": [
+        {
+          "side": "BUY",
+          "symbol": "SPK",
+          "market": "KRW-SPK",
+          "price_krw": 138792.10441211626,
+          "ref_price": 59.8
+        }
+      ],
+      "executions": [
+        {
+          "time": "2026-05-08T15:03:17+09:00",
+          "side": "SELL",
+          "symbol": "CFG",
+          "market": "KRW-CFG",
+          "notionalKrw": 136114,
+          "feeKrw": 68.057,
+          "uuid": "099dd207-90a1-4d1f-9f90-ee4cf35128d2",
+          "state": "wait",
+          "cumulativeFeesKrw": 5900.315499999999
+        },
+        {
+          "time": "2026-05-08T15:03:17+09:00",
+          "side": "BUY",
+          "symbol": "SPK",
+          "market": "KRW-SPK",
+          "notionalKrw": 135342,
+          "feeKrw": 67.671,
+          "uuid": "b6f9aa28-be47-4bd1-8065-2e439fd376a4",
+          "state": "wait",
+          "cumulativeFeesKrw": 5900.315499999999
+        }
+      ],
+      "feesKrw": 135.728,
+      "cumulativeFeesKrw": 5900.315499999999,
+      "tradeCount": 2,
+      "rankedCandidates": [
+        {
+          "symbol": "JTO",
+          "r24Pct": 40.296,
+          "r7Pct": 60.943,
+          "scorePct": 52.485
+        },
+        {
+          "symbol": "CPOOL",
+          "r24Pct": 23.358,
+          "r7Pct": 34.483,
+          "scorePct": 30.254
+        },
+        {
+          "symbol": "SPK",
+          "r24Pct": 16.342,
+          "r7Pct": 14.559,
+          "scorePct": 19.254
+        },
+        {
+          "symbol": "ONDO",
+          "r24Pct": 9.816,
+          "r7Pct": 35.949,
+          "scorePct": 17.006
+        },
+        {
+          "symbol": "CFG",
+          "r24Pct": 8.629,
+          "r7Pct": 39.869,
+          "scorePct": 16.603
+        },
+        {
+          "symbol": "ICP",
+          "r24Pct": 9.998,
+          "r7Pct": 32.225,
+          "scorePct": 16.443
+        },
+        {
+          "symbol": "WLFI",
+          "r24Pct": 8.911,
+          "r7Pct": 20.219,
+          "scorePct": 12.955
+        },
+        {
+          "symbol": "PENDLE",
+          "r24Pct": 6.768,
+          "r7Pct": 30.441,
+          "scorePct": 12.856
+        }
+      ],
+      "warnings": [
+        "market data warning: B3: only 51 30m candles",
+        "market data warning: WIF: only 95 30m candles",
+        "market data warning: universe guardrails rejected 127 KRW markets"
+      ],
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      }
     }
   ],
   "transactions": [
@@ -8212,98 +8350,160 @@
       "uuid": "cfcc1346-0a6b-45c1-b305-0aabf7ff948d",
       "state": "wait",
       "cumulativeFeesKrw": 5764.587499999999
+    },
+    {
+      "time": "2026-05-08T15:03:17+09:00",
+      "side": "SELL",
+      "symbol": "CFG",
+      "market": "KRW-CFG",
+      "notionalKrw": 136114,
+      "feeKrw": 68.057,
+      "uuid": "099dd207-90a1-4d1f-9f90-ee4cf35128d2",
+      "state": "wait",
+      "cumulativeFeesKrw": 5900.315499999999
+    },
+    {
+      "time": "2026-05-08T15:03:17+09:00",
+      "side": "BUY",
+      "symbol": "SPK",
+      "market": "KRW-SPK",
+      "notionalKrw": 135342,
+      "feeKrw": 67.671,
+      "uuid": "b6f9aa28-be47-4bd1-8065-2e439fd376a4",
+      "state": "wait",
+      "cumulativeFeesKrw": 5900.315499999999
     }
   ],
   "latest": {
-    "time": "2026-05-08T14:33:17+09:00",
+    "time": "2026-05-08T15:03:17+09:00",
     "date": "2026-05-08",
-    "sourceFile": "pilot3_live_executor_20260508_143317.json",
+    "sourceFile": "pilot3_live_executor_20260508_150317.json",
     "regime": "caution",
-    "regimeNote": "caution; 24h breadth 78%, 7d breadth 79%; 7d leaders JTO +60.3%, CFG +42.2%, ONDO +35.9%",
+    "regimeNote": "caution; 24h breadth 75%, 7d breadth 77%; 7d leaders JTO +60.9%, CFG +39.9%, ONDO +35.9%",
     "targetReason": "three strong breakouts -> 60% / 25% / 15%",
     "targetWeights": {
       "JTO": 0.6,
       "CPOOL": 0.25,
-      "CFG": 0.15
+      "SPK": 0.15
     },
-    "targetText": "JTO 60.0%, CPOOL 25.0%, CFG 15.0%",
+    "targetText": "JTO 60.0%, CPOOL 25.0%, SPK 15.0%",
     "weightsBefore": {
-      "Cash": 0.0001095101905292217,
-      "CFG": 0.1504096618937426,
-      "JTO": 0.6024886477203498,
-      "CPOOL": 0.2469921801953783
+      "Cash": 0.00010885601531149543,
+      "CFG": 0.14710524083675208,
+      "JTO": 0.6002970893423686,
+      "CPOOL": 0.2524888138055678
     },
     "weightsAfter": {
-      "Cash": 0.00010964842709941796,
-      "CFG": 0.15025332075188857,
-      "JTO": 0.6018314374531372,
-      "CPOOL": 0.24780559336787483
+      "Cash": 0.00010927817100590955,
+      "JTO": 0.6008163063845555,
+      "SPK": 0.14656963223005304,
+      "CPOOL": 0.25250478321438563
     },
-    "allocationText": "JTO 60.2%, CPOOL 24.8%, CFG 15.0%, Cash 0.0%",
-    "navBefore": 919753,
-    "navAfter": 918594,
-    "pnlKrw": -1159,
-    "returnPct": -0.1260120923769751,
-    "plannedSells": [],
-    "plannedBuys": [],
-    "executions": [],
-    "feesKrw": 0,
-    "cumulativeFeesKrw": 5764.587499999999,
-    "tradeCount": 0,
+    "allocationText": "JTO 60.1%, CPOOL 25.3%, SPK 14.7%, Cash 0.0%",
+    "navBefore": 925281,
+    "navAfter": 923397,
+    "pnlKrw": -1884,
+    "returnPct": -0.20361382109867165,
+    "plannedSells": [
+      {
+        "side": "SELL",
+        "symbol": "CFG",
+        "market": "KRW-CFG",
+        "volume": 318.02252252,
+        "notional_krw_est": 136113.63963856,
+        "ref_price": 428.0
+      }
+    ],
+    "plannedBuys": [
+      {
+        "side": "BUY",
+        "symbol": "SPK",
+        "market": "KRW-SPK",
+        "price_krw": 138792.10441211626,
+        "ref_price": 59.8
+      }
+    ],
+    "executions": [
+      {
+        "time": "2026-05-08T15:03:17+09:00",
+        "side": "SELL",
+        "symbol": "CFG",
+        "market": "KRW-CFG",
+        "notionalKrw": 136114,
+        "feeKrw": 68.057,
+        "uuid": "099dd207-90a1-4d1f-9f90-ee4cf35128d2",
+        "state": "wait",
+        "cumulativeFeesKrw": 5900.315499999999
+      },
+      {
+        "time": "2026-05-08T15:03:17+09:00",
+        "side": "BUY",
+        "symbol": "SPK",
+        "market": "KRW-SPK",
+        "notionalKrw": 135342,
+        "feeKrw": 67.671,
+        "uuid": "b6f9aa28-be47-4bd1-8065-2e439fd376a4",
+        "state": "wait",
+        "cumulativeFeesKrw": 5900.315499999999
+      }
+    ],
+    "feesKrw": 135.728,
+    "cumulativeFeesKrw": 5900.315499999999,
+    "tradeCount": 2,
     "rankedCandidates": [
       {
         "symbol": "JTO",
-        "r24Pct": 38.374,
-        "r7Pct": 60.264,
-        "scorePct": 50.427
+        "r24Pct": 40.296,
+        "r7Pct": 60.943,
+        "scorePct": 52.485
       },
       {
         "symbol": "CPOOL",
-        "r24Pct": 20.244,
-        "r7Pct": 30.769,
-        "scorePct": 26.398
-      },
-      {
-        "symbol": "CFG",
-        "r24Pct": 11.825,
-        "r7Pct": 42.157,
-        "scorePct": 20.257
-      },
-      {
-        "symbol": "ONDO",
-        "r24Pct": 10.041,
-        "r7Pct": 35.949,
-        "scorePct": 17.231
+        "r24Pct": 23.358,
+        "r7Pct": 34.483,
+        "scorePct": 30.254
       },
       {
         "symbol": "SPK",
-        "r24Pct": 13.981,
-        "r7Pct": 12.885,
-        "scorePct": 16.558
+        "r24Pct": 16.342,
+        "r7Pct": 14.559,
+        "scorePct": 19.254
+      },
+      {
+        "symbol": "ONDO",
+        "r24Pct": 9.816,
+        "r7Pct": 35.949,
+        "scorePct": 17.006
+      },
+      {
+        "symbol": "CFG",
+        "r24Pct": 8.629,
+        "r7Pct": 39.869,
+        "scorePct": 16.603
       },
       {
         "symbol": "ICP",
-        "r24Pct": 8.297,
-        "r7Pct": 31.473,
-        "scorePct": 14.592
+        "r24Pct": 9.998,
+        "r7Pct": 32.225,
+        "scorePct": 16.443
       },
       {
         "symbol": "WLFI",
-        "r24Pct": 9.901,
-        "r7Pct": 21.311,
-        "scorePct": 14.163
+        "r24Pct": 8.911,
+        "r7Pct": 20.219,
+        "scorePct": 12.955
       },
       {
         "symbol": "PENDLE",
-        "r24Pct": 6.369,
-        "r7Pct": 32.271,
-        "scorePct": 12.823
+        "r24Pct": 6.768,
+        "r7Pct": 30.441,
+        "scorePct": 12.856
       }
     ],
     "warnings": [
-      "market data warning: B3: only 50 30m candles",
-      "market data warning: WIF: only 94 30m candles",
-      "market data warning: universe guardrails rejected 125 KRW markets"
+      "market data warning: B3: only 51 30m candles",
+      "market data warning: WIF: only 95 30m candles",
+      "market data warning: universe guardrails rejected 127 KRW markets"
     ],
     "safety": {
       "capital_policy": "full_available_account_nav_percent_targets_only",
