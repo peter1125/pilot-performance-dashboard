@@ -1,25 +1,25 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-08T16:08:37.490269+00:00",
+  "refreshedAt": "2026-05-08T16:38:50.716145+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
-    "currentNav": 843346,
+    "currentNav": 875237,
     "startingNav": 1000247,
-    "totalPnlKrw": -156901,
-    "totalReturnPct": -15.686225502300932,
-    "latestTime": "2026-05-09T01:06:03+09:00",
-    "currentAllocation": "ONDO 60.0%, SAHARA 24.9%, AZTEC 15.2%, Cash 0.0%",
-    "targetAllocation": "ONDO 60.0%, AZTEC 25.0%, SAHARA 15.0%",
-    "latestRegime": "normal; 24h breadth 91%, 7d breadth 81%; 7d leaders JTO +55.6%, ONDO +52.5%, WLFI +35.7%",
-    "latestReason": "three strong breakouts -> 60% / 25% / 15%; Phase 2 hysteresis adjusted target",
-    "reportCount": 89,
-    "tradeCount": 86,
-    "cumulativeFeesKrw": 8089.318645249851,
+    "totalPnlKrw": -125010,
+    "totalReturnPct": -12.497913015485175,
+    "latestTime": "2026-05-09T01:32:59+09:00",
+    "currentAllocation": "ONDO 61.2%, Cash 24.1%, AZTEC 14.8%",
+    "targetAllocation": "ONDO 60.0%, CHIP 25.0%, AZTEC 15.0%",
+    "latestRegime": "normal; 24h breadth 92%, 7d breadth 81%; 7d leaders ONDO +57.7%, JTO +56.4%, WLFI +36.5%",
+    "latestReason": "three strong breakouts -> 60% / 25% / 15%",
+    "reportCount": 90,
+    "tradeCount": 87,
+    "cumulativeFeesKrw": 8194.59391725881,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": -30541,
-    "dailyReturnPct": -3.49484544340401,
-    "feeDragTodayKrw": 739.6148124795805,
+    "dailyPnlKrw": 1350,
+    "dailyReturnPct": 0.15448221566403894,
+    "feeDragTodayKrw": 844.8900844885379,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
     "phase1Status": "complete_active",
@@ -10111,6 +10111,135 @@
         "leverage_implemented": false,
         "non_pilot3_discretionary_trades_allowed": false
       }
+    },
+    {
+      "time": "2026-05-09T01:32:59+09:00",
+      "date": "2026-05-09",
+      "sourceFile": "pilot3_live_executor_20260509_013259.json",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 92%, 7d breadth 81%; 7d leaders ONDO +57.7%, JTO +56.4%, WLFI +36.5%",
+      "targetReason": "three strong breakouts -> 60% / 25% / 15%",
+      "targetWeights": {
+        "ONDO": 0.6,
+        "CHIP": 0.25,
+        "AZTEC": 0.15
+      },
+      "targetText": "ONDO 60.0%, CHIP 25.0%, AZTEC 15.0%",
+      "weightsBefore": {
+        "Cash": 0.00011574105600001711,
+        "ONDO": 0.6060177032588878,
+        "SAHARA": 0.24435151929267518,
+        "AZTEC": 0.14951503639243705
+      },
+      "weightsAfter": {
+        "Cash": 0.24055815193309485,
+        "ONDO": 0.6115737541427761,
+        "AZTEC": 0.14786809392412906
+      },
+      "allocationText": "ONDO 61.2%, Cash 24.1%, AZTEC 14.8%",
+      "navBefore": 865596,
+      "navAfter": 875237,
+      "pnlKrw": 9641,
+      "returnPct": 1.113799047130532,
+      "plannedSells": [
+        {
+          "side": "SELL",
+          "symbol": "SAHARA",
+          "market": "KRW-SAHARA",
+          "volume": 4796.13995485,
+          "notional_krw_est": 211509.77200888502,
+          "ref_price": 44.1
+        }
+      ],
+      "plannedBuys": [],
+      "executions": [
+        {
+          "time": "2026-05-09T01:32:59+09:00",
+          "side": "SELL",
+          "symbol": "SAHARA",
+          "market": "KRW-SAHARA",
+          "notionalKrw": 211510,
+          "feeKrw": 105.2752720089575,
+          "uuid": "26a55026-4331-436d-b1e1-c7f7c85c1586",
+          "state": "filled",
+          "finalState": "done",
+          "executionStatus": "filled",
+          "executedVolume": 4796.13995485,
+          "remainingVolume": "0",
+          "actualFeeKrw": 105.2752720089575,
+          "feeSource": "actual",
+          "cumulativeFeesKrw": 8194.59391725881
+        }
+      ],
+      "feesKrw": 105.2752720089575,
+      "cumulativeFeesKrw": 8194.59391725881,
+      "tradeCount": 1,
+      "rankedCandidates": [
+        {
+          "symbol": "ONDO",
+          "r24Pct": 21.797,
+          "r7Pct": 57.673,
+          "scorePct": 33.332
+        },
+        {
+          "symbol": "CHIP",
+          "r24Pct": 26.328,
+          "r7Pct": 13.588,
+          "scorePct": 29.046
+        },
+        {
+          "symbol": "AZTEC",
+          "r24Pct": 20.779,
+          "r7Pct": 27.835,
+          "scorePct": 26.346
+        },
+        {
+          "symbol": "SAHARA",
+          "r24Pct": 16.976,
+          "r7Pct": 28.571,
+          "scorePct": 22.69
+        },
+        {
+          "symbol": "FIL",
+          "r24Pct": 16.389,
+          "r7Pct": 31.264,
+          "scorePct": 22.642
+        },
+        {
+          "symbol": "TIA",
+          "r24Pct": 15.248,
+          "r7Pct": 23.106,
+          "scorePct": 19.869
+        },
+        {
+          "symbol": "JUP",
+          "r24Pct": 12.752,
+          "r7Pct": 26.316,
+          "scorePct": 18.015
+        },
+        {
+          "symbol": "AKT",
+          "r24Pct": 9.817,
+          "r7Pct": 33.421,
+          "scorePct": 16.501
+        }
+      ],
+      "warnings": [
+        "market data warning: PROS: only 11 30m candles",
+        "market data warning: B3: only 72 30m candles",
+        "market data warning: WIF: only 116 30m candles",
+        "market data warning: universe guardrails rejected 127 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 1 orders within limit 6",
+        "Phase 2 sells skipped ONDO: within rebalance band (0.60% drift)",
+        "Phase 2 buys rejected CHIP: spread 93.0 bps exceeds 30.0 bps"
+      ],
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      }
     }
   ],
   "transactions": [
@@ -11575,103 +11704,146 @@
       "actualFeeKrw": 106.2344999999275,
       "feeSource": "actual",
       "cumulativeFeesKrw": 8089.318645249851
+    },
+    {
+      "time": "2026-05-09T01:32:59+09:00",
+      "side": "SELL",
+      "symbol": "SAHARA",
+      "market": "KRW-SAHARA",
+      "notionalKrw": 211510,
+      "feeKrw": 105.2752720089575,
+      "uuid": "26a55026-4331-436d-b1e1-c7f7c85c1586",
+      "state": "filled",
+      "finalState": "done",
+      "executionStatus": "filled",
+      "executedVolume": 4796.13995485,
+      "remainingVolume": "0",
+      "actualFeeKrw": 105.2752720089575,
+      "feeSource": "actual",
+      "cumulativeFeesKrw": 8194.59391725881
     }
   ],
   "latest": {
-    "time": "2026-05-09T01:06:03+09:00",
+    "time": "2026-05-09T01:32:59+09:00",
     "date": "2026-05-09",
-    "sourceFile": "pilot3_live_executor_20260509_010603.json",
+    "sourceFile": "pilot3_live_executor_20260509_013259.json",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 91%, 7d breadth 81%; 7d leaders JTO +55.6%, ONDO +52.5%, WLFI +35.7%",
-    "targetReason": "three strong breakouts -> 60% / 25% / 15%; Phase 2 hysteresis adjusted target",
+    "regimeNote": "normal; 24h breadth 92%, 7d breadth 81%; 7d leaders ONDO +57.7%, JTO +56.4%, WLFI +36.5%",
+    "targetReason": "three strong breakouts -> 60% / 25% / 15%",
     "targetWeights": {
       "ONDO": 0.6,
-      "AZTEC": 0.25,
-      "SAHARA": 0.15
+      "CHIP": 0.25,
+      "AZTEC": 0.15
     },
-    "targetText": "ONDO 60.0%, AZTEC 25.0%, SAHARA 15.0%",
+    "targetText": "ONDO 60.0%, CHIP 25.0%, AZTEC 15.0%",
     "weightsBefore": {
-      "Cash": 0.00011856317184172174,
-      "ONDO": 0.6003284974474211,
-      "SAHARA": 0.2480391645512623,
-      "AZTEC": 0.15151377482947478
+      "Cash": 0.00011574105600001711,
+      "ONDO": 0.6060177032588878,
+      "SAHARA": 0.24435151929267518,
+      "AZTEC": 0.14951503639243705
     },
     "weightsAfter": {
-      "Cash": 0.0001187947168217682,
-      "ONDO": 0.5995479689861279,
-      "SAHARA": 0.24852356643183474,
-      "AZTEC": 0.1518096698652156
+      "Cash": 0.24055815193309485,
+      "ONDO": 0.6115737541427761,
+      "AZTEC": 0.14786809392412906
     },
-    "allocationText": "ONDO 60.0%, SAHARA 24.9%, AZTEC 15.2%, Cash 0.0%",
-    "navBefore": 844993,
-    "navAfter": 843346,
-    "pnlKrw": -1647,
-    "returnPct": -0.19491285726627322,
-    "plannedSells": [],
+    "allocationText": "ONDO 61.2%, Cash 24.1%, AZTEC 14.8%",
+    "navBefore": 865596,
+    "navAfter": 875237,
+    "pnlKrw": 9641,
+    "returnPct": 1.113799047130532,
+    "plannedSells": [
+      {
+        "side": "SELL",
+        "symbol": "SAHARA",
+        "market": "KRW-SAHARA",
+        "volume": 4796.13995485,
+        "notional_krw_est": 211509.77200888502,
+        "ref_price": 44.1
+      }
+    ],
     "plannedBuys": [],
-    "executions": [],
-    "feesKrw": 0,
-    "cumulativeFeesKrw": 8089.318645249851,
-    "tradeCount": 0,
+    "executions": [
+      {
+        "time": "2026-05-09T01:32:59+09:00",
+        "side": "SELL",
+        "symbol": "SAHARA",
+        "market": "KRW-SAHARA",
+        "notionalKrw": 211510,
+        "feeKrw": 105.2752720089575,
+        "uuid": "26a55026-4331-436d-b1e1-c7f7c85c1586",
+        "state": "filled",
+        "finalState": "done",
+        "executionStatus": "filled",
+        "executedVolume": 4796.13995485,
+        "remainingVolume": "0",
+        "actualFeeKrw": 105.2752720089575,
+        "feeSource": "actual",
+        "cumulativeFeesKrw": 8194.59391725881
+      }
+    ],
+    "feesKrw": 105.2752720089575,
+    "cumulativeFeesKrw": 8194.59391725881,
+    "tradeCount": 1,
     "rankedCandidates": [
       {
         "symbol": "ONDO",
-        "r24Pct": 17.557,
-        "r7Pct": 52.475,
-        "scorePct": 28.052
-      },
-      {
-        "symbol": "AZTEC",
-        "r24Pct": 18.71,
-        "r7Pct": 25.597,
-        "scorePct": 23.829
-      },
-      {
-        "symbol": "FIL",
-        "r24Pct": 17.07,
-        "r7Pct": 33.576,
-        "scorePct": 23.785
+        "r24Pct": 21.797,
+        "r7Pct": 57.673,
+        "scorePct": 33.332
       },
       {
         "symbol": "CHIP",
-        "r24Pct": 21.559,
-        "r7Pct": 6.17,
-        "scorePct": 22.793
+        "r24Pct": 26.328,
+        "r7Pct": 13.588,
+        "scorePct": 29.046
+      },
+      {
+        "symbol": "AZTEC",
+        "r24Pct": 20.779,
+        "r7Pct": 27.835,
+        "scorePct": 26.346
       },
       {
         "symbol": "SAHARA",
-        "r24Pct": 15.608,
-        "r7Pct": 28.152,
-        "scorePct": 21.239
+        "r24Pct": 16.976,
+        "r7Pct": 28.571,
+        "scorePct": 22.69
+      },
+      {
+        "symbol": "FIL",
+        "r24Pct": 16.389,
+        "r7Pct": 31.264,
+        "scorePct": 22.642
       },
       {
         "symbol": "TIA",
-        "r24Pct": 14.49,
-        "r7Pct": 20.755,
-        "scorePct": 18.641
+        "r24Pct": 15.248,
+        "r7Pct": 23.106,
+        "scorePct": 19.869
       },
       {
-        "symbol": "JTO",
-        "r24Pct": 5.398,
-        "r7Pct": 55.598,
-        "scorePct": 16.518
+        "symbol": "JUP",
+        "r24Pct": 12.752,
+        "r7Pct": 26.316,
+        "scorePct": 18.015
       },
       {
-        "symbol": "CPOOL",
-        "r24Pct": 11.436,
-        "r7Pct": 20.526,
-        "scorePct": 15.541
+        "symbol": "AKT",
+        "r24Pct": 9.817,
+        "r7Pct": 33.421,
+        "scorePct": 16.501
       }
     ],
     "warnings": [
-      "market data warning: PROS: only 10 30m candles",
-      "market data warning: B3: only 71 30m candles",
-      "market data warning: WIF: only 115 30m candles",
-      "market data warning: universe guardrails rejected 126 KRW markets",
+      "market data warning: PROS: only 11 30m candles",
+      "market data warning: B3: only 72 30m candles",
+      "market data warning: WIF: only 116 30m candles",
+      "market data warning: universe guardrails rejected 127 KRW markets",
       "risk preflight: risk checks passed",
-      "order count preflight: planned 0 orders within limit 6",
-      "Phase 2 sells rejected SAHARA: spread 45.8 bps exceeds 30.0 bps",
-      "Phase 2 buys rejected AZTEC: spread 54.1 bps exceeds 30.0 bps"
+      "order count preflight: planned 1 orders within limit 6",
+      "Phase 2 sells skipped ONDO: within rebalance band (0.60% drift)",
+      "Phase 2 buys rejected CHIP: spread 93.0 bps exceeds 30.0 bps"
     ],
     "safety": {
       "capital_policy": "full_available_account_nav_percent_targets_only",
@@ -11683,23 +11855,23 @@
   "dailySummary": {
     "dateKst": "2026-05-09",
     "navStart": 873887,
-    "navEnd": 843346,
-    "pnlKrw": -30541,
-    "returnPct": -3.49484544340401,
-    "highNav": 873887,
+    "navEnd": 875237,
+    "pnlKrw": 1350,
+    "returnPct": 0.15448221566403894,
+    "highNav": 875237,
     "lowNav": 843346,
     "maxIntradayDrawdownPct": -3.49484544340401,
-    "orderCount": 7,
-    "filledOrderCount": 3,
+    "orderCount": 8,
+    "filledOrderCount": 4,
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
-    "tradeRuns": 2,
-    "reportCount": 3,
-    "turnoverKrw": 1480644,
-    "actualFeesKrw": 739.6148124795805,
+    "tradeRuns": 3,
+    "reportCount": 4,
+    "turnoverKrw": 1692154,
+    "actualFeesKrw": 844.8900844885379,
     "estimatedFeesKrw": 0.0,
-    "feeDragPctOfStartNav": 0.0846350629405839,
-    "targetChanges": 2,
+    "feeDragPctOfStartNav": 0.09668184610693807,
+    "targetChanges": 3,
     "riskEvents": [],
     "methodologyEvents": [],
     "notes": []
@@ -11707,14 +11879,14 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-05-09T01:08:37.470474+09:00",
-    "latestReportAgeMinutes": 2.5745079,
+    "updatedAt": "2026-05-09T01:38:50.696270+09:00",
+    "latestReportAgeMinutes": 5.8616045,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "ok",
-    "lastRunId": "5415d613-8b23-4c41-bc36-9335806bb1d9",
+    "lastRunId": "ee0f8e1f-7977-4783-8740-9e54559f934e",
     "tradingEnabled": null,
     "phase2Enabled": true,
     "alerts": []
@@ -11745,7 +11917,7 @@
       "summary": "Daily summary, governance status, dashboard schema, public UI cards, and dashboard publisher are active/reporting-only.",
       "evidence": [
         "governanceStatus=ok",
-        "targetChangesToday=2",
+        "targetChangesToday=3",
         "legacyUnresolvedOrderCount=0"
       ]
     }
