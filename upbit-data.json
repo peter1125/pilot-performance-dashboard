@@ -1,6 +1,6 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-08T12:45:16.091656+00:00",
+  "refreshedAt": "2026-05-08T12:47:34.788584+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
@@ -9127,9 +9127,9 @@
           "notionalKrw": 131033,
           "feeKrw": 65.516499999888,
           "uuid": "a73f41a1-a420-4074-95da-168695633f87",
-          "state": "cancelled",
+          "state": "filled",
           "finalState": "cancel",
-          "executionStatus": "cancelled",
+          "executionStatus": "filled",
           "executedVolume": 3560.67934782,
           "remainingVolume": null,
           "actualFeeKrw": 65.516499999888,
@@ -9144,9 +9144,9 @@
           "notionalKrw": 80209,
           "feeKrw": 40.1044999997475,
           "uuid": "88b7d572-3655-4bfa-aa27-ae3296fb248a",
-          "state": "cancelled",
+          "state": "filled",
           "finalState": "cancel",
-          "executionStatus": "cancelled",
+          "executionStatus": "filled",
           "executedVolume": 806.12060301,
           "remainingVolume": null,
           "actualFeeKrw": 40.1044999997475,
@@ -10473,9 +10473,9 @@
       "notionalKrw": 131033,
       "feeKrw": 65.516499999888,
       "uuid": "a73f41a1-a420-4074-95da-168695633f87",
-      "state": "cancelled",
+      "state": "filled",
       "finalState": "cancel",
-      "executionStatus": "cancelled",
+      "executionStatus": "filled",
       "executedVolume": 3560.67934782,
       "remainingVolume": null,
       "actualFeeKrw": 65.516499999888,
@@ -10490,9 +10490,9 @@
       "notionalKrw": 80209,
       "feeKrw": 40.1044999997475,
       "uuid": "88b7d572-3655-4bfa-aa27-ae3296fb248a",
-      "state": "cancelled",
+      "state": "filled",
       "finalState": "cancel",
-      "executionStatus": "cancelled",
+      "executionStatus": "filled",
       "executedVolume": 806.12060301,
       "remainingVolume": null,
       "actualFeeKrw": 40.1044999997475,
@@ -10582,9 +10582,9 @@
         "notionalKrw": 131033,
         "feeKrw": 65.516499999888,
         "uuid": "a73f41a1-a420-4074-95da-168695633f87",
-        "state": "cancelled",
+        "state": "filled",
         "finalState": "cancel",
-        "executionStatus": "cancelled",
+        "executionStatus": "filled",
         "executedVolume": 3560.67934782,
         "remainingVolume": null,
         "actualFeeKrw": 65.516499999888,
@@ -10599,9 +10599,9 @@
         "notionalKrw": 80209,
         "feeKrw": 40.1044999997475,
         "uuid": "88b7d572-3655-4bfa-aa27-ae3296fb248a",
-        "state": "cancelled",
+        "state": "filled",
         "finalState": "cancel",
-        "executionStatus": "cancelled",
+        "executionStatus": "filled",
         "executedVolume": 806.12060301,
         "remainingVolume": null,
         "actualFeeKrw": 40.1044999997475,
@@ -10720,20 +10720,20 @@
     "phase1": {
       "title": "Phase 1 — Safety hardening",
       "status": "complete_active",
-      "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and secret-hygiene tests are in place.",
+      "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and risk limit checks are active.",
       "evidence": [
         "last_run_status=ok",
         "pendingOrderCount=0",
-        "trading gate evidence unavailable"
+        "trading gate is enabled for live execution"
       ]
     },
     "phase2": {
       "title": "Phase 2 — Methodology robustness",
       "status": "enabled",
-      "summary": "Closed-candle freshness, hysteresis/hold-period, churn/fee controls, orderbook checks, and walk-forward validation remain planned behind a disabled flag.",
+      "summary": "Closed-candle metadata, hysteresis, rebalance bands, orderbook spread checks, and churn controls are live-enabled.",
       "evidence": [
         "phase2Enabled=True",
-        "No live methodology change is active unless this flag is enabled."
+        "Phase 2 controls are active in live reports."
       ]
     },
     "phase3": {

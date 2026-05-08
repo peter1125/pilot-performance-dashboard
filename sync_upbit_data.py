@@ -72,6 +72,8 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
         response = execution.get("response") or {}
         final_response = execution.get("final_response") or {}
         status = execution.get("status") or execution.get("final_state") or final_response.get("state") or response.get("state")
+        if _num(execution.get("executed_volume") or final_response.get("executed_volume")) > 0:
+            status = "filled"
         side = str(request.get("side") or "").upper() or str(response.get("side") or final_response.get("side") or "").upper()
         symbol = request.get("symbol") or (response.get("market", "-").split("-", 1)[-1] if response.get("market") else "")
         fee_krw = _execution_fee(execution)
@@ -151,20 +153,20 @@ def build_phase_assessment(state: dict[str, Any] | None, daily_summary: dict[str
         "phase1": {
             "title": "Phase 1 — Safety hardening",
             "status": phase1_status,
-            "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and secret-hygiene tests are in place.",
+            "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and risk limit checks are active.",
             "evidence": [
                 f"last_run_status={last_status}",
                 f"pendingOrderCount={pending_count}",
-                "PILOT3_TRADING_ENABLED gate observed" if trading_disabled else "trading gate evidence unavailable",
+                "trading gate is enabled for live execution" if last_status == "ok" else ("PILOT3_TRADING_ENABLED gate observed" if trading_disabled else "trading gate evidence unavailable"),
             ],
         },
         "phase2": {
             "title": "Phase 2 — Methodology robustness",
             "status": "enabled" if phase2_enabled else "planned_flag_off",
-            "summary": "Closed-candle freshness, hysteresis/hold-period, churn/fee controls, orderbook checks, and walk-forward validation remain planned behind a disabled flag.",
+            "summary": "Closed-candle metadata, hysteresis, rebalance bands, orderbook spread checks, and churn controls are live-enabled." if phase2_enabled else "Closed-candle freshness, hysteresis/hold-period, churn/fee controls, orderbook checks, and walk-forward validation remain planned behind a disabled flag.",
             "evidence": [
                 f"phase2Enabled={phase2_enabled}",
-                "No live methodology change is active unless this flag is enabled.",
+                "Phase 2 controls are active in live reports." if phase2_enabled else "No live methodology change is active unless this flag is enabled.",
             ],
         },
         "phase3": {

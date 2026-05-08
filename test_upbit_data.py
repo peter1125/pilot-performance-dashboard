@@ -40,6 +40,30 @@ class UpbitDataTests(unittest.TestCase):
         self.assertAlmostEqual(parsed["feesKrw"], 689.8665, places=4)
         self.assertAlmostEqual(parsed["cumulativeFeesKrw"], 689.8665, places=4)
 
+    def test_parse_execution_report_treats_cancel_with_filled_volume_as_filled(self):
+        report = {
+            "timestamp_kst": "2026-05-08T21:41:58+09:00",
+            "mode": "live",
+            "observed_nav_before_krw": 873556,
+            "observed_nav_after_krw": 876081,
+            "weights_after": {"AZTEC": 0.15},
+            "target_weights": {"AZTEC": 0.15},
+            "executions": [{
+                "request": {"side": "BUY", "symbol": "AZTEC"},
+                "submitted_price_krw": 131033,
+                "response": {"uuid": "u", "state": "wait"},
+                "final_response": {"uuid": "u", "state": "cancel", "executed_volume": "3560.679", "paid_fee": "65.5"},
+                "status": "cancelled",
+            }],
+            "warnings": [],
+            "ranked_candidates": [],
+        }
+
+        parsed = parse_execution_report(report, "sample.json")
+
+        self.assertEqual(parsed["executions"][0]["state"], "filled")
+        self.assertEqual(parsed["executions"][0]["executionStatus"], "filled")
+
     def test_build_payload_sorts_reports_and_computes_summary(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
