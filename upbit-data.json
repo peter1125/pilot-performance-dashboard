@@ -1,29 +1,29 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-08T16:38:50.716145+00:00",
+  "refreshedAt": "2026-05-08T17:08:23.508041+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
-    "currentNav": 875237,
+    "currentNav": 886255,
     "startingNav": 1000247,
-    "totalPnlKrw": -125010,
-    "totalReturnPct": -12.497913015485175,
-    "latestTime": "2026-05-09T01:32:59+09:00",
-    "currentAllocation": "ONDO 61.2%, Cash 24.1%, AZTEC 14.8%",
+    "totalPnlKrw": -113992,
+    "totalReturnPct": -11.396385092882058,
+    "latestTime": "2026-05-09T02:03:33+09:00",
+    "currentAllocation": "ONDO 61.3%, Cash 23.8%, AZTEC 14.9%",
     "targetAllocation": "ONDO 60.0%, CHIP 25.0%, AZTEC 15.0%",
-    "latestRegime": "normal; 24h breadth 92%, 7d breadth 81%; 7d leaders ONDO +57.7%, JTO +56.4%, WLFI +36.5%",
+    "latestRegime": "normal; 24h breadth 94%, 7d breadth 83%; 7d leaders ONDO +64.9%, JTO +59.1%, CFG +37.8%",
     "latestReason": "three strong breakouts -> 60% / 25% / 15%",
-    "reportCount": 90,
+    "reportCount": 91,
     "tradeCount": 87,
     "cumulativeFeesKrw": 8194.59391725881,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": 1350,
-    "dailyReturnPct": 0.15448221566403894,
+    "dailyPnlKrw": 12368,
+    "dailyReturnPct": 1.4152859580243211,
     "feeDragTodayKrw": 844.8900844885379,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
-    "phase1Status": "complete_active",
-    "phase2Status": "enabled",
+    "phase1Status": "needs_review",
+    "phase2Status": "planned_flag_off",
     "phase3Status": "complete_active"
   },
   "equitySeries": [
@@ -10240,6 +10240,107 @@
         "leverage_implemented": false,
         "non_pilot3_discretionary_trades_allowed": false
       }
+    },
+    {
+      "time": "2026-05-09T02:03:33+09:00",
+      "date": "2026-05-09",
+      "sourceFile": "pilot3_live_executor_20260509_020333.json",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 94%, 7d breadth 83%; 7d leaders ONDO +64.9%, JTO +59.1%, CFG +37.8%",
+      "targetReason": "three strong breakouts -> 60% / 25% / 15%",
+      "targetWeights": {
+        "ONDO": 0.6,
+        "CHIP": 0.25,
+        "AZTEC": 0.15
+      },
+      "targetText": "ONDO 60.0%, CHIP 25.0%, AZTEC 15.0%",
+      "weightsBefore": {
+        "Cash": 0.23800977635500067,
+        "ONDO": 0.6125423125739998,
+        "AZTEC": 0.14944791107099953
+      },
+      "weightsAfter": {
+        "Cash": 0.23756746594472067,
+        "ONDO": 0.6132623526131784,
+        "AZTEC": 0.14917018144210098
+      },
+      "allocationText": "ONDO 61.3%, Cash 23.8%, AZTEC 14.9%",
+      "navBefore": 884608,
+      "navAfter": 886255,
+      "pnlKrw": 1647,
+      "returnPct": 0.18618416292866444,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 8194.59391725881,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "ONDO",
+          "r24Pct": 28.516,
+          "r7Pct": 64.912,
+          "scorePct": 41.498
+        },
+        {
+          "symbol": "CHIP",
+          "r24Pct": 28.451,
+          "r7Pct": 14.561,
+          "scorePct": 31.364
+        },
+        {
+          "symbol": "AZTEC",
+          "r24Pct": 22.581,
+          "r7Pct": 30.584,
+          "scorePct": 28.697
+        },
+        {
+          "symbol": "SAHARA",
+          "r24Pct": 16.402,
+          "r7Pct": 28.28,
+          "scorePct": 22.058
+        },
+        {
+          "symbol": "JUP",
+          "r24Pct": 14.238,
+          "r7Pct": 28.253,
+          "scorePct": 19.889
+        },
+        {
+          "symbol": "TIA",
+          "r24Pct": 15.0,
+          "r7Pct": 21.739,
+          "scorePct": 19.348
+        },
+        {
+          "symbol": "FIL",
+          "r24Pct": 13.321,
+          "r7Pct": 29.028,
+          "scorePct": 19.126
+        },
+        {
+          "symbol": "PENDLE",
+          "r24Pct": 11.809,
+          "r7Pct": 34.433,
+          "scorePct": 18.696
+        }
+      ],
+      "warnings": [
+        "market data warning: PROS: only 12 30m candles",
+        "market data warning: B3: only 73 30m candles",
+        "market data warning: WIF: only 117 30m candles",
+        "market data warning: universe guardrails rejected 126 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 0 orders within limit 6",
+        "Phase 2 sells skipped ONDO: within rebalance band (1.25% drift)",
+        "Phase 2 buys rejected CHIP: spread 93.0 bps exceeds 30.0 bps"
+      ],
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      }
     }
   ],
   "transactions": [
@@ -11724,11 +11825,11 @@
     }
   ],
   "latest": {
-    "time": "2026-05-09T01:32:59+09:00",
+    "time": "2026-05-09T02:03:33+09:00",
     "date": "2026-05-09",
-    "sourceFile": "pilot3_live_executor_20260509_013259.json",
+    "sourceFile": "pilot3_live_executor_20260509_020333.json",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 92%, 7d breadth 81%; 7d leaders ONDO +57.7%, JTO +56.4%, WLFI +36.5%",
+    "regimeNote": "normal; 24h breadth 94%, 7d breadth 83%; 7d leaders ONDO +64.9%, JTO +59.1%, CFG +37.8%",
     "targetReason": "three strong breakouts -> 60% / 25% / 15%",
     "targetWeights": {
       "ONDO": 0.6,
@@ -11737,112 +11838,84 @@
     },
     "targetText": "ONDO 60.0%, CHIP 25.0%, AZTEC 15.0%",
     "weightsBefore": {
-      "Cash": 0.00011574105600001711,
-      "ONDO": 0.6060177032588878,
-      "SAHARA": 0.24435151929267518,
-      "AZTEC": 0.14951503639243705
+      "Cash": 0.23800977635500067,
+      "ONDO": 0.6125423125739998,
+      "AZTEC": 0.14944791107099953
     },
     "weightsAfter": {
-      "Cash": 0.24055815193309485,
-      "ONDO": 0.6115737541427761,
-      "AZTEC": 0.14786809392412906
+      "Cash": 0.23756746594472067,
+      "ONDO": 0.6132623526131784,
+      "AZTEC": 0.14917018144210098
     },
-    "allocationText": "ONDO 61.2%, Cash 24.1%, AZTEC 14.8%",
-    "navBefore": 865596,
-    "navAfter": 875237,
-    "pnlKrw": 9641,
-    "returnPct": 1.113799047130532,
-    "plannedSells": [
-      {
-        "side": "SELL",
-        "symbol": "SAHARA",
-        "market": "KRW-SAHARA",
-        "volume": 4796.13995485,
-        "notional_krw_est": 211509.77200888502,
-        "ref_price": 44.1
-      }
-    ],
+    "allocationText": "ONDO 61.3%, Cash 23.8%, AZTEC 14.9%",
+    "navBefore": 884608,
+    "navAfter": 886255,
+    "pnlKrw": 1647,
+    "returnPct": 0.18618416292866444,
+    "plannedSells": [],
     "plannedBuys": [],
-    "executions": [
-      {
-        "time": "2026-05-09T01:32:59+09:00",
-        "side": "SELL",
-        "symbol": "SAHARA",
-        "market": "KRW-SAHARA",
-        "notionalKrw": 211510,
-        "feeKrw": 105.2752720089575,
-        "uuid": "26a55026-4331-436d-b1e1-c7f7c85c1586",
-        "state": "filled",
-        "finalState": "done",
-        "executionStatus": "filled",
-        "executedVolume": 4796.13995485,
-        "remainingVolume": "0",
-        "actualFeeKrw": 105.2752720089575,
-        "feeSource": "actual",
-        "cumulativeFeesKrw": 8194.59391725881
-      }
-    ],
-    "feesKrw": 105.2752720089575,
+    "executions": [],
+    "feesKrw": 0,
     "cumulativeFeesKrw": 8194.59391725881,
-    "tradeCount": 1,
+    "tradeCount": 0,
     "rankedCandidates": [
       {
         "symbol": "ONDO",
-        "r24Pct": 21.797,
-        "r7Pct": 57.673,
-        "scorePct": 33.332
+        "r24Pct": 28.516,
+        "r7Pct": 64.912,
+        "scorePct": 41.498
       },
       {
         "symbol": "CHIP",
-        "r24Pct": 26.328,
-        "r7Pct": 13.588,
-        "scorePct": 29.046
+        "r24Pct": 28.451,
+        "r7Pct": 14.561,
+        "scorePct": 31.364
       },
       {
         "symbol": "AZTEC",
-        "r24Pct": 20.779,
-        "r7Pct": 27.835,
-        "scorePct": 26.346
+        "r24Pct": 22.581,
+        "r7Pct": 30.584,
+        "scorePct": 28.697
       },
       {
         "symbol": "SAHARA",
-        "r24Pct": 16.976,
-        "r7Pct": 28.571,
-        "scorePct": 22.69
-      },
-      {
-        "symbol": "FIL",
-        "r24Pct": 16.389,
-        "r7Pct": 31.264,
-        "scorePct": 22.642
-      },
-      {
-        "symbol": "TIA",
-        "r24Pct": 15.248,
-        "r7Pct": 23.106,
-        "scorePct": 19.869
+        "r24Pct": 16.402,
+        "r7Pct": 28.28,
+        "scorePct": 22.058
       },
       {
         "symbol": "JUP",
-        "r24Pct": 12.752,
-        "r7Pct": 26.316,
-        "scorePct": 18.015
+        "r24Pct": 14.238,
+        "r7Pct": 28.253,
+        "scorePct": 19.889
       },
       {
-        "symbol": "AKT",
-        "r24Pct": 9.817,
-        "r7Pct": 33.421,
-        "scorePct": 16.501
+        "symbol": "TIA",
+        "r24Pct": 15.0,
+        "r7Pct": 21.739,
+        "scorePct": 19.348
+      },
+      {
+        "symbol": "FIL",
+        "r24Pct": 13.321,
+        "r7Pct": 29.028,
+        "scorePct": 19.126
+      },
+      {
+        "symbol": "PENDLE",
+        "r24Pct": 11.809,
+        "r7Pct": 34.433,
+        "scorePct": 18.696
       }
     ],
     "warnings": [
-      "market data warning: PROS: only 11 30m candles",
-      "market data warning: B3: only 72 30m candles",
-      "market data warning: WIF: only 116 30m candles",
-      "market data warning: universe guardrails rejected 127 KRW markets",
+      "market data warning: PROS: only 12 30m candles",
+      "market data warning: B3: only 73 30m candles",
+      "market data warning: WIF: only 117 30m candles",
+      "market data warning: universe guardrails rejected 126 KRW markets",
       "risk preflight: risk checks passed",
-      "order count preflight: planned 1 orders within limit 6",
-      "Phase 2 sells skipped ONDO: within rebalance band (0.60% drift)",
+      "order count preflight: planned 0 orders within limit 6",
+      "Phase 2 sells skipped ONDO: within rebalance band (1.25% drift)",
       "Phase 2 buys rejected CHIP: spread 93.0 bps exceeds 30.0 bps"
     ],
     "safety": {
@@ -11855,10 +11928,10 @@
   "dailySummary": {
     "dateKst": "2026-05-09",
     "navStart": 873887,
-    "navEnd": 875237,
-    "pnlKrw": 1350,
-    "returnPct": 0.15448221566403894,
-    "highNav": 875237,
+    "navEnd": 886255,
+    "pnlKrw": 12368,
+    "returnPct": 1.4152859580243211,
+    "highNav": 886255,
     "lowNav": 843346,
     "maxIntradayDrawdownPct": -3.49484544340401,
     "orderCount": 8,
@@ -11866,7 +11939,7 @@
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 3,
-    "reportCount": 4,
+    "reportCount": 5,
     "turnoverKrw": 1692154,
     "actualFeesKrw": 844.8900844885379,
     "estimatedFeesKrw": 0.0,
@@ -11879,36 +11952,36 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-05-09T01:38:50.696270+09:00",
-    "latestReportAgeMinutes": 5.8616045,
+    "updatedAt": "2026-05-09T02:08:23.487534+09:00",
+    "latestReportAgeMinutes": 3.408125566666667,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
-    "lastRunStatus": "ok",
-    "lastRunId": "ee0f8e1f-7977-4783-8740-9e54559f934e",
+    "lastRunStatus": "skipped_recent_run",
+    "lastRunId": "20029931-5cbd-4127-a37b-6213d209faa3",
     "tradingEnabled": null,
-    "phase2Enabled": true,
+    "phase2Enabled": false,
     "alerts": []
   },
   "phaseAssessment": {
     "phase1": {
       "title": "Phase 1 — Safety hardening",
-      "status": "complete_active",
+      "status": "needs_review",
       "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and risk limit checks are active.",
       "evidence": [
-        "last_run_status=ok",
+        "last_run_status=skipped_recent_run",
         "pendingOrderCount=0",
-        "trading gate is enabled for live execution"
+        "trading gate evidence unavailable"
       ]
     },
     "phase2": {
       "title": "Phase 2 — Methodology robustness",
-      "status": "enabled",
-      "summary": "Closed-candle metadata, hysteresis, rebalance bands, orderbook spread checks, and churn controls are live-enabled.",
+      "status": "planned_flag_off",
+      "summary": "Closed-candle freshness, hysteresis/hold-period, churn/fee controls, orderbook checks, and walk-forward validation remain planned behind a disabled flag.",
       "evidence": [
-        "phase2Enabled=True",
-        "Phase 2 controls are active in live reports."
+        "phase2Enabled=False",
+        "No live methodology change is active unless this flag is enabled."
       ]
     },
     "phase3": {
