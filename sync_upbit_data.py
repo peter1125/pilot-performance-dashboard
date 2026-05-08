@@ -144,7 +144,7 @@ def build_phase_assessment(state: dict[str, Any] | None, daily_summary: dict[str
     last_status = state.get("last_run_status") or governance.get("lastRunStatus") or "unknown"
     pending_count = governance.get("pendingOrderCount", len(state.get("pending_orders") or []))
     trading_disabled = any("TRADING_ENABLED" in str(w) for w in (state.get("last_warnings") or [])) or last_status == "frozen_trading_disabled"
-    phase1_status = "complete_active" if pending_count == 0 and trading_disabled else "needs_review"
+    phase1_status = "complete_active" if pending_count == 0 and (trading_disabled or last_status in {"ok", "dry_run"}) else "needs_review"
     phase3_status = "complete_active" if daily_summary and governance and governance.get("status") not in {None, "unknown"} else "needs_generation"
     phase2_enabled = bool(state.get("phase2_enabled") or state.get("last_phase2_enabled") or governance.get("phase2Enabled"))
     return {
