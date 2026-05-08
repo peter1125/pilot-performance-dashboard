@@ -9,6 +9,7 @@ from typing import Any
 
 REPORT_DIR = Path.home() / ".hermes" / "pilot3-live-executions"
 OUT_PATH = Path(__file__).with_name("upbit-data.json")
+FEE_RATE = 0.0005
 
 
 def _num(value: Any, default: float = 0.0) -> float:
@@ -41,6 +42,18 @@ def _execution_notional(execution: dict[str, Any]) -> int:
     return _round_krw(request.get("notional_krw_est") or request.get("price_krw"))
 
 
+def _execution_fee(execution: dict[str, Any]) -> float:
+    """Recorded Upbit fee when present; otherwise estimated from notional."""
+    response = execution.get("response") or {}
+    paid = _num(response.get("paid_fee"))
+    if paid > 0:
+        return paid
+    reserved = _num(response.get("reserved_fee"))
+    if reserved > 0:
+        return reserved
+    return _execution_notional(execution) * FEE_RATE
+
+
 def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str, Any] | None:
     if report.get("mode") != "live":
         return None
@@ -58,15 +71,18 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
         response = execution.get("response") or {}
         side = str(request.get("side") or "").upper() or str(response.get("side") or "").upper()
         symbol = request.get("symbol") or (response.get("market", "-").split("-", 1)[-1] if response.get("market") else "")
+        fee_krw = _execution_fee(execution)
         executions.append({
             "time": ts,
             "side": side,
             "symbol": symbol,
             "market": request.get("market") or response.get("market"),
             "notionalKrw": _execution_notional(execution),
+            "feeKrw": fee_krw,
             "uuid": response.get("uuid"),
             "state": response.get("state"),
         })
+    fees_krw = sum(row["feeKrw"] for row in executions)
 
     ranked = []
     for row in report.get("ranked_candidates") or []:
@@ -96,6 +112,8 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
         "plannedSells": report.get("planned_sells") or [],
         "plannedBuys": report.get("planned_buys") or [],
         "executions": executions,
+        "feesKrw": fees_krw,
+        "cumulativeFeesKrw": fees_krw,
         "tradeCount": len(executions),
         "rankedCandidates": ranked,
         "warnings": report.get("warnings") or [],
@@ -117,6 +135,13 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
             if parsed:
                 points.append(parsed)
     points.sort(key=lambda row: row["time"])
+
+    cumulative_fees = 0.0
+    for point in points:
+        cumulative_fees += _num(point.get("feesKrw"))
+        point["cumulativeFeesKrw"] = cumulative_fees
+        for execution in point["executions"]:
+            execution["cumulativeFeesKrw"] = cumulative_fees
 
     executions = []
     for point in points:
@@ -143,6 +168,8 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         "latestReason": latest["targetReason"] if latest else "",
         "reportCount": len(points),
         "tradeCount": len(executions),
+        "cumulativeFeesKrw": cumulative_fees,
+        "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
     }
 
     return {

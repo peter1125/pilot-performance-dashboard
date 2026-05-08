@@ -22,7 +22,7 @@ class UpbitDataTests(unittest.TestCase):
             "planned_buys": [{"side": "BUY", "symbol": "JTO", "price_krw": 592498}],
             "executions": [
                 {"request": {"side": "SELL", "symbol": "ONDO", "notional_krw_est": 787236}, "response": {"uuid": "sell-1", "state": "done"}},
-                {"request": {"side": "BUY", "symbol": "JTO"}, "submitted_price_krw": 592497, "response": {"uuid": "buy-1", "state": "done"}},
+                {"request": {"side": "BUY", "symbol": "JTO"}, "submitted_price_krw": 592497, "response": {"uuid": "buy-1", "state": "done", "reserved_fee": "296.2485"}},
             ],
             "ranked_candidates": [{"symbol": "JTO", "r24_pct": 45.2, "r7_pct": 75.1, "score_pct": 60.2}],
             "warnings": ["universe guardrails rejected 120 KRW markets"],
@@ -36,6 +36,9 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual(parsed["allocationText"], "JTO 60.0%, FLOCK 25.1%, CFG 14.9%")
         self.assertEqual(len(parsed["executions"]), 2)
         self.assertEqual(parsed["executions"][1]["notionalKrw"], 592497)
+        self.assertEqual(parsed["executions"][1]["feeKrw"], 296.2485)
+        self.assertAlmostEqual(parsed["feesKrw"], 689.8665, places=4)
+        self.assertAlmostEqual(parsed["cumulativeFeesKrw"], 689.8665, places=4)
 
     def test_build_payload_sorts_reports_and_computes_summary(self):
         with tempfile.TemporaryDirectory() as td:
@@ -58,7 +61,7 @@ class UpbitDataTests(unittest.TestCase):
                 "observed_nav_after_krw": 1030000,
                 "weights_after": {"JTO": 0.6, "FLOCK": 0.25, "CFG": 0.15},
                 "target_weights": {"JTO": 0.6, "FLOCK": 0.25, "CFG": 0.15},
-                "executions": [{"request": {"side": "BUY", "symbol": "JTO"}, "submitted_price_krw": 600000, "response": {"uuid": "u"}}],
+                "executions": [{"request": {"side": "BUY", "symbol": "JTO"}, "submitted_price_krw": 600000, "response": {"uuid": "u", "reserved_fee": "300"}}],
                 "warnings": [],
                 "ranked_candidates": [],
             }
@@ -70,7 +73,10 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual(payload["summary"]["currentNav"], 1030000)
         self.assertEqual(payload["summary"]["startingNav"], 1000000)
         self.assertAlmostEqual(payload["summary"]["totalReturnPct"], 3.0)
+        self.assertEqual(payload["summary"]["cumulativeFeesKrw"], 300)
         self.assertEqual([p["navAfter"] for p in payload["equitySeries"]], [1010000, 1030000])
+        self.assertEqual([p["cumulativeFeesKrw"] for p in payload["equitySeries"]], [0, 300])
+        self.assertEqual(payload["transactions"][0]["cumulativeFeesKrw"], 300)
         self.assertEqual(payload["summary"]["currentAllocation"], "JTO 60.0%, FLOCK 25.0%, CFG 15.0%")
 
 

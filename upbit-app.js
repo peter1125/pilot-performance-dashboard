@@ -78,6 +78,7 @@ function renderSummary() {
     ['Current NAV', formatCurrency(s.currentNav), `Latest ${formatTime(s.latestTime)}`],
     ['Total return', `<span class="${totalClass}">${formatPercent(s.totalReturnPct)}</span>`, `${formatCurrency(Math.abs(s.totalPnlKrw || 0))} ${s.totalPnlKrw >= 0 ? 'gain' : 'loss'}`],
     ['Latest poll P&L', `<span class="${pollClass}">${formatCurrency(latest.pnlKrw || 0)}</span>`, formatPercent(latest.returnPct || 0)],
+    ['Cumulative fees', formatCurrency(s.cumulativeFeesKrw || 0), s.feeNote || 'Recorded/estimated Upbit fees'],
     ['Trades / reports', `${s.tradeCount || 0} / ${s.reportCount || 0}`, s.strategy || 'Breakout Rotation'],
   ];
   els.summaryGrid.innerHTML = cards.map(([label, value, note]) => `
@@ -121,6 +122,7 @@ function renderChartDetails(points, values) {
     <div class="detail-pill"><span>Selected</span><strong>${formatTime(point.time)}</strong></div>
     <div class="detail-pill"><span>NAV</span><strong>${formatCurrency(point.navAfter)}</strong></div>
     <div class="detail-pill"><span>Poll P&amp;L</span><strong class="${point.pnlKrw >= 0 ? 'positive' : 'negative'}">${formatCurrency(point.pnlKrw)} (${formatPercent(point.returnPct)})</strong></div>
+    <div class="detail-pill"><span>Cum. fees</span><strong>${formatCurrency(point.cumulativeFeesKrw || 0)}</strong></div>
     <div class="detail-pill"><span>${state.chartMode === 'return' ? 'Window return' : state.chartMode === 'pnl' ? 'Plotted P&L' : 'Plotted NAV'}</span><strong>${metricLabel(values[index])}</strong></div>
     <div class="detail-pill wide"><span>Allocation</span><strong>${point.allocationText || '—'}</strong></div>
   `;
@@ -249,10 +251,12 @@ function renderTransactions() {
       <td><span class="${tx.side === 'BUY' ? 'positive' : 'negative'}">${tx.side}</span></td>
       <td>${tx.symbol || '—'}</td>
       <td>${formatCurrency(tx.notionalKrw)}</td>
+      <td>${formatCurrency(tx.feeKrw || 0)}</td>
+      <td>${formatCurrency(tx.cumulativeFeesKrw || 0)}</td>
       <td>${tx.state || '—'}</td>
       <td class="uuid-cell">${tx.uuid || '—'}</td>
     </tr>
-  `).join('') || '<tr><td colspan="6">No executions match the current search.</td></tr>';
+  `).join('') || '<tr><td colspan="8">No executions match the current search.</td></tr>';
 }
 
 function renderRuns() {
@@ -263,10 +267,12 @@ function renderRuns() {
       <td>${formatCurrency(run.navBefore)}</td>
       <td>${formatCurrency(run.navAfter)}</td>
       <td><span class="${run.pnlKrw >= 0 ? 'positive' : 'negative'}">${formatCurrency(run.pnlKrw)} (${formatPercent(run.returnPct)})</span></td>
+      <td>${formatCurrency(run.feesKrw || 0)}</td>
+      <td>${formatCurrency(run.cumulativeFeesKrw || 0)}</td>
       <td>${run.allocationText}</td>
       <td>${run.targetReason}</td>
     </tr>
-  `).join('') || '<tr><td colspan="6">No live reports found.</td></tr>';
+  `).join('') || '<tr><td colspan="8">No live reports found.</td></tr>';
 }
 
 function renderAll() {
