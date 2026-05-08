@@ -44,11 +44,12 @@ def _execution_notional(execution: dict[str, Any]) -> int:
 
 def _execution_fee(execution: dict[str, Any]) -> float:
     """Recorded Upbit fee when present; otherwise estimated from notional."""
+    final_response = execution.get("final_response") or {}
     response = execution.get("response") or {}
-    paid = _num(response.get("paid_fee"))
+    paid = _num(execution.get("fee_krw_actual") or final_response.get("paid_fee") or response.get("paid_fee"))
     if paid > 0:
         return paid
-    reserved = _num(response.get("reserved_fee"))
+    reserved = _num(final_response.get("reserved_fee") or response.get("reserved_fee"))
     if reserved > 0:
         return reserved
     return _execution_notional(execution) * FEE_RATE
@@ -69,7 +70,9 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
     for execution in report.get("executions") or []:
         request = execution.get("request") or {}
         response = execution.get("response") or {}
-        side = str(request.get("side") or "").upper() or str(response.get("side") or "").upper()
+        final_response = execution.get("final_response") or {}
+        status = execution.get("status") or execution.get("final_state") or final_response.get("state") or response.get("state")
+        side = str(request.get("side") or "").upper() or str(response.get("side") or final_response.get("side") or "").upper()
         symbol = request.get("symbol") or (response.get("market", "-").split("-", 1)[-1] if response.get("market") else "")
         fee_krw = _execution_fee(execution)
         executions.append({
@@ -79,8 +82,14 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
             "market": request.get("market") or response.get("market"),
             "notionalKrw": _execution_notional(execution),
             "feeKrw": fee_krw,
-            "uuid": response.get("uuid"),
-            "state": response.get("state"),
+            "uuid": response.get("uuid") or final_response.get("uuid"),
+            "state": status,
+            "finalState": final_response.get("state") or execution.get("final_state"),
+            "executionStatus": status,
+            "executedVolume": execution.get("executed_volume") or final_response.get("executed_volume"),
+            "remainingVolume": execution.get("remaining_volume") or final_response.get("remaining_volume"),
+            "actualFeeKrw": execution.get("fee_krw_actual") or final_response.get("paid_fee"),
+            "feeSource": "actual" if (execution.get("fee_krw_actual") or _num(final_response.get("paid_fee")) > 0) else "estimated_or_reserved",
         })
     fees_krw = sum(row["feeKrw"] for row in executions)
 
@@ -119,6 +128,13 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
         "warnings": report.get("warnings") or [],
         "safety": report.get("safety") or {},
     }
+
+
+def _load_optional_json(path: Path, default: Any = None) -> Any:
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return default
 
 
 def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
@@ -172,6 +188,16 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
     }
 
+    daily_summary = _load_optional_json(report_dir / "daily" / "latest.json")
+    governance = _load_optional_json(report_dir / "governance" / "status.json", {"status": "unknown", "alerts": ["Governance status not generated yet"]})
+    if daily_summary:
+        summary["dailyPnlKrw"] = daily_summary.get("pnlKrw")
+        summary["dailyReturnPct"] = daily_summary.get("returnPct")
+        summary["feeDragTodayKrw"] = (daily_summary.get("actualFeesKrw") or 0) + (daily_summary.get("estimatedFeesKrw") or 0)
+    if governance:
+        summary["pendingOrderCount"] = governance.get("pendingOrderCount", 0)
+        summary["governanceStatus"] = governance.get("status", "unknown")
+
     return {
         "source": "local-upbit-live-execution-reports",
         "refreshedAt": datetime.now(timezone.utc).isoformat(),
@@ -179,6 +205,8 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         "equitySeries": points,
         "transactions": executions,
         "latest": latest,
+        "dailySummary": daily_summary,
+        "governance": governance,
         "guardrails": {
             "universe": "Full Upbit KRW spot universe",
             "minThirtyMinuteCandles": 337,

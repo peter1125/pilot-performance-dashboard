@@ -78,6 +78,32 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual([p["cumulativeFeesKrw"] for p in payload["equitySeries"]], [0, 300])
         self.assertEqual(payload["transactions"][0]["cumulativeFeesKrw"], 300)
         self.assertEqual(payload["summary"]["currentAllocation"], "JTO 60.0%, FLOCK 25.0%, CFG 15.0%")
+    def test_build_payload_includes_daily_summary_and_governance_when_present(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            report = {
+                "timestamp_kst": "2026-05-08T05:00:00+09:00",
+                "mode": "live",
+                "observed_nav_before_krw": 1000000,
+                "observed_nav_after_krw": 1010000,
+                "weights_after": {"ONDO": 0.8, "Cash": 0.2},
+                "target_weights": {"ONDO": 0.8, "Cash": 0.2},
+                "executions": [],
+                "warnings": [],
+                "ranked_candidates": [],
+            }
+            (root / "a.json").write_text(json.dumps(report))
+            daily_dir = root / "daily"
+            gov_dir = root / "governance"
+            daily_dir.mkdir()
+            gov_dir.mkdir()
+            (daily_dir / "latest.json").write_text(json.dumps({"dateKst": "2026-05-08", "pnlKrw": 10000}))
+            (gov_dir / "status.json").write_text(json.dumps({"status": "ok", "pendingOrderCount": 0}))
+
+            payload = build_upbit_payload(root)
+
+        self.assertEqual(payload["dailySummary"]["pnlKrw"], 10000)
+        self.assertEqual(payload["governance"]["status"], "ok")
 
 
 if __name__ == "__main__":

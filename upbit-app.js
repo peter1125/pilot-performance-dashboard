@@ -78,9 +78,12 @@ function renderSummary() {
   const totalClass = (s.totalPnlKrw || 0) >= 0 ? 'positive' : 'negative';
   const cards = [
     ['Current NAV', formatCurrency(s.currentNav), `Latest ${formatTime(s.latestTime)}`],
+    ['Operating status', String(s.governanceStatus || 'unknown').toUpperCase(), `${s.pendingOrderCount || 0} pending orders`],
+    ['Daily P&L', `<span class="${(s.dailyPnlKrw || 0) >= 0 ? 'positive' : 'negative'}">${formatCurrency(s.dailyPnlKrw || 0)}</span>`, formatPercent(s.dailyReturnPct || 0)],
     ['Total return', `<span class="${totalClass}">${formatPercent(s.totalReturnPct)}</span>`, `${formatCurrency(Math.abs(s.totalPnlKrw || 0))} ${s.totalPnlKrw >= 0 ? 'gain' : 'loss'}`],
     ['Latest poll P&L', `<span class="${pollClass}">${formatCurrency(latest.pnlKrw || 0)}</span>`, formatPercent(latest.returnPct || 0)],
     ['Cumulative fees', formatCurrency(s.cumulativeFeesKrw || 0), s.feeNote || 'Recorded/estimated Upbit fees'],
+    ['Fee drag today', formatCurrency(s.feeDragTodayKrw || 0), 'Actual + estimated daily fees'],
     ['Trades / reports', `${s.tradeCount || 0} / ${s.reportCount || 0}`, s.strategy || 'Breakout Rotation'],
   ];
   els.summaryGrid.innerHTML = cards.map(([label, value, note]) => `
