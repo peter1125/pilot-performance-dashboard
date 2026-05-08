@@ -1,5 +1,7 @@
 import { filterPointsByWindow, nearestPointIndex } from './upbit-chart-utils.mjs';
 
+const STARTING_NAV_KRW = 1_000_000;
+
 const state = {
   payload: null,
   chartMode: 'nav',
@@ -140,8 +142,10 @@ function renderChart() {
   const width = 960, height = 380, pad = 44;
   const firstNav = points[0].navBefore || points[0].navAfter || 0;
   const values = points.map((p, idx) => chartValue(p, idx, firstNav));
-  const min = Math.min(...values);
-  const max = Math.max(...values);
+  const rawMin = Math.min(...values);
+  const rawMax = Math.max(...values);
+  const min = state.chartMode === 'nav' ? Math.min(rawMin, STARTING_NAV_KRW) : rawMin;
+  const max = state.chartMode === 'nav' ? Math.max(rawMax, STARTING_NAV_KRW) : rawMax;
   const span = max - min || 1;
   const x = (i) => pad + (i / Math.max(points.length - 1, 1)) * (width - pad * 2);
   const y = (v) => height - pad - ((v - min) / span) * (height - pad * 2);
@@ -151,6 +155,12 @@ function renderChart() {
   const selected = selectedPoint(points);
   const selectedX = x(selected.index);
   const selectedY = y(values[selected.index]);
+  const baselineY = state.chartMode === 'nav' ? y(STARTING_NAV_KRW) : null;
+  const baselineMarkup = baselineY == null ? '' : `
+    <line class="chart-baseline" x1="${pad}" x2="${width-pad}" y1="${baselineY}" y2="${baselineY}" />
+    <rect x="${pad + 8}" y="${Math.max(8, baselineY - 23)}" width="164" height="22" rx="11" class="chart-baseline-label-bg" />
+    <text x="${pad + 18}" y="${Math.max(24, baselineY - 8)}" class="chart-baseline-label">Start ${formatCurrency(STARTING_NAV_KRW)}</text>
+  `;
   const label = metricLabel(values.at(-1));
   els.chart.innerHTML = `
     <defs>
@@ -159,6 +169,7 @@ function renderChart() {
     </defs>
     <rect x="0" y="0" width="960" height="380" rx="24" fill="rgba(15,23,42,.35)" />
     ${[0,1,2,3].map(i => `<line x1="${pad}" x2="${width-pad}" y1="${pad + i*(height-pad*2)/3}" y2="${pad + i*(height-pad*2)/3}" stroke="rgba(148,163,184,.16)"/>`).join('')}
+    ${baselineMarkup}
     <path d="${area}" fill="url(#upbitArea)" />
     <path d="${d}" fill="none" stroke="url(#upbitLine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
     ${values.map((v,i) => `<circle class="chart-dot" data-index="${i}" cx="${x(i)}" cy="${y(v)}" r="${i === selected.index ? 6 : 3.5}" fill="${i === selected.index ? '#14b8a6' : '#f8fafc'}"><title>${formatTime(points[i].time)} — ${metricLabel(v)}</title></circle>`).join('')}
