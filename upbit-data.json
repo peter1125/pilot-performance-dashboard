@@ -1,19 +1,19 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-08T00:38:26.890966+00:00",
+  "refreshedAt": "2026-05-08T01:08:24.333636+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
-    "currentNav": 938301,
+    "currentNav": 928577,
     "startingNav": 1000247,
-    "totalPnlKrw": -61946,
-    "totalReturnPct": -6.193070311633027,
-    "latestTime": "2026-05-08T09:34:57+09:00",
-    "currentAllocation": "JTO 59.8%, FLOCK 25.5%, ONDO 14.7%, Cash 0.0%",
+    "totalPnlKrw": -71670,
+    "totalReturnPct": -7.1652301881435285,
+    "latestTime": "2026-05-08T10:05:45+09:00",
+    "currentAllocation": "JTO 59.7%, FLOCK 25.5%, ONDO 14.8%, Cash 0.0%",
     "targetAllocation": "JTO 60.0%, FLOCK 25.0%, ONDO 15.0%",
-    "latestRegime": "caution; 24h breadth 67%, 7d breadth 82%; 7d leaders JTO +62.3%, CFG +40.5%, ONDO +32.5%",
+    "latestRegime": "caution; 24h breadth 72%, 7d breadth 81%; 7d leaders JTO +60.7%, CFG +43.4%, PENDLE +34.4%",
     "latestReason": "three strong breakouts -> 60% / 25% / 15%",
-    "reportCount": 63,
+    "reportCount": 64,
     "tradeCount": 43,
     "cumulativeFeesKrw": 4943.851999999999,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional."
@@ -6159,6 +6159,104 @@
         "leverage_implemented": false,
         "non_pilot3_discretionary_trades_allowed": false
       }
+    },
+    {
+      "time": "2026-05-08T10:05:45+09:00",
+      "date": "2026-05-08",
+      "sourceFile": "pilot3_live_executor_20260508_100545.json",
+      "regime": "caution",
+      "regimeNote": "caution; 24h breadth 72%, 7d breadth 81%; 7d leaders JTO +60.7%, CFG +43.4%, PENDLE +34.4%",
+      "targetReason": "three strong breakouts -> 60% / 25% / 15%",
+      "targetWeights": {
+        "JTO": 0.6,
+        "FLOCK": 0.25,
+        "ONDO": 0.15
+      },
+      "targetText": "JTO 60.0%, FLOCK 25.0%, ONDO 15.0%",
+      "weightsBefore": {
+        "Cash": 0.00010863315050429165,
+        "ONDO": 0.14841989212952741,
+        "JTO": 0.5961311713198486,
+        "FLOCK": 0.2553403034001196
+      },
+      "weightsAfter": {
+        "Cash": 0.00010843544551739629,
+        "ONDO": 0.14786210849193676,
+        "JTO": 0.5971538547455678,
+        "FLOCK": 0.254875601316978
+      },
+      "allocationText": "JTO 59.7%, FLOCK 25.5%, ONDO 14.8%, Cash 0.0%",
+      "navBefore": 926887,
+      "navAfter": 928577,
+      "pnlKrw": 1690,
+      "returnPct": 0.18233074797682997,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 4943.851999999999,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "JTO",
+          "r24Pct": 40.698,
+          "r7Pct": 60.721,
+          "scorePct": 52.842
+        },
+        {
+          "symbol": "FLOCK",
+          "r24Pct": 16.842,
+          "r7Pct": 27.44,
+          "scorePct": 22.33
+        },
+        {
+          "symbol": "ONDO",
+          "r24Pct": 9.808,
+          "r7Pct": 31.378,
+          "scorePct": 16.084
+        },
+        {
+          "symbol": "CFG",
+          "r24Pct": 6.234,
+          "r7Pct": 43.434,
+          "scorePct": 14.921
+        },
+        {
+          "symbol": "VIRTUAL",
+          "r24Pct": 8.139,
+          "r7Pct": 30.545,
+          "scorePct": 14.248
+        },
+        {
+          "symbol": "WLFI",
+          "r24Pct": 8.981,
+          "r7Pct": 20.536,
+          "scorePct": 13.088
+        },
+        {
+          "symbol": "AKT",
+          "r24Pct": 6.743,
+          "r7Pct": 22.251,
+          "scorePct": 11.193
+        },
+        {
+          "symbol": "BREV",
+          "r24Pct": 8.571,
+          "r7Pct": 11.111,
+          "scorePct": 10.794
+        }
+      ],
+      "warnings": [
+        "market data warning: B3: only 41 30m candles",
+        "market data warning: WIF: only 85 30m candles",
+        "market data warning: universe guardrails rejected 118 KRW markets"
+      ],
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      }
     }
   ],
   "transactions": [
@@ -6637,11 +6735,11 @@
     }
   ],
   "latest": {
-    "time": "2026-05-08T09:34:57+09:00",
+    "time": "2026-05-08T10:05:45+09:00",
     "date": "2026-05-08",
-    "sourceFile": "pilot3_live_executor_20260508_093457.json",
+    "sourceFile": "pilot3_live_executor_20260508_100545.json",
     "regime": "caution",
-    "regimeNote": "caution; 24h breadth 67%, 7d breadth 82%; 7d leaders JTO +62.3%, CFG +40.5%, ONDO +32.5%",
+    "regimeNote": "caution; 24h breadth 72%, 7d breadth 81%; 7d leaders JTO +60.7%, CFG +43.4%, PENDLE +34.4%",
     "targetReason": "three strong breakouts -> 60% / 25% / 15%",
     "targetWeights": {
       "JTO": 0.6,
@@ -6650,22 +6748,22 @@
     },
     "targetText": "JTO 60.0%, FLOCK 25.0%, ONDO 15.0%",
     "weightsBefore": {
-      "Cash": 0.00010740637587394667,
-      "ONDO": 0.1475986313099339,
-      "JTO": 0.5998371710359408,
-      "FLOCK": 0.2524567912782514
+      "Cash": 0.00010863315050429165,
+      "ONDO": 0.14841989212952741,
+      "JTO": 0.5961311713198486,
+      "FLOCK": 0.2553403034001196
     },
     "weightsAfter": {
-      "Cash": 0.00010731165703259203,
-      "ONDO": 0.14746846798183116,
-      "JTO": 0.5979176842615469,
-      "FLOCK": 0.2545065360995894
+      "Cash": 0.00010843544551739629,
+      "ONDO": 0.14786210849193676,
+      "JTO": 0.5971538547455678,
+      "FLOCK": 0.254875601316978
     },
-    "allocationText": "JTO 59.8%, FLOCK 25.5%, ONDO 14.7%, Cash 0.0%",
-    "navBefore": 937474,
-    "navAfter": 938301,
-    "pnlKrw": 827,
-    "returnPct": 0.0882157798509612,
+    "allocationText": "JTO 59.7%, FLOCK 25.5%, ONDO 14.8%, Cash 0.0%",
+    "navBefore": 926887,
+    "navAfter": 928577,
+    "pnlKrw": 1690,
+    "returnPct": 0.18233074797682997,
     "plannedSells": [],
     "plannedBuys": [],
     "executions": [],
@@ -6675,57 +6773,57 @@
     "rankedCandidates": [
       {
         "symbol": "JTO",
-        "r24Pct": 42.952,
-        "r7Pct": 62.335,
-        "scorePct": 55.419
+        "r24Pct": 40.698,
+        "r7Pct": 60.721,
+        "scorePct": 52.842
       },
       {
         "symbol": "FLOCK",
-        "r24Pct": 16.597,
-        "r7Pct": 25.993,
-        "scorePct": 21.795
+        "r24Pct": 16.842,
+        "r7Pct": 27.44,
+        "scorePct": 22.33
       },
       {
         "symbol": "ONDO",
-        "r24Pct": 10.684,
-        "r7Pct": 32.481,
-        "scorePct": 17.18
+        "r24Pct": 9.808,
+        "r7Pct": 31.378,
+        "scorePct": 16.084
       },
       {
-        "symbol": "WLFI",
-        "r24Pct": 11.111,
-        "r7Pct": 20.977,
-        "scorePct": 15.306
-      },
-      {
-        "symbol": "CPOOL",
-        "r24Pct": 11.605,
-        "r7Pct": 18.016,
-        "scorePct": 15.208
+        "symbol": "CFG",
+        "r24Pct": 6.234,
+        "r7Pct": 43.434,
+        "scorePct": 14.921
       },
       {
         "symbol": "VIRTUAL",
-        "r24Pct": 6.195,
-        "r7Pct": 30.312,
-        "scorePct": 12.258
+        "r24Pct": 8.139,
+        "r7Pct": 30.545,
+        "scorePct": 14.248
       },
       {
-        "symbol": "LINEA",
-        "r24Pct": 8.624,
-        "r7Pct": 12.334,
-        "scorePct": 11.091
+        "symbol": "WLFI",
+        "r24Pct": 8.981,
+        "r7Pct": 20.536,
+        "scorePct": 13.088
       },
       {
-        "symbol": "OP",
-        "r24Pct": 6.25,
-        "r7Pct": 22.778,
-        "scorePct": 10.806
+        "symbol": "AKT",
+        "r24Pct": 6.743,
+        "r7Pct": 22.251,
+        "scorePct": 11.193
+      },
+      {
+        "symbol": "BREV",
+        "r24Pct": 8.571,
+        "r7Pct": 11.111,
+        "scorePct": 10.794
       }
     ],
     "warnings": [
-      "market data warning: B3: only 40 30m candles",
-      "market data warning: WIF: only 84 30m candles",
-      "market data warning: universe guardrails rejected 117 KRW markets"
+      "market data warning: B3: only 41 30m candles",
+      "market data warning: WIF: only 85 30m candles",
+      "market data warning: universe guardrails rejected 118 KRW markets"
     ],
     "safety": {
       "capital_policy": "full_available_account_nav_percent_targets_only",
