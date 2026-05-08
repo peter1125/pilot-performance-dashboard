@@ -42,9 +42,16 @@
             </div>
             <div class="legend" id="chartLegend"></div>
           </div>
-          <div class="chart-wrap">
+          <div class="chart-tools" id="chartWindowControls">
+            <button class="mini-chip active" data-chart-window="all">All</button>
+            <button class="mini-chip" data-chart-window="24h">24h</button>
+            <button class="mini-chip" data-chart-window="12h">12h</button>
+            <button class="mini-chip" data-chart-window="6h">6h</button>
+          </div>
+          <div class="chart-wrap interactive-chart-wrap">
             <svg id="equityChart" viewBox="0 0 960 380" role="img" aria-label="Upbit live NAV chart"></svg>
           </div>
+          <div id="chartPointDetails" class="chart-point-details"></div>
         </section>
 
         <section class="panel notes-panel">
@@ -136,6 +143,6 @@
       </section>
     </div>
 
-    <script src="./upbit-app.js"></script>
+    <script type="module" src="./upbit-app.js"></script>
   </body>
 </html>

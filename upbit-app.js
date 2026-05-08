@@ -1,6 +1,10 @@
+import { filterPointsByWindow, nearestPointIndex } from './upbit-chart-utils.mjs';
+
 const state = {
   payload: null,
   chartMode: 'nav',
+  chartWindow: 'all',
+  selectedPointIndex: null,
   query: '',
 };
 
@@ -10,6 +14,8 @@ const els = {
   refreshButton: document.querySelector('#refreshButton'),
   summaryGrid: document.querySelector('#summaryGrid'),
   chart: document.querySelector('#equityChart'),
+  chartDetails: document.querySelector('#chartPointDetails'),
+  chartWindowControls: document.querySelector('#chartWindowControls'),
   legend: document.querySelector('#chartLegend'),
   allocation: document.querySelector('#allocationPanel'),
   guardrails: document.querySelector('#guardrailsPanel'),
@@ -89,13 +95,46 @@ function chartValue(point, idx, firstNav) {
   return point.navAfter || 0;
 }
 
-function renderChart() {
-  const points = state.payload.equitySeries || [];
-  els.legend.innerHTML = '<span><span class="dot" style="background:#f97316"></span>Pilot 3 Upbit</span>';
-  if (points.length < 2) {
-    els.chart.innerHTML = '<text x="480" y="190" text-anchor="middle" fill="#94a3b8">Need at least two live reports for chart</text>';
+function metricLabel(value) {
+  if (state.chartMode === 'return') return formatPercent(value);
+  return formatCurrency(value);
+}
+
+function visibleChartPoints() {
+  return filterPointsByWindow(state.payload.equitySeries || [], state.chartWindow);
+}
+
+function selectedPoint(points) {
+  if (!points.length) return null;
+  const idx = state.selectedPointIndex == null ? points.length - 1 : Math.max(0, Math.min(points.length - 1, state.selectedPointIndex));
+  return { point: points[idx], index: idx };
+}
+
+function renderChartDetails(points, values) {
+  const selected = selectedPoint(points);
+  if (!selected) {
+    els.chartDetails.innerHTML = '<span class="panel-note">Hover or tap the chart to inspect a point.</span>';
     return;
   }
+  const { point, index } = selected;
+  els.chartDetails.innerHTML = `
+    <div class="detail-pill"><span>Selected</span><strong>${formatTime(point.time)}</strong></div>
+    <div class="detail-pill"><span>NAV</span><strong>${formatCurrency(point.navAfter)}</strong></div>
+    <div class="detail-pill"><span>Poll P&amp;L</span><strong class="${point.pnlKrw >= 0 ? 'positive' : 'negative'}">${formatCurrency(point.pnlKrw)} (${formatPercent(point.returnPct)})</strong></div>
+    <div class="detail-pill"><span>${state.chartMode === 'return' ? 'Window return' : state.chartMode === 'pnl' ? 'Plotted P&L' : 'Plotted NAV'}</span><strong>${metricLabel(values[index])}</strong></div>
+    <div class="detail-pill wide"><span>Allocation</span><strong>${point.allocationText || '—'}</strong></div>
+  `;
+}
+
+function renderChart() {
+  const points = visibleChartPoints();
+  els.legend.innerHTML = `<span><span class="dot" style="background:#f97316"></span>Pilot 3 Upbit</span><span>${state.chartWindow === 'all' ? 'All reports' : `Last ${state.chartWindow}`}</span>`;
+  if (points.length < 2) {
+    els.chart.innerHTML = '<text x="480" y="190" text-anchor="middle" fill="#94a3b8">Need at least two live reports for chart</text>';
+    renderChartDetails(points, []);
+    return;
+  }
+  if (state.selectedPointIndex == null || state.selectedPointIndex >= points.length) state.selectedPointIndex = points.length - 1;
   const width = 960, height = 380, pad = 44;
   const firstNav = points[0].navBefore || points[0].navAfter || 0;
   const values = points.map((p, idx) => chartValue(p, idx, firstNav));
@@ -104,9 +143,13 @@ function renderChart() {
   const span = max - min || 1;
   const x = (i) => pad + (i / Math.max(points.length - 1, 1)) * (width - pad * 2);
   const y = (v) => height - pad - ((v - min) / span) * (height - pad * 2);
+  const xs = values.map((_, i) => x(i));
   const d = values.map((v, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
   const area = `${d} L ${x(points.length - 1)} ${height - pad} L ${x(0)} ${height - pad} Z`;
-  const label = state.chartMode === 'nav' ? formatCurrency(values.at(-1)) : state.chartMode === 'return' ? formatPercent(values.at(-1)) : formatCurrency(values.at(-1));
+  const selected = selectedPoint(points);
+  const selectedX = x(selected.index);
+  const selectedY = y(values[selected.index]);
+  const label = metricLabel(values.at(-1));
   els.chart.innerHTML = `
     <defs>
       <linearGradient id="upbitLine" x1="0" x2="1"><stop stop-color="#f97316"/><stop offset="1" stop-color="#14b8a6"/></linearGradient>
@@ -116,11 +159,41 @@ function renderChart() {
     ${[0,1,2,3].map(i => `<line x1="${pad}" x2="${width-pad}" y1="${pad + i*(height-pad*2)/3}" y2="${pad + i*(height-pad*2)/3}" stroke="rgba(148,163,184,.16)"/>`).join('')}
     <path d="${area}" fill="url(#upbitArea)" />
     <path d="${d}" fill="none" stroke="url(#upbitLine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-    ${values.map((v,i) => `<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="#f8fafc"><title>${formatTime(points[i].time)} — ${state.chartMode === 'return' ? formatPercent(v) : formatCurrency(v)}</title></circle>`).join('')}
+    ${values.map((v,i) => `<circle class="chart-dot" data-index="${i}" cx="${x(i)}" cy="${y(v)}" r="${i === selected.index ? 6 : 3.5}" fill="${i === selected.index ? '#14b8a6' : '#f8fafc'}"><title>${formatTime(points[i].time)} — ${metricLabel(v)}</title></circle>`).join('')}
+    <line class="chart-crosshair" x1="${selectedX}" x2="${selectedX}" y1="${pad}" y2="${height-pad}" />
+    <line class="chart-crosshair" x1="${pad}" x2="${width-pad}" y1="${selectedY}" y2="${selectedY}" />
+    <circle cx="${selectedX}" cy="${selectedY}" r="9" fill="none" stroke="#14b8a6" stroke-width="2" />
+    <g class="chart-tooltip" transform="translate(${Math.min(width - 250, selectedX + 14)} ${Math.max(18, selectedY - 58)})">
+      <rect width="232" height="74" rx="12" fill="rgba(15,23,42,.94)" stroke="rgba(20,184,166,.45)" />
+      <text x="12" y="24" fill="#e2e8f0" font-size="14" font-weight="800">${formatTime(selected.point.time)}</text>
+      <text x="12" y="46" fill="#94a3b8" font-size="12">${state.chartMode.toUpperCase()}: ${metricLabel(values[selected.index])}</text>
+      <text x="12" y="64" fill="${selected.point.pnlKrw >= 0 ? '#34d399' : '#fb7185'}" font-size="12">Poll P&L ${formatCurrency(selected.point.pnlKrw)}</text>
+    </g>
+    <rect id="chartHoverLayer" x="${pad}" y="${pad}" width="${width - pad * 2}" height="${height - pad * 2}" fill="transparent" style="cursor: crosshair" />
     <text x="${width-pad}" y="32" text-anchor="end" fill="#e2e8f0" font-size="18" font-weight="800">${label}</text>
     <text x="${pad}" y="${height-14}" fill="#94a3b8" font-size="12">${formatTime(points[0].time)}</text>
     <text x="${width-pad}" y="${height-14}" text-anchor="end" fill="#94a3b8" font-size="12">${formatTime(points.at(-1).time)}</text>
   `;
+  const hoverLayer = els.chart.querySelector('#chartHoverLayer');
+  hoverLayer.addEventListener('pointermove', (event) => {
+    const rect = els.chart.getBoundingClientRect();
+    const viewX = ((event.clientX - rect.left) / rect.width) * width;
+    const idx = nearestPointIndex(xs, viewX);
+    if (idx !== -1 && idx !== state.selectedPointIndex) {
+      state.selectedPointIndex = idx;
+      renderChart();
+    }
+  });
+  hoverLayer.addEventListener('pointerleave', () => {
+    renderChartDetails(points, values);
+  });
+  els.chart.querySelectorAll('.chart-dot').forEach((dot) => {
+    dot.addEventListener('click', () => {
+      state.selectedPointIndex = Number(dot.dataset.index);
+      renderChart();
+    });
+  });
+  renderChartDetails(points, values);
 }
 
 function renderAllocation() {
@@ -209,7 +282,17 @@ function renderAll() {
 document.querySelectorAll('[data-chart-mode]').forEach((button) => {
   button.addEventListener('click', () => {
     state.chartMode = button.dataset.chartMode;
+    state.selectedPointIndex = null;
     document.querySelectorAll('[data-chart-mode]').forEach((b) => b.classList.toggle('active', b === button));
+    renderChart();
+  });
+});
+
+document.querySelectorAll('[data-chart-window]').forEach((button) => {
+  button.addEventListener('click', () => {
+    state.chartWindow = button.dataset.chartWindow;
+    state.selectedPointIndex = null;
+    document.querySelectorAll('[data-chart-window]').forEach((b) => b.classList.toggle('active', b === button));
     renderChart();
   });
 });
