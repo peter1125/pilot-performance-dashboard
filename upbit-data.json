@@ -1,6 +1,6 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-08T10:11:19.014013+00:00",
+  "refreshedAt": "2026-05-08T12:07:42.053362+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
@@ -21,7 +21,10 @@
     "dailyReturnPct": -11.861225323696912,
     "feeDragTodayKrw": 3072.152499999999,
     "pendingOrderCount": 0,
-    "governanceStatus": "ok"
+    "governanceStatus": "stale",
+    "phase1Status": "complete_active",
+    "phase2Status": "planned_flag_off",
+    "phase3Status": "complete_active"
   },
   "equitySeries": [
     {
@@ -10430,7 +10433,8 @@
     "maxIntradayDrawdownPct": -12.42152084306519,
     "orderCount": 48,
     "filledOrderCount": 0,
-    "pendingOrderCount": 48,
+    "pendingOrderCount": 0,
+    "legacyUnresolvedOrderCount": 48,
     "tradeRuns": 19,
     "reportCount": 45,
     "turnoverKrw": 6144305,
@@ -10443,10 +10447,10 @@
     "notes": []
   },
   "governance": {
-    "status": "ok",
-    "severity": 0,
-    "updatedAt": "2026-05-08T19:11:18.994042+09:00",
-    "latestReportAgeMinutes": 23.233234033333336,
+    "status": "stale",
+    "severity": 1,
+    "updatedAt": "2026-05-08T21:07:33.636708+09:00",
+    "latestReportAgeMinutes": 139.47727846666666,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
@@ -10455,7 +10459,40 @@
     "lastRunId": "91f74f88-31dd-4e5a-9b8f-9fb8cd1e9de3",
     "tradingEnabled": null,
     "phase2Enabled": false,
-    "alerts": []
+    "alerts": [
+      "Latest report is 139 minutes old"
+    ]
+  },
+  "phaseAssessment": {
+    "phase1": {
+      "title": "Phase 1 — Safety hardening",
+      "status": "complete_active",
+      "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and secret-hygiene tests are in place.",
+      "evidence": [
+        "last_run_status=frozen_trading_disabled",
+        "pendingOrderCount=0",
+        "PILOT3_TRADING_ENABLED gate observed"
+      ]
+    },
+    "phase2": {
+      "title": "Phase 2 — Methodology robustness",
+      "status": "planned_flag_off",
+      "summary": "Closed-candle freshness, hysteresis/hold-period, churn/fee controls, orderbook checks, and walk-forward validation remain planned behind a disabled flag.",
+      "evidence": [
+        "phase2Enabled=False",
+        "No live methodology change is active unless this flag is enabled."
+      ]
+    },
+    "phase3": {
+      "title": "Phase 3 — Reporting & governance",
+      "status": "complete_active",
+      "summary": "Daily summary, governance status, dashboard schema, public UI cards, and dashboard publisher are active/reporting-only.",
+      "evidence": [
+        "governanceStatus=stale",
+        "targetChangesToday=8",
+        "legacyUnresolvedOrderCount=48"
+      ]
+    }
   },
   "guardrails": {
     "universe": "Full Upbit KRW spot universe",

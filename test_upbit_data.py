@@ -105,6 +105,42 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual(payload["dailySummary"]["pnlKrw"], 10000)
         self.assertEqual(payload["governance"]["status"], "ok")
 
+    def test_build_payload_includes_phase_assessment_from_current_state(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            report = {
+                "timestamp_kst": "2026-05-08T05:00:00+09:00",
+                "mode": "live",
+                "observed_nav_before_krw": 1000000,
+                "observed_nav_after_krw": 1010000,
+                "weights_after": {"ONDO": 0.8, "Cash": 0.2},
+                "target_weights": {"ONDO": 0.8, "Cash": 0.2},
+                "executions": [],
+                "warnings": [],
+                "ranked_candidates": [],
+            }
+            (root / "a.json").write_text(json.dumps(report))
+            (root / "live_state.json").write_text(json.dumps({
+                "last_run_status": "frozen_trading_disabled",
+                "pending_orders": [],
+                "last_warnings": ["PILOT3_TRADING_ENABLED is not explicitly true; no order calls made"],
+            }))
+            daily_dir = root / "daily"
+            gov_dir = root / "governance"
+            daily_dir.mkdir()
+            gov_dir.mkdir()
+            (daily_dir / "latest.json").write_text(json.dumps({"targetChanges": 2, "legacyUnresolvedOrderCount": 3}))
+            (gov_dir / "status.json").write_text(json.dumps({"status": "ok", "pendingOrderCount": 0}))
+
+            payload = build_upbit_payload(root)
+
+        phases = payload["phaseAssessment"]
+        self.assertEqual(phases["phase1"]["status"], "complete_active")
+        self.assertEqual(phases["phase2"]["status"], "planned_flag_off")
+        self.assertEqual(phases["phase3"]["status"], "complete_active")
+        self.assertIn("frozen_trading_disabled", " ".join(phases["phase1"]["evidence"]))
+        self.assertEqual(payload["summary"]["phase1Status"], "complete_active")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -21,6 +21,7 @@ const els = {
   legend: document.querySelector('#chartLegend'),
   allocation: document.querySelector('#allocationPanel'),
   guardrails: document.querySelector('#guardrailsPanel'),
+  phaseAssessment: document.querySelector('#phaseAssessmentPanel'),
   leaders: document.querySelector('#leadersPanel'),
   txBody: document.querySelector('#transactionsBody'),
   runsBody: document.querySelector('#runsBody'),
@@ -84,6 +85,7 @@ function renderSummary() {
     ['Latest poll P&L', `<span class="${pollClass}">${formatCurrency(latest.pnlKrw || 0)}</span>`, formatPercent(latest.returnPct || 0)],
     ['Cumulative fees', formatCurrency(s.cumulativeFeesKrw || 0), s.feeNote || 'Recorded/estimated Upbit fees'],
     ['Fee drag today', formatCurrency(s.feeDragTodayKrw || 0), 'Actual + estimated daily fees'],
+    ['Phase status', `1 ${s.phase1Status || '—'} · 2 ${s.phase2Status || '—'} · 3 ${s.phase3Status || '—'}`, 'Assessment rollout'],
     ['Trades / reports', `${s.tradeCount || 0} / ${s.reportCount || 0}`, s.strategy || 'Breakout Rotation'],
   ];
   els.summaryGrid.innerHTML = cards.map(([label, value, note]) => `
@@ -242,6 +244,22 @@ function renderGuardrails() {
   </ul></article>`;
 }
 
+function renderPhaseAssessment() {
+  const phases = state.payload.phaseAssessment || {};
+  const rows = ['phase1', 'phase2', 'phase3'].map((key) => phases[key]).filter(Boolean);
+  if (!els.phaseAssessment) return;
+  els.phaseAssessment.innerHTML = rows.map((phase) => `
+    <article class="phase-card phase-${String(phase.status || 'unknown').replace(/[^a-z0-9_-]/gi, '-')}">
+      <div class="phase-head">
+        <h3>${phase.title || 'Phase'}</h3>
+        <span>${phase.status || 'unknown'}</span>
+      </div>
+      <p>${phase.summary || ''}</p>
+      <ul>${(phase.evidence || []).map((item) => `<li>${item}</li>`).join('')}</ul>
+    </article>
+  `).join('') || '<p class="panel-note">Phase assessment has not been generated yet.</p>';
+}
+
 function renderLeaders() {
   const leaders = state.payload.latest?.rankedCandidates || [];
   els.leaders.innerHTML = leaders.slice(0, 8).map((row, i) => `
@@ -294,6 +312,7 @@ function renderAll() {
   renderChart();
   renderAllocation();
   renderGuardrails();
+  renderPhaseAssessment();
   renderLeaders();
   renderTransactions();
   renderRuns();

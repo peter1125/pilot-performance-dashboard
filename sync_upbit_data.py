@@ -137,6 +137,49 @@ def _load_optional_json(path: Path, default: Any = None) -> Any:
         return default
 
 
+def build_phase_assessment(state: dict[str, Any] | None, daily_summary: dict[str, Any] | None, governance: dict[str, Any] | None) -> dict[str, Any]:
+    state = state or {}
+    daily_summary = daily_summary or {}
+    governance = governance or {}
+    last_status = state.get("last_run_status") or governance.get("lastRunStatus") or "unknown"
+    pending_count = governance.get("pendingOrderCount", len(state.get("pending_orders") or []))
+    trading_disabled = any("TRADING_ENABLED" in str(w) for w in (state.get("last_warnings") or [])) or last_status == "frozen_trading_disabled"
+    phase1_status = "complete_active" if pending_count == 0 and trading_disabled else "needs_review"
+    phase3_status = "complete_active" if daily_summary and governance and governance.get("status") not in {None, "unknown"} else "needs_generation"
+    phase2_enabled = bool(state.get("phase2_enabled") or state.get("last_phase2_enabled") or governance.get("phase2Enabled"))
+    return {
+        "phase1": {
+            "title": "Phase 1 — Safety hardening",
+            "status": phase1_status,
+            "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and secret-hygiene tests are in place.",
+            "evidence": [
+                f"last_run_status={last_status}",
+                f"pendingOrderCount={pending_count}",
+                "PILOT3_TRADING_ENABLED gate observed" if trading_disabled else "trading gate evidence unavailable",
+            ],
+        },
+        "phase2": {
+            "title": "Phase 2 — Methodology robustness",
+            "status": "enabled" if phase2_enabled else "planned_flag_off",
+            "summary": "Closed-candle freshness, hysteresis/hold-period, churn/fee controls, orderbook checks, and walk-forward validation remain planned behind a disabled flag.",
+            "evidence": [
+                f"phase2Enabled={phase2_enabled}",
+                "No live methodology change is active unless this flag is enabled.",
+            ],
+        },
+        "phase3": {
+            "title": "Phase 3 — Reporting & governance",
+            "status": phase3_status,
+            "summary": "Daily summary, governance status, dashboard schema, public UI cards, and dashboard publisher are active/reporting-only.",
+            "evidence": [
+                f"governanceStatus={governance.get('status', 'unknown')}",
+                f"targetChangesToday={daily_summary.get('targetChanges', 0)}",
+                f"legacyUnresolvedOrderCount={daily_summary.get('legacyUnresolvedOrderCount', 0)}",
+            ],
+        },
+    }
+
+
 def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
     points = []
     if report_dir.exists():
@@ -190,6 +233,8 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
 
     daily_summary = _load_optional_json(report_dir / "daily" / "latest.json")
     governance = _load_optional_json(report_dir / "governance" / "status.json", {"status": "unknown", "alerts": ["Governance status not generated yet"]})
+    live_state = _load_optional_json(report_dir / "live_state.json", {})
+    phase_assessment = build_phase_assessment(live_state, daily_summary, governance)
     if daily_summary:
         summary["dailyPnlKrw"] = daily_summary.get("pnlKrw")
         summary["dailyReturnPct"] = daily_summary.get("returnPct")
@@ -197,6 +242,9 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
     if governance:
         summary["pendingOrderCount"] = governance.get("pendingOrderCount", 0)
         summary["governanceStatus"] = governance.get("status", "unknown")
+    summary["phase1Status"] = phase_assessment["phase1"]["status"]
+    summary["phase2Status"] = phase_assessment["phase2"]["status"]
+    summary["phase3Status"] = phase_assessment["phase3"]["status"]
 
     return {
         "source": "local-upbit-live-execution-reports",
@@ -207,6 +255,7 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         "latest": latest,
         "dailySummary": daily_summary,
         "governance": governance,
+        "phaseAssessment": phase_assessment,
         "guardrails": {
             "universe": "Full Upbit KRW spot universe",
             "minThirtyMinuteCandles": 337,
