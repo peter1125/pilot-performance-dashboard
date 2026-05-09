@@ -165,6 +165,50 @@ class UpbitDataTests(unittest.TestCase):
         self.assertIn("frozen_trading_disabled", " ".join(phases["phase1"]["evidence"]))
         self.assertEqual(payload["summary"]["phase1Status"], "complete_active")
 
+    def test_phase_assessment_marks_phase1_and_phase2_complete_from_verified_state_after_skip(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            report = {
+                "timestamp_kst": "2026-05-08T05:00:00+09:00",
+                "mode": "live",
+                "observed_nav_before_krw": 1000000,
+                "observed_nav_after_krw": 1010000,
+                "weights_after": {"ONDO": 0.8, "Cash": 0.2},
+                "target_weights": {"ONDO": 0.8, "Cash": 0.2},
+                "executions": [],
+                "warnings": [],
+                "ranked_candidates": [],
+                "methodology": {"phase2_enabled": True},
+            }
+            (root / "a.json").write_text(json.dumps(report))
+            (root / "live_state.json").write_text(json.dumps({
+                "last_run_status": "skipped_recent_run",
+                "pending_orders": [],
+                "trading_enabled": True,
+                "last_phase2_enabled": True,
+                "last_decision_candle_time_kst": "2026-05-08T04:30:00+09:00",
+                "last_price_snapshot_time_kst": "2026-05-08T05:00:00+09:00",
+            }))
+            daily_dir = root / "daily"
+            gov_dir = root / "governance"
+            daily_dir.mkdir()
+            gov_dir.mkdir()
+            (daily_dir / "latest.json").write_text(json.dumps({"targetChanges": 2, "legacyUnresolvedOrderCount": 0}))
+            (gov_dir / "status.json").write_text(json.dumps({
+                "status": "ok",
+                "pendingOrderCount": 0,
+                "tradingEnabled": True,
+                "phase2Enabled": True,
+            }))
+
+            payload = build_upbit_payload(root)
+
+        phases = payload["phaseAssessment"]
+        self.assertEqual(phases["phase1"]["status"], "complete_active")
+        self.assertEqual(phases["phase2"]["status"], "complete_active")
+        self.assertIn("trading gate is enabled", " ".join(phases["phase1"]["evidence"]))
+        self.assertIn("phase2Enabled=True", " ".join(phases["phase2"]["evidence"]))
+
 
 if __name__ == "__main__":
     unittest.main()

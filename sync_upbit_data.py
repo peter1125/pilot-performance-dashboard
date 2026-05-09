@@ -145,10 +145,13 @@ def build_phase_assessment(state: dict[str, Any] | None, daily_summary: dict[str
     governance = governance or {}
     last_status = state.get("last_run_status") or governance.get("lastRunStatus") or "unknown"
     pending_count = governance.get("pendingOrderCount", len(state.get("pending_orders") or []))
+    trading_enabled = state.get("trading_enabled") if state.get("trading_enabled") is not None else governance.get("tradingEnabled")
     trading_disabled = any("TRADING_ENABLED" in str(w) for w in (state.get("last_warnings") or [])) or last_status == "frozen_trading_disabled"
-    phase1_status = "complete_active" if pending_count == 0 and (trading_disabled or last_status in {"ok", "dry_run"}) else "needs_review"
+    phase1_gate_verified = trading_enabled is True or trading_disabled
+    phase1_status = "complete_active" if pending_count == 0 and phase1_gate_verified and last_status not in {"unknown", "error", "reconciliation_mismatch", "pending_orders"} else "needs_review"
     phase3_status = "complete_active" if daily_summary and governance and governance.get("status") not in {None, "unknown"} else "needs_generation"
     phase2_enabled = bool(state.get("phase2_enabled") or state.get("last_phase2_enabled") or governance.get("phase2Enabled"))
+    phase2_status = "complete_active" if phase2_enabled else "planned_flag_off"
     return {
         "phase1": {
             "title": "Phase 1 — Safety hardening",
@@ -157,16 +160,18 @@ def build_phase_assessment(state: dict[str, Any] | None, daily_summary: dict[str
             "evidence": [
                 f"last_run_status={last_status}",
                 f"pendingOrderCount={pending_count}",
-                "trading gate is enabled for live execution" if last_status == "ok" else ("PILOT3_TRADING_ENABLED gate observed" if trading_disabled else "trading gate evidence unavailable"),
+                "trading gate is enabled for live execution" if trading_enabled is True else ("PILOT3_TRADING_ENABLED gate observed fail-closed" if trading_disabled else "trading gate evidence unavailable"),
             ],
         },
         "phase2": {
             "title": "Phase 2 — Methodology robustness",
-            "status": "enabled" if phase2_enabled else "planned_flag_off",
+            "status": phase2_status,
             "summary": "Closed-candle metadata, hysteresis, rebalance bands, orderbook spread checks, and churn controls are live-enabled." if phase2_enabled else "Closed-candle freshness, hysteresis/hold-period, churn/fee controls, orderbook checks, and walk-forward validation remain planned behind a disabled flag.",
             "evidence": [
                 f"phase2Enabled={phase2_enabled}",
                 "Phase 2 controls are active in live reports." if phase2_enabled else "No live methodology change is active unless this flag is enabled.",
+                f"signalCandle={state.get('last_decision_candle_time_kst', 'unknown')}",
+                f"priceSnapshot={state.get('last_price_snapshot_time_kst', 'unknown')}",
             ],
         },
         "phase3": {

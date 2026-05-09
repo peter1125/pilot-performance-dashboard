@@ -1,6 +1,6 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-09T04:08:40.388535+00:00",
+  "refreshedAt": "2026-05-09T04:37:15.910282+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
@@ -22,8 +22,8 @@
     "feeDragTodayKrw": 2959.730069158522,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
-    "phase1Status": "needs_review",
-    "phase2Status": "planned_flag_off",
+    "phase1Status": "complete_active",
+    "phase2Status": "complete_active",
     "phase3Status": "complete_active"
   },
   "equitySeries": [
@@ -15197,36 +15197,38 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-05-09T13:08:40.366153+09:00",
-    "latestReportAgeMinutes": 3.60610255,
+    "updatedAt": "2026-05-09T13:31:20.226649+09:00",
+    "latestReportAgeMinutes": 26.27044415,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "skipped_recent_run",
     "lastRunId": "da18f190-35b0-4e4b-ace0-937b11e0a351",
-    "tradingEnabled": null,
-    "phase2Enabled": false,
+    "tradingEnabled": true,
+    "phase2Enabled": true,
     "alerts": []
   },
   "phaseAssessment": {
     "phase1": {
       "title": "Phase 1 — Safety hardening",
-      "status": "needs_review",
+      "status": "complete_active",
       "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and risk limit checks are active.",
       "evidence": [
         "last_run_status=skipped_recent_run",
         "pendingOrderCount=0",
-        "trading gate evidence unavailable"
+        "trading gate is enabled for live execution"
       ]
     },
     "phase2": {
       "title": "Phase 2 — Methodology robustness",
-      "status": "planned_flag_off",
-      "summary": "Closed-candle freshness, hysteresis/hold-period, churn/fee controls, orderbook checks, and walk-forward validation remain planned behind a disabled flag.",
+      "status": "complete_active",
+      "summary": "Closed-candle metadata, hysteresis, rebalance bands, orderbook spread checks, and churn controls are live-enabled.",
       "evidence": [
-        "phase2Enabled=False",
-        "No live methodology change is active unless this flag is enabled."
+        "phase2Enabled=True",
+        "Phase 2 controls are active in live reports.",
+        "signalCandle=2026-05-09T13:00:00",
+        "priceSnapshot=2026-05-09T13:03:47+09:00"
       ]
     },
     "phase3": {
