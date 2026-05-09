@@ -1,25 +1,25 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-09T22:38:54.885619+00:00",
+  "refreshedAt": "2026-05-09T23:08:24.925336+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
-    "currentNav": 841001,
+    "currentNav": 835002,
     "startingNav": 1000247,
-    "totalPnlKrw": -159246,
-    "totalReturnPct": -15.92066759510401,
-    "latestTime": "2026-05-10T07:33:02+09:00",
+    "totalPnlKrw": -165245,
+    "totalReturnPct": -16.52041945639427,
+    "latestTime": "2026-05-10T08:03:58+09:00",
     "latestStatus": "risk_freeze",
-    "currentAllocation": "SAHARA 62.2%, Cash 23.8%, ICP 14.1%",
-    "targetAllocation": "SAHARA 60.0%, DEEP 25.0%, CPOOL 15.0%",
-    "latestRegime": "normal; 24h breadth 47%, 7d breadth 85%; 7d leaders SAHARA +56.9%, ICP +50.5%, ONDO +48.6%",
+    "currentAllocation": "SAHARA 61.9%, Cash 23.9%, ICP 14.1%",
+    "targetAllocation": "SAHARA 60.0%, CPOOL 25.0%, DEEP 15.0%",
+    "latestRegime": "normal; 24h breadth 51%, 7d breadth 87%; 7d leaders SAHARA +55.7%, ICP +49.8%, ONDO +48.8%",
     "latestReason": "risk freeze active: daily loss -9.02% breached max 8.00%",
-    "reportCount": 125,
+    "reportCount": 126,
     "tradeCount": 129,
     "cumulativeFeesKrw": 12743.924045014797,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": -2552,
-    "dailyReturnPct": -0.3025298943871932,
+    "dailyPnlKrw": -8551,
+    "dailyReturnPct": -1.0136885293514455,
     "feeDragTodayKrw": 0,
     "pendingOrderCount": 0,
     "governanceStatus": "frozen",
@@ -15106,6 +15106,103 @@
         "leverage_implemented": false,
         "non_pilot3_discretionary_trades_allowed": false
       }
+    },
+    {
+      "time": "2026-05-10T08:03:58+09:00",
+      "date": "2026-05-10",
+      "sourceFile": "pilot3_live_executor_20260510_080358.json",
+      "status": "risk_freeze",
+      "reason": "risk freeze active: daily loss -9.02% breached max 8.00%",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 51%, 7d breadth 87%; 7d leaders SAHARA +55.7%, ICP +49.8%, ONDO +48.8%",
+      "targetReason": "risk freeze active; no orders submitted",
+      "targetWeights": {
+        "SAHARA": 0.6,
+        "CPOOL": 0.25,
+        "DEEP": 0.15
+      },
+      "targetText": "SAHARA 60.0%, CPOOL 25.0%, DEEP 15.0%",
+      "weightsBefore": {
+        "Cash": 0.2394932823901648,
+        "ICP": 0.14111181281142124,
+        "SAHARA": 0.6193949047984139
+      },
+      "weightsAfter": {
+        "Cash": 0.2394932823901648,
+        "ICP": 0.14111181281142124,
+        "SAHARA": 0.6193949047984139
+      },
+      "allocationText": "SAHARA 61.9%, Cash 23.9%, ICP 14.1%",
+      "navBefore": 835002,
+      "navAfter": 835002,
+      "pnlKrw": 0,
+      "returnPct": 0.0,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 12743.924045014797,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "SAHARA",
+          "r24Pct": 23.947,
+          "r7Pct": 55.71,
+          "scorePct": 35.089
+        },
+        {
+          "symbol": "CPOOL",
+          "r24Pct": 9.698,
+          "r7Pct": 32.898,
+          "scorePct": 16.278
+        },
+        {
+          "symbol": "DEEP",
+          "r24Pct": 10.02,
+          "r7Pct": 29.952,
+          "scorePct": 16.011
+        },
+        {
+          "symbol": "AERO",
+          "r24Pct": 12.048,
+          "r7Pct": 10.55,
+          "scorePct": 14.158
+        },
+        {
+          "symbol": "CARV",
+          "r24Pct": 10.142,
+          "r7Pct": 16.898,
+          "scorePct": 13.521
+        },
+        {
+          "symbol": "BIO",
+          "r24Pct": 13.061,
+          "r7Pct": 0.942,
+          "scorePct": 13.249
+        },
+        {
+          "symbol": "CFG",
+          "r24Pct": 3.944,
+          "r7Pct": 44.984,
+          "scorePct": 12.941
+        },
+        {
+          "symbol": "LAYER",
+          "r24Pct": 9.848,
+          "r7Pct": 14.173,
+          "scorePct": 12.683
+        }
+      ],
+      "warnings": [
+        "risk freeze active: daily loss -9.02% breached max 8.00%"
+      ],
+      "safety": {
+        "orders_submitted": false,
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      }
     }
   ],
   "transactions": [
@@ -17304,33 +17401,33 @@
     }
   ],
   "latest": {
-    "time": "2026-05-10T07:33:02+09:00",
+    "time": "2026-05-10T08:03:58+09:00",
     "date": "2026-05-10",
-    "sourceFile": "pilot3_live_executor_20260510_073302.json",
+    "sourceFile": "pilot3_live_executor_20260510_080358.json",
     "status": "risk_freeze",
     "reason": "risk freeze active: daily loss -9.02% breached max 8.00%",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 47%, 7d breadth 85%; 7d leaders SAHARA +56.9%, ICP +50.5%, ONDO +48.6%",
+    "regimeNote": "normal; 24h breadth 51%, 7d breadth 87%; 7d leaders SAHARA +55.7%, ICP +49.8%, ONDO +48.8%",
     "targetReason": "risk freeze active; no orders submitted",
     "targetWeights": {
       "SAHARA": 0.6,
-      "DEEP": 0.25,
-      "CPOOL": 0.15
+      "CPOOL": 0.25,
+      "DEEP": 0.15
     },
-    "targetText": "SAHARA 60.0%, DEEP 25.0%, CPOOL 15.0%",
+    "targetText": "SAHARA 60.0%, CPOOL 25.0%, DEEP 15.0%",
     "weightsBefore": {
-      "Cash": 0.2377848475617119,
-      "ICP": 0.14063790543688345,
-      "SAHARA": 0.6215772470014047
+      "Cash": 0.2394932823901648,
+      "ICP": 0.14111181281142124,
+      "SAHARA": 0.6193949047984139
     },
     "weightsAfter": {
-      "Cash": 0.2377848475617119,
-      "ICP": 0.14063790543688345,
-      "SAHARA": 0.6215772470014047
+      "Cash": 0.2394932823901648,
+      "ICP": 0.14111181281142124,
+      "SAHARA": 0.6193949047984139
     },
-    "allocationText": "SAHARA 62.2%, Cash 23.8%, ICP 14.1%",
-    "navBefore": 841001,
-    "navAfter": 841001,
+    "allocationText": "SAHARA 61.9%, Cash 23.9%, ICP 14.1%",
+    "navBefore": 835002,
+    "navAfter": 835002,
     "pnlKrw": 0,
     "returnPct": 0.0,
     "plannedSells": [],
@@ -17342,51 +17439,51 @@
     "rankedCandidates": [
       {
         "symbol": "SAHARA",
-        "r24Pct": 24.724,
-        "r7Pct": 56.944,
-        "scorePct": 36.113
-      },
-      {
-        "symbol": "DEEP",
-        "r24Pct": 10.861,
-        "r7Pct": 30.993,
-        "scorePct": 17.059
+        "r24Pct": 23.947,
+        "r7Pct": 55.71,
+        "scorePct": 35.089
       },
       {
         "symbol": "CPOOL",
-        "r24Pct": 10.086,
-        "r7Pct": 33.943,
-        "scorePct": 16.874
+        "r24Pct": 9.698,
+        "r7Pct": 32.898,
+        "scorePct": 16.278
       },
       {
-        "symbol": "CARV",
-        "r24Pct": 11.72,
-        "r7Pct": 18.467,
-        "scorePct": 15.413
-      },
-      {
-        "symbol": "BIO",
-        "r24Pct": 14.437,
-        "r7Pct": 0.116,
-        "scorePct": 14.46
-      },
-      {
-        "symbol": "LAYER",
-        "r24Pct": 11.45,
-        "r7Pct": 14.961,
-        "scorePct": 14.443
+        "symbol": "DEEP",
+        "r24Pct": 10.02,
+        "r7Pct": 29.952,
+        "scorePct": 16.011
       },
       {
         "symbol": "AERO",
-        "r24Pct": 11.642,
-        "r7Pct": 10.979,
-        "scorePct": 13.838
+        "r24Pct": 12.048,
+        "r7Pct": 10.55,
+        "scorePct": 14.158
+      },
+      {
+        "symbol": "CARV",
+        "r24Pct": 10.142,
+        "r7Pct": 16.898,
+        "scorePct": 13.521
+      },
+      {
+        "symbol": "BIO",
+        "r24Pct": 13.061,
+        "r7Pct": 0.942,
+        "scorePct": 13.249
       },
       {
         "symbol": "CFG",
-        "r24Pct": 3.935,
-        "r7Pct": 45.307,
-        "scorePct": 12.997
+        "r24Pct": 3.944,
+        "r7Pct": 44.984,
+        "scorePct": 12.941
+      },
+      {
+        "symbol": "LAYER",
+        "r24Pct": 9.848,
+        "r7Pct": 14.173,
+        "scorePct": 12.683
       }
     ],
     "warnings": [
@@ -17403,23 +17500,23 @@
   "dailySummary": {
     "dateKst": "2026-05-10",
     "navStart": 843553,
-    "navEnd": 841001,
-    "pnlKrw": -2552,
-    "returnPct": -0.3025298943871932,
+    "navEnd": 835002,
+    "pnlKrw": -8551,
+    "returnPct": -1.0136885293514455,
     "highNav": 850619,
-    "lowNav": 841001,
-    "maxIntradayDrawdownPct": -1.1307059917542401,
+    "lowNav": 835002,
+    "maxIntradayDrawdownPct": -1.835957108881885,
     "orderCount": 0,
     "filledOrderCount": 0,
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 0,
-    "reportCount": 4,
+    "reportCount": 5,
     "turnoverKrw": 0,
     "actualFeesKrw": 0.0,
     "estimatedFeesKrw": 0.0,
     "feeDragPctOfStartNav": 0.0,
-    "targetChanges": 3,
+    "targetChanges": 4,
     "riskEvents": [
       "risk freeze active: daily loss -9.02% breached max 8.00%"
     ],
@@ -17431,14 +17528,14 @@
   "governance": {
     "status": "frozen",
     "severity": 2,
-    "updatedAt": "2026-05-10T07:38:54.863230+09:00",
-    "latestReportAgeMinutes": 5.8810538333333335,
+    "updatedAt": "2026-05-10T08:08:24.902790+09:00",
+    "latestReportAgeMinutes": 4.448379833333333,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": true,
     "riskFreezeReason": "daily loss -9.02% breached max 8.00%",
     "lastRunStatus": "risk_freeze",
-    "lastRunId": "65459120-9e06-4d95-9ce3-9b6948763df2",
+    "lastRunId": "5108a4cd-4c68-4cff-bd29-920de5cf293f",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": [
@@ -17473,7 +17570,7 @@
       "summary": "Daily summary, governance status, dashboard schema, public UI cards, and dashboard publisher are active/reporting-only.",
       "evidence": [
         "governanceStatus=frozen",
-        "targetChangesToday=3",
+        "targetChangesToday=4",
         "legacyUnresolvedOrderCount=0"
       ]
     }
