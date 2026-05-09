@@ -1,6 +1,6 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-09T09:38:22.982104+00:00",
+  "refreshedAt": "2026-05-09T10:08:40.721323+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
@@ -21,7 +21,7 @@
     "dailyReturnPct": -8.059394406828343,
     "feeDragTodayKrw": 5394.220212244525,
     "pendingOrderCount": 0,
-    "governanceStatus": "ok",
+    "governanceStatus": "frozen",
     "phase1Status": "complete_active",
     "phase2Status": "complete_active",
     "phase3Status": "complete_active"
@@ -16901,19 +16901,21 @@
     "notes": []
   },
   "governance": {
-    "status": "ok",
-    "severity": 0,
-    "updatedAt": "2026-05-09T18:38:22.960389+09:00",
-    "latestReportAgeMinutes": 1.7493398166666667,
+    "status": "frozen",
+    "severity": 2,
+    "updatedAt": "2026-05-09T19:08:40.699879+09:00",
+    "latestReportAgeMinutes": 5.728331316666667,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
-    "riskFreezeActive": false,
-    "riskFreezeReason": null,
-    "lastRunStatus": "skipped_recent_run",
-    "lastRunId": "33cd9c38-d13f-4a00-9ea4-6a6ffb67d091",
+    "riskFreezeActive": true,
+    "riskFreezeReason": "daily loss -9.02% breached max 8.00%",
+    "lastRunStatus": "risk_freeze",
+    "lastRunId": "7fe973b2-7647-4b6d-9660-9fcc6af127e0",
     "tradingEnabled": true,
     "phase2Enabled": true,
-    "alerts": []
+    "alerts": [
+      "Risk freeze active: daily loss -9.02% breached max 8.00%"
+    ]
   },
   "phaseAssessment": {
     "phase1": {
@@ -16921,7 +16923,7 @@
       "status": "complete_active",
       "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and risk limit checks are active.",
       "evidence": [
-        "last_run_status=skipped_recent_run",
+        "last_run_status=risk_freeze",
         "pendingOrderCount=0",
         "trading gate is enabled for live execution"
       ]
@@ -16942,7 +16944,7 @@
       "status": "complete_active",
       "summary": "Daily summary, governance status, dashboard schema, public UI cards, and dashboard publisher are active/reporting-only.",
       "evidence": [
-        "governanceStatus=ok",
+        "governanceStatus=frozen",
         "targetChangesToday=20",
         "legacyUnresolvedOrderCount=0"
       ]
