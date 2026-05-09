@@ -1,25 +1,25 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-09T07:09:50.285484+00:00",
+  "refreshedAt": "2026-05-09T07:39:32.500366+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
-    "currentNav": 838380,
+    "currentNav": 838257,
     "startingNav": 1000247,
-    "totalPnlKrw": -161867,
-    "totalReturnPct": -16.18270287239052,
-    "latestTime": "2026-05-09T16:06:38+09:00",
-    "currentAllocation": "Cash 60.0%, ONDO 25.1%, DEEP 15.0%",
+    "totalPnlKrw": -161990,
+    "totalReturnPct": -16.194999835040743,
+    "latestTime": "2026-05-09T16:36:30+09:00",
+    "currentAllocation": "ONDO 60.0%, Cash 24.9%, DEEP 15.1%",
     "targetAllocation": "ONDO 60.0%, PLUME 25.0%, DEEP 15.0%",
-    "latestRegime": "normal; 24h breadth 91%, 7d breadth 85%; 7d leaders ONDO +60.6%, ICP +56.7%, JTO +53.7%",
-    "latestReason": "three strong breakouts -> 60% / 25% / 15%",
-    "reportCount": 116,
-    "tradeCount": 117,
-    "cumulativeFeesKrw": 10829.862460080543,
+    "latestRegime": "normal; 24h breadth 88%, 7d breadth 86%; 7d leaders ONDO +60.1%, ICP +57.7%, CFG +56.7%",
+    "latestReason": "three strong breakouts -> 60% / 25% / 15%; Phase 2 hysteresis adjusted target",
+    "reportCount": 117,
+    "tradeCount": 118,
+    "cumulativeFeesKrw": 10976.802960077914,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": -35507,
-    "dailyReturnPct": -4.063111134505949,
-    "feeDragTodayKrw": 3480.1586273102707,
+    "dailyPnlKrw": -35630,
+    "dailyReturnPct": -4.077186180822006,
+    "feeDragTodayKrw": 3627.0991273076406,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
     "phase1Status": "complete_active",
@@ -13663,6 +13663,132 @@
         "leverage_implemented": false,
         "non_pilot3_discretionary_trades_allowed": false
       }
+    },
+    {
+      "time": "2026-05-09T16:36:30+09:00",
+      "date": "2026-05-09",
+      "sourceFile": "pilot3_live_executor_20260509_163630.json",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 88%, 7d breadth 86%; 7d leaders ONDO +60.1%, ICP +57.7%, CFG +56.7%",
+      "targetReason": "three strong breakouts -> 60% / 25% / 15%; Phase 2 hysteresis adjusted target",
+      "targetWeights": {
+        "ONDO": 0.6,
+        "PLUME": 0.25,
+        "DEEP": 0.15
+      },
+      "targetText": "ONDO 60.0%, PLUME 25.0%, DEEP 15.0%",
+      "weightsBefore": {
+        "Cash": 0.5992839936778193,
+        "ONDO": 0.24966381892190279,
+        "DEEP": 0.1510521874002779
+      },
+      "weightsAfter": {
+        "Cash": 0.24895031116980793,
+        "ONDO": 0.6004277023596608,
+        "DEEP": 0.15062198647053132
+      },
+      "allocationText": "ONDO 60.0%, Cash 24.9%, DEEP 15.1%",
+      "navBefore": 838855,
+      "navAfter": 838257,
+      "pnlKrw": -598,
+      "returnPct": -0.07128764804406006,
+      "plannedSells": [],
+      "plannedBuys": [
+        {
+          "side": "BUY",
+          "symbol": "ONDO",
+          "market": "KRW-ONDO",
+          "price_krw": 293881.1968046832,
+          "ref_price": 642.0
+        }
+      ],
+      "executions": [
+        {
+          "time": "2026-05-09T16:36:30+09:00",
+          "side": "BUY",
+          "symbol": "ONDO",
+          "market": "KRW-ONDO",
+          "notionalKrw": 293881,
+          "feeKrw": 146.94049999737,
+          "uuid": "39a02b30-0d26-44ef-8fb3-52a5fe75dc22",
+          "state": "filled",
+          "finalState": "cancel",
+          "executionStatus": "filled",
+          "executedVolume": 457.75856697,
+          "remainingVolume": null,
+          "actualFeeKrw": 146.94049999737,
+          "feeSource": "actual",
+          "cumulativeFeesKrw": 10976.802960077914
+        }
+      ],
+      "feesKrw": 146.94049999737,
+      "cumulativeFeesKrw": 10976.802960077914,
+      "tradeCount": 1,
+      "rankedCandidates": [
+        {
+          "symbol": "ONDO",
+          "r24Pct": 18.669,
+          "r7Pct": 60.1,
+          "scorePct": 30.689
+        },
+        {
+          "symbol": "CFG",
+          "r24Pct": 19.268,
+          "r7Pct": 56.731,
+          "scorePct": 30.614
+        },
+        {
+          "symbol": "DEEP",
+          "r24Pct": 22.44,
+          "r7Pct": 37.073,
+          "scorePct": 29.855
+        },
+        {
+          "symbol": "PLUME",
+          "r24Pct": 20.745,
+          "r7Pct": 35.119,
+          "scorePct": 27.768
+        },
+        {
+          "symbol": "JUP",
+          "r24Pct": 18.874,
+          "r7Pct": 34.962,
+          "scorePct": 25.867
+        },
+        {
+          "symbol": "SAHARA",
+          "r24Pct": 16.986,
+          "r7Pct": 42.566,
+          "scorePct": 25.499
+        },
+        {
+          "symbol": "ICP",
+          "r24Pct": 11.552,
+          "r7Pct": 57.706,
+          "scorePct": 23.093
+        },
+        {
+          "symbol": "AKT",
+          "r24Pct": 14.603,
+          "r7Pct": 42.313,
+          "scorePct": 23.066
+        }
+      ],
+      "warnings": [
+        "market data warning: PROS: only 41 30m candles",
+        "market data warning: B3: only 102 30m candles",
+        "market data warning: WIF: only 146 30m candles",
+        "market data warning: universe guardrails rejected 107 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 1 orders within limit 6",
+        "Phase 2 buys rejected PLUME: spread 87.7 bps exceeds 30.0 bps"
+      ],
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      }
     }
   ],
   "transactions": [
@@ -15654,15 +15780,32 @@
       "actualFeeKrw": 62.904499999974,
       "feeSource": "actual",
       "cumulativeFeesKrw": 10829.862460080543
+    },
+    {
+      "time": "2026-05-09T16:36:30+09:00",
+      "side": "BUY",
+      "symbol": "ONDO",
+      "market": "KRW-ONDO",
+      "notionalKrw": 293881,
+      "feeKrw": 146.94049999737,
+      "uuid": "39a02b30-0d26-44ef-8fb3-52a5fe75dc22",
+      "state": "filled",
+      "finalState": "cancel",
+      "executionStatus": "filled",
+      "executedVolume": 457.75856697,
+      "remainingVolume": null,
+      "actualFeeKrw": 146.94049999737,
+      "feeSource": "actual",
+      "cumulativeFeesKrw": 10976.802960077914
     }
   ],
   "latest": {
-    "time": "2026-05-09T16:06:38+09:00",
+    "time": "2026-05-09T16:36:30+09:00",
     "date": "2026-05-09",
-    "sourceFile": "pilot3_live_executor_20260509_160638.json",
+    "sourceFile": "pilot3_live_executor_20260509_163630.json",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 91%, 7d breadth 85%; 7d leaders ONDO +60.6%, ICP +56.7%, JTO +53.7%",
-    "targetReason": "three strong breakouts -> 60% / 25% / 15%",
+    "regimeNote": "normal; 24h breadth 88%, 7d breadth 86%; 7d leaders ONDO +60.1%, ICP +57.7%, CFG +56.7%",
+    "targetReason": "three strong breakouts -> 60% / 25% / 15%; Phase 2 hysteresis adjusted target",
     "targetWeights": {
       "ONDO": 0.6,
       "PLUME": 0.25,
@@ -15670,137 +15813,110 @@
     },
     "targetText": "ONDO 60.0%, PLUME 25.0%, DEEP 15.0%",
     "weightsBefore": {
-      "Cash": 0.602444014888309,
-      "ONDO": 0.250478863960562,
-      "JUP": 0.14707712115112886
+      "Cash": 0.5992839936778193,
+      "ONDO": 0.24966381892190279,
+      "DEEP": 0.1510521874002779
     },
     "weightsAfter": {
-      "Cash": 0.5996234475657697,
-      "ONDO": 0.2505834460650135,
-      "DEEP": 0.14979310636921686
+      "Cash": 0.24895031116980793,
+      "ONDO": 0.6004277023596608,
+      "DEEP": 0.15062198647053132
     },
-    "allocationText": "Cash 60.0%, ONDO 25.1%, DEEP 15.0%",
-    "navBefore": 838730,
-    "navAfter": 838380,
-    "pnlKrw": -350,
-    "returnPct": -0.04172975808663098,
-    "plannedSells": [
-      {
-        "side": "SELL",
-        "symbol": "JUP",
-        "market": "KRW-JUP",
-        "volume": 342.66108976,
-        "notional_krw_est": 123357.9923136,
-        "ref_price": 360.0
-      }
-    ],
+    "allocationText": "ONDO 60.0%, Cash 24.9%, DEEP 15.1%",
+    "navBefore": 838855,
+    "navAfter": 838257,
+    "pnlKrw": -598,
+    "returnPct": -0.07128764804406006,
+    "plannedSells": [],
     "plannedBuys": [
       {
         "side": "BUY",
-        "symbol": "DEEP",
-        "market": "KRW-DEEP",
-        "price_krw": 125809.4984605155,
-        "ref_price": 55.8
+        "symbol": "ONDO",
+        "market": "KRW-ONDO",
+        "price_krw": 293881.1968046832,
+        "ref_price": 642.0
       }
     ],
     "executions": [
       {
-        "time": "2026-05-09T16:06:38+09:00",
-        "side": "SELL",
-        "symbol": "JUP",
-        "market": "KRW-JUP",
-        "notionalKrw": 123358,
-        "feeKrw": 61.6789961568,
-        "uuid": "8c924e03-448e-4908-819e-a7a98b60e953",
-        "state": "filled",
-        "finalState": "done",
-        "executionStatus": "filled",
-        "executedVolume": 342.66108976,
-        "remainingVolume": "0",
-        "actualFeeKrw": 61.6789961568,
-        "feeSource": "actual",
-        "cumulativeFeesKrw": 10829.862460080543
-      },
-      {
-        "time": "2026-05-09T16:06:38+09:00",
+        "time": "2026-05-09T16:36:30+09:00",
         "side": "BUY",
-        "symbol": "DEEP",
-        "market": "KRW-DEEP",
-        "notionalKrw": 125809,
-        "feeKrw": 62.904499999974,
-        "uuid": "fe6fee3d-b32d-4242-a761-e058b87f7e34",
+        "symbol": "ONDO",
+        "market": "KRW-ONDO",
+        "notionalKrw": 293881,
+        "feeKrw": 146.94049999737,
+        "uuid": "39a02b30-0d26-44ef-8fb3-52a5fe75dc22",
         "state": "filled",
         "finalState": "cancel",
         "executionStatus": "filled",
-        "executedVolume": 2254.64157706,
+        "executedVolume": 457.75856697,
         "remainingVolume": null,
-        "actualFeeKrw": 62.904499999974,
+        "actualFeeKrw": 146.94049999737,
         "feeSource": "actual",
-        "cumulativeFeesKrw": 10829.862460080543
+        "cumulativeFeesKrw": 10976.802960077914
       }
     ],
-    "feesKrw": 124.583496156774,
-    "cumulativeFeesKrw": 10829.862460080543,
-    "tradeCount": 2,
+    "feesKrw": 146.94049999737,
+    "cumulativeFeesKrw": 10976.802960077914,
+    "tradeCount": 1,
     "rankedCandidates": [
       {
         "symbol": "ONDO",
-        "r24Pct": 21.281,
-        "r7Pct": 60.599,
-        "scorePct": 33.4
-      },
-      {
-        "symbol": "PLUME",
-        "r24Pct": 24.064,
-        "r7Pct": 37.278,
-        "scorePct": 31.52
-      },
-      {
-        "symbol": "DEEP",
-        "r24Pct": 22.637,
-        "r7Pct": 37.101,
-        "scorePct": 30.058
-      },
-      {
-        "symbol": "JUP",
-        "r24Pct": 19.601,
-        "r7Pct": 35.338,
-        "scorePct": 26.669
+        "r24Pct": 18.669,
+        "r7Pct": 60.1,
+        "scorePct": 30.689
       },
       {
         "symbol": "CFG",
-        "r24Pct": 15.686,
-        "r7Pct": 51.768,
-        "scorePct": 26.04
+        "r24Pct": 19.268,
+        "r7Pct": 56.731,
+        "scorePct": 30.614
       },
       {
-        "symbol": "AKT",
-        "r24Pct": 15.97,
-        "r7Pct": 42.368,
-        "scorePct": 24.444
+        "symbol": "DEEP",
+        "r24Pct": 22.44,
+        "r7Pct": 37.073,
+        "scorePct": 29.855
+      },
+      {
+        "symbol": "PLUME",
+        "r24Pct": 20.745,
+        "r7Pct": 35.119,
+        "scorePct": 27.768
+      },
+      {
+        "symbol": "JUP",
+        "r24Pct": 18.874,
+        "r7Pct": 34.962,
+        "scorePct": 25.867
       },
       {
         "symbol": "SAHARA",
-        "r24Pct": 16.067,
-        "r7Pct": 40.698,
-        "scorePct": 24.207
+        "r24Pct": 16.986,
+        "r7Pct": 42.566,
+        "scorePct": 25.499
       },
       {
         "symbol": "ICP",
-        "r24Pct": 12.564,
-        "r7Pct": 56.68,
-        "scorePct": 23.9
+        "r24Pct": 11.552,
+        "r7Pct": 57.706,
+        "scorePct": 23.093
+      },
+      {
+        "symbol": "AKT",
+        "r24Pct": 14.603,
+        "r7Pct": 42.313,
+        "scorePct": 23.066
       }
     ],
     "warnings": [
-      "market data warning: PROS: only 40 30m candles",
-      "market data warning: B3: only 101 30m candles",
-      "market data warning: WIF: only 145 30m candles",
+      "market data warning: PROS: only 41 30m candles",
+      "market data warning: B3: only 102 30m candles",
+      "market data warning: WIF: only 146 30m candles",
       "market data warning: universe guardrails rejected 107 KRW markets",
       "risk preflight: risk checks passed",
-      "order count preflight: planned 2 orders within limit 6",
-      "Phase 2 buys rejected ONDO: spread 31.1 bps exceeds 30.0 bps",
-      "Phase 2 buys rejected PLUME: spread 43.0 bps exceeds 30.0 bps"
+      "order count preflight: planned 1 orders within limit 6",
+      "Phase 2 buys rejected PLUME: spread 87.7 bps exceeds 30.0 bps"
     ],
     "safety": {
       "capital_policy": "full_available_account_nav_percent_targets_only",
@@ -15812,22 +15928,22 @@
   "dailySummary": {
     "dateKst": "2026-05-09",
     "navStart": 873887,
-    "navEnd": 838380,
-    "pnlKrw": -35507,
-    "returnPct": -4.063111134505949,
+    "navEnd": 838257,
+    "pnlKrw": -35630,
+    "returnPct": -4.077186180822006,
     "highNav": 915522,
-    "lowNav": 838380,
-    "maxIntradayDrawdownPct": -8.426012700950933,
-    "orderCount": 38,
-    "filledOrderCount": 32,
+    "lowNav": 838257,
+    "maxIntradayDrawdownPct": -8.439447659368097,
+    "orderCount": 39,
+    "filledOrderCount": 33,
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
-    "tradeRuns": 18,
-    "reportCount": 30,
-    "turnoverKrw": 6963252,
-    "actualFeesKrw": 3480.1586273102707,
+    "tradeRuns": 19,
+    "reportCount": 31,
+    "turnoverKrw": 7257133,
+    "actualFeesKrw": 3627.0991273076406,
     "estimatedFeesKrw": 0.0,
-    "feeDragPctOfStartNav": 0.39823897452534146,
+    "feeDragPctOfStartNav": 0.4150535626811751,
     "targetChanges": 17,
     "riskEvents": [],
     "methodologyEvents": [],
@@ -15836,14 +15952,14 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-05-09T16:09:50.264258+09:00",
-    "latestReportAgeMinutes": 3.2044043,
+    "updatedAt": "2026-05-09T16:39:32.478843+09:00",
+    "latestReportAgeMinutes": 1.5746473833333332,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
-    "lastRunStatus": "ok",
-    "lastRunId": "f5342045-c651-40e1-9dad-4333fe43204c",
+    "lastRunStatus": "skipped_recent_run",
+    "lastRunId": "cc8d0b93-6e38-4f72-af58-09002f143346",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -15854,7 +15970,7 @@
       "status": "complete_active",
       "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and risk limit checks are active.",
       "evidence": [
-        "last_run_status=ok",
+        "last_run_status=skipped_recent_run",
         "pendingOrderCount=0",
         "trading gate is enabled for live execution"
       ]
@@ -15866,8 +15982,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-05-09T16:00:00",
-        "priceSnapshot=2026-05-09T16:06:38+09:00"
+        "signalCandle=2026-05-09T16:30:00",
+        "priceSnapshot=2026-05-09T16:36:30+09:00"
       ]
     },
     "phase3": {
