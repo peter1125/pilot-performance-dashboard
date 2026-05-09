@@ -1,24 +1,24 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-09T08:08:50.144741+00:00",
+  "refreshedAt": "2026-05-09T08:38:49.002050+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
-    "currentNav": 836671,
+    "currentNav": 833557,
     "startingNav": 1000247,
-    "totalPnlKrw": -163576,
-    "totalReturnPct": -16.353560670514383,
-    "latestTime": "2026-05-09T17:05:57+09:00",
-    "currentAllocation": "SAHARA 60.2%, CFG 24.7%, DEEP 15.1%, Cash 0.0%",
+    "totalPnlKrw": -166690,
+    "totalReturnPct": -16.664883773707896,
+    "latestTime": "2026-05-09T17:35:54+09:00",
+    "currentAllocation": "SAHARA 60.5%, CFG 24.5%, DEEP 15.0%, Cash 0.0%",
     "targetAllocation": "SAHARA 60.0%, CFG 25.0%, DEEP 15.0%",
-    "latestRegime": "normal; 24h breadth 88%, 7d breadth 87%; 7d leaders ONDO +60.3%, ICP +59.2%, CFG +57.9%",
-    "latestReason": "three strong breakouts -> 60% / 25% / 15%",
-    "reportCount": 118,
+    "latestRegime": "normal; 24h breadth 88%, 7d breadth 86%; 7d leaders ICP +57.1%, ONDO +56.4%, CFG +53.2%",
+    "latestReason": "three strong breakouts -> 60% / 25% / 15%; Phase 2 hysteresis adjusted target",
+    "reportCount": 119,
     "tradeCount": 121,
     "cumulativeFeesKrw": 11583.320321887908,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": -37216,
-    "dailyReturnPct": -4.258674176409536,
+    "dailyPnlKrw": -40330,
+    "dailyReturnPct": -4.615013153874585,
     "feeDragTodayKrw": 4233.616489117635,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
@@ -13965,6 +13965,109 @@
         "leverage_implemented": false,
         "non_pilot3_discretionary_trades_allowed": false
       }
+    },
+    {
+      "time": "2026-05-09T17:35:54+09:00",
+      "date": "2026-05-09",
+      "sourceFile": "pilot3_live_executor_20260509_173554.json",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 88%, 7d breadth 86%; 7d leaders ICP +57.1%, ONDO +56.4%, CFG +53.2%",
+      "targetReason": "three strong breakouts -> 60% / 25% / 15%; Phase 2 hysteresis adjusted target",
+      "targetWeights": {
+        "SAHARA": 0.6,
+        "CFG": 0.25,
+        "DEEP": 0.15
+      },
+      "targetText": "SAHARA 60.0%, CFG 25.0%, DEEP 15.0%",
+      "weightsBefore": {
+        "Cash": 0.00012047550635255308,
+        "CFG": 0.24277837548271833,
+        "DEEP": 0.14994889744248371,
+        "SAHARA": 0.6071522515684453
+      },
+      "weightsAfter": {
+        "Cash": 0.00012061207512820253,
+        "CFG": 0.2445695112206495,
+        "DEEP": 0.14984839223925886,
+        "SAHARA": 0.6054614844649635
+      },
+      "allocationText": "SAHARA 60.5%, CFG 24.5%, DEEP 15.0%, Cash 0.0%",
+      "navBefore": 834502,
+      "navAfter": 833557,
+      "pnlKrw": -945,
+      "returnPct": -0.11324119055436654,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 11583.320321887908,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "SAHARA",
+          "r24Pct": 23.43,
+          "r7Pct": 49.415,
+          "scorePct": 33.313
+        },
+        {
+          "symbol": "CFG",
+          "r24Pct": 17.032,
+          "r7Pct": 53.185,
+          "scorePct": 27.669
+        },
+        {
+          "symbol": "ICP",
+          "r24Pct": 16.187,
+          "r7Pct": 57.069,
+          "scorePct": 27.601
+        },
+        {
+          "symbol": "DEEP",
+          "r24Pct": 19.355,
+          "r7Pct": 35.036,
+          "scorePct": 26.362
+        },
+        {
+          "symbol": "ONDO",
+          "r24Pct": 14.493,
+          "r7Pct": 56.436,
+          "scorePct": 25.78
+        },
+        {
+          "symbol": "PLUME",
+          "r24Pct": 17.895,
+          "r7Pct": 33.333,
+          "scorePct": 24.561
+        },
+        {
+          "symbol": "JUP",
+          "r24Pct": 16.234,
+          "r7Pct": 35.606,
+          "scorePct": 23.355
+        },
+        {
+          "symbol": "AKT",
+          "r24Pct": 14.65,
+          "r7Pct": 42.48,
+          "scorePct": 23.146
+        }
+      ],
+      "warnings": [
+        "market data warning: PROS: only 43 30m candles",
+        "market data warning: B3: only 104 30m candles",
+        "market data warning: WIF: only 148 30m candles",
+        "market data warning: universe guardrails rejected 104 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 0 orders within limit 6",
+        "Phase 2 sells skipped SAHARA: within rebalance band (0.72% drift)",
+        "Phase 2 buys skipped CFG: within rebalance band (0.72% drift)"
+      ],
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      }
     }
   ],
   "transactions": [
@@ -16027,12 +16130,12 @@
     }
   ],
   "latest": {
-    "time": "2026-05-09T17:05:57+09:00",
+    "time": "2026-05-09T17:35:54+09:00",
     "date": "2026-05-09",
-    "sourceFile": "pilot3_live_executor_20260509_170557.json",
+    "sourceFile": "pilot3_live_executor_20260509_173554.json",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 88%, 7d breadth 87%; 7d leaders ONDO +60.3%, ICP +59.2%, CFG +57.9%",
-    "targetReason": "three strong breakouts -> 60% / 25% / 15%",
+    "regimeNote": "normal; 24h breadth 88%, 7d breadth 86%; 7d leaders ICP +57.1%, ONDO +56.4%, CFG +53.2%",
+    "targetReason": "three strong breakouts -> 60% / 25% / 15%; Phase 2 hysteresis adjusted target",
     "targetWeights": {
       "SAHARA": 0.6,
       "CFG": 0.25,
@@ -16040,160 +16143,87 @@
     },
     "targetText": "SAHARA 60.0%, CFG 25.0%, DEEP 15.0%",
     "weightsBefore": {
-      "Cash": 0.24858410171762418,
-      "ONDO": 0.6004783345434944,
-      "DEEP": 0.15093756373888143
+      "Cash": 0.00012047550635255308,
+      "CFG": 0.24277837548271833,
+      "DEEP": 0.14994889744248371,
+      "SAHARA": 0.6071522515684453
     },
     "weightsAfter": {
-      "Cash": 0.00012016317758927771,
-      "CFG": 0.24667983468510132,
-      "DEEP": 0.15117702648156806,
-      "SAHARA": 0.6020229756557413
+      "Cash": 0.00012061207512820253,
+      "CFG": 0.2445695112206495,
+      "DEEP": 0.14984839223925886,
+      "SAHARA": 0.6054614844649635
     },
-    "allocationText": "SAHARA 60.2%, CFG 24.7%, DEEP 15.1%, Cash 0.0%",
-    "navBefore": 839492,
-    "navAfter": 836671,
-    "pnlKrw": -2821,
-    "returnPct": -0.33603655544067124,
-    "plannedSells": [
-      {
-        "side": "SELL",
-        "symbol": "ONDO",
-        "market": "KRW-ONDO",
-        "volume": 783.9761679,
-        "notional_krw_est": 504096.67595969996,
-        "ref_price": 643.0
-      }
-    ],
-    "plannedBuys": [
-      {
-        "side": "BUY",
-        "symbol": "CFG",
-        "market": "KRW-CFG",
-        "price_krw": 209872.965834368,
-        "ref_price": 491.0
-      },
-      {
-        "side": "BUY",
-        "symbol": "SAHARA",
-        "market": "KRW-SAHARA",
-        "price_krw": 503695.11800248316,
-        "ref_price": 50.7
-      }
-    ],
-    "executions": [
-      {
-        "time": "2026-05-09T17:05:57+09:00",
-        "side": "SELL",
-        "symbol": "ONDO",
-        "market": "KRW-ONDO",
-        "notionalKrw": 504097,
-        "feeKrw": 251.26436181195,
-        "uuid": "93a886b5-7a94-4b78-a444-d57f930391aa",
-        "state": "filled",
-        "finalState": "done",
-        "executionStatus": "filled",
-        "executedVolume": 783.9761679,
-        "remainingVolume": "0",
-        "actualFeeKrw": 251.26436181195,
-        "feeSource": "actual",
-        "cumulativeFeesKrw": 11583.320321887908
-      },
-      {
-        "time": "2026-05-09T17:05:57+09:00",
-        "side": "BUY",
-        "symbol": "SAHARA",
-        "market": "KRW-SAHARA",
-        "notionalKrw": 503695,
-        "feeKrw": 251.847499999954,
-        "uuid": "71fd2218-b566-4c30-8626-1d444bd4883c",
-        "state": "filled",
-        "finalState": "cancel",
-        "executionStatus": "filled",
-        "executedVolume": 9915.25590551,
-        "remainingVolume": null,
-        "actualFeeKrw": 251.847499999954,
-        "feeSource": "actual",
-        "cumulativeFeesKrw": 11583.320321887908
-      },
-      {
-        "time": "2026-05-09T17:05:57+09:00",
-        "side": "BUY",
-        "symbol": "CFG",
-        "market": "KRW-CFG",
-        "notionalKrw": 206811,
-        "feeKrw": 103.40549999809,
-        "uuid": "5ba5da35-c7a8-44df-8560-ffe88e75d262",
-        "state": "filled",
-        "finalState": "cancel",
-        "executionStatus": "filled",
-        "executedVolume": 421.20366598,
-        "remainingVolume": null,
-        "actualFeeKrw": 103.40549999809,
-        "feeSource": "actual",
-        "cumulativeFeesKrw": 11583.320321887908
-      }
-    ],
-    "feesKrw": 606.517361809994,
+    "allocationText": "SAHARA 60.5%, CFG 24.5%, DEEP 15.0%, Cash 0.0%",
+    "navBefore": 834502,
+    "navAfter": 833557,
+    "pnlKrw": -945,
+    "returnPct": -0.11324119055436654,
+    "plannedSells": [],
+    "plannedBuys": [],
+    "executions": [],
+    "feesKrw": 0,
     "cumulativeFeesKrw": 11583.320321887908,
-    "tradeCount": 3,
+    "tradeCount": 0,
     "rankedCandidates": [
       {
         "symbol": "SAHARA",
-        "r24Pct": 21.875,
-        "r7Pct": 48.68,
-        "scorePct": 31.611
+        "r24Pct": 23.43,
+        "r7Pct": 49.415,
+        "scorePct": 33.313
       },
       {
         "symbol": "CFG",
-        "r24Pct": 18.886,
-        "r7Pct": 57.878,
-        "scorePct": 30.462
-      },
-      {
-        "symbol": "DEEP",
-        "r24Pct": 21.909,
-        "r7Pct": 36.74,
-        "scorePct": 29.257
+        "r24Pct": 17.032,
+        "r7Pct": 53.185,
+        "scorePct": 27.669
       },
       {
         "symbol": "ICP",
-        "r24Pct": 16.776,
-        "r7Pct": 59.215,
-        "scorePct": 28.619
+        "r24Pct": 16.187,
+        "r7Pct": 57.069,
+        "scorePct": 27.601
+      },
+      {
+        "symbol": "DEEP",
+        "r24Pct": 19.355,
+        "r7Pct": 35.036,
+        "scorePct": 26.362
       },
       {
         "symbol": "ONDO",
-        "r24Pct": 16.065,
-        "r7Pct": 60.349,
-        "scorePct": 28.135
+        "r24Pct": 14.493,
+        "r7Pct": 56.436,
+        "scorePct": 25.78
       },
       {
         "symbol": "PLUME",
-        "r24Pct": 19.577,
-        "r7Pct": 32.941,
-        "scorePct": 26.165
+        "r24Pct": 17.895,
+        "r7Pct": 33.333,
+        "scorePct": 24.561
       },
       {
         "symbol": "JUP",
-        "r24Pct": 18.421,
-        "r7Pct": 35.849,
-        "scorePct": 25.591
+        "r24Pct": 16.234,
+        "r7Pct": 35.606,
+        "scorePct": 23.355
       },
       {
         "symbol": "AKT",
-        "r24Pct": 15.515,
-        "r7Pct": 43.215,
-        "scorePct": 24.158
+        "r24Pct": 14.65,
+        "r7Pct": 42.48,
+        "scorePct": 23.146
       }
     ],
     "warnings": [
-      "market data warning: PROS: only 42 30m candles",
-      "market data warning: B3: only 103 30m candles",
-      "market data warning: WIF: only 147 30m candles",
-      "market data warning: universe guardrails rejected 106 KRW markets",
+      "market data warning: PROS: only 43 30m candles",
+      "market data warning: B3: only 104 30m candles",
+      "market data warning: WIF: only 148 30m candles",
+      "market data warning: universe guardrails rejected 104 KRW markets",
       "risk preflight: risk checks passed",
-      "order count preflight: planned 3 orders within limit 6"
+      "order count preflight: planned 0 orders within limit 6",
+      "Phase 2 sells skipped SAHARA: within rebalance band (0.72% drift)",
+      "Phase 2 buys skipped CFG: within rebalance band (0.72% drift)"
     ],
     "safety": {
       "capital_policy": "full_available_account_nav_percent_targets_only",
@@ -16205,18 +16235,18 @@
   "dailySummary": {
     "dateKst": "2026-05-09",
     "navStart": 873887,
-    "navEnd": 836671,
-    "pnlKrw": -37216,
-    "returnPct": -4.258674176409536,
+    "navEnd": 833557,
+    "pnlKrw": -40330,
+    "returnPct": -4.615013153874585,
     "highNav": 915522,
-    "lowNav": 836671,
-    "maxIntradayDrawdownPct": -8.612682163836586,
+    "lowNav": 833557,
+    "maxIntradayDrawdownPct": -8.952815989129698,
     "orderCount": 42,
     "filledOrderCount": 36,
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 20,
-    "reportCount": 32,
+    "reportCount": 33,
     "turnoverKrw": 8471736,
     "actualFeesKrw": 4233.616489117635,
     "estimatedFeesKrw": 0.0,
@@ -16229,14 +16259,14 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-05-09T17:08:50.122886+09:00",
-    "latestReportAgeMinutes": 2.8853814333333334,
+    "updatedAt": "2026-05-09T17:38:48.980257+09:00",
+    "latestReportAgeMinutes": 2.9163376166666666,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "ok",
-    "lastRunId": "807cb7c9-c4bc-4c15-8ba3-c3e3d083176f",
+    "lastRunId": "d584abbf-079a-4072-9bd7-a3b77bb5f105",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -16259,8 +16289,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-05-09T17:00:00",
-        "priceSnapshot=2026-05-09T17:05:57+09:00"
+        "signalCandle=2026-05-09T17:30:00",
+        "priceSnapshot=2026-05-09T17:35:54+09:00"
       ]
     },
     "phase3": {
