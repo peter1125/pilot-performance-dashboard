@@ -64,6 +64,80 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual(parsed["executions"][0]["state"], "filled")
         self.assertEqual(parsed["executions"][0]["executionStatus"], "filled")
 
+    def test_parse_execution_report_includes_risk_freeze_with_observed_nav(self):
+        report = {
+            "timestamp_kst": "2026-05-09T19:02:57+09:00",
+            "mode": "risk_freeze",
+            "status": "risk_freeze",
+            "reason": "daily loss -9.02% breached max 8.00%",
+            "observed_nav_before_krw": 801555,
+            "observed_nav_after_krw": 801555,
+            "weights_after": {"SAHARA": 0.6, "Cash": 0.25, "ICP": 0.15},
+            "target_weights": {"SAHARA": 0.6, "AKT": 0.25, "ICP": 0.15},
+            "executions": [],
+            "warnings": ["daily loss -9.02% breached max 8.00%"],
+            "ranked_candidates": [],
+        }
+
+        parsed = parse_execution_report(report, "freeze.json")
+
+        self.assertIsNotNone(parsed)
+        self.assertEqual(parsed["status"], "risk_freeze")
+        self.assertEqual(parsed["reason"], "daily loss -9.02% breached max 8.00%")
+        self.assertEqual(parsed["navAfter"], 801555)
+        self.assertEqual(parsed["tradeCount"], 0)
+
+    def test_build_payload_uses_newer_risk_freeze_nav_as_current_live_state(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            live = {
+                "timestamp_kst": "2026-05-09T18:34:59+09:00",
+                "mode": "live",
+                "observed_nav_before_krw": 804938,
+                "observed_nav_after_krw": 803457,
+                "weights_after": {"SAHARA": 0.601, "Cash": 0.249, "ICP": 0.150},
+                "target_weights": {"SAHARA": 0.6, "AKT": 0.25, "ICP": 0.15},
+                "executions": [],
+                "warnings": [],
+                "ranked_candidates": [],
+            }
+            freeze = {
+                "timestamp_kst": "2026-05-09T19:02:57+09:00",
+                "mode": "risk_freeze",
+                "status": "risk_freeze",
+                "reason": "daily loss -9.02% breached max 8.00%",
+                "observed_nav_before_krw": 801555,
+                "observed_nav_after_krw": 801555,
+                "weights_after": {"SAHARA": 0.6, "Cash": 0.25, "ICP": 0.15},
+                "target_weights": {"SAHARA": 0.6, "AKT": 0.25, "ICP": 0.15},
+                "executions": [],
+                "warnings": ["daily loss -9.02% breached max 8.00%"],
+                "ranked_candidates": [],
+            }
+            (root / "a.json").write_text(json.dumps(live))
+            (root / "b.json").write_text(json.dumps(freeze))
+
+            payload = build_upbit_payload(root)
+
+        self.assertEqual(payload["summary"]["currentNav"], 801555)
+        self.assertEqual(payload["summary"]["latestTime"], "2026-05-09T19:02:57+09:00")
+        self.assertEqual(payload["summary"]["latestStatus"], "risk_freeze")
+        self.assertEqual(payload["summary"]["latestReason"], "daily loss -9.02% breached max 8.00%")
+        self.assertEqual([p["navAfter"] for p in payload["equitySeries"]], [803457, 801555])
+
+    def test_parse_execution_report_ignores_dry_run_even_with_observed_nav(self):
+        report = {
+            "timestamp_kst": "2026-05-07T01:04:45+09:00",
+            "mode": "dry_run",
+            "observed_nav_before_krw": 1000247,
+            "observed_nav_after_krw": 1000247,
+            "weights_after": {"ONDO": 0.6},
+            "target_weights": {"ONDO": 0.6},
+            "executions": [],
+        }
+
+        self.assertIsNone(parse_execution_report(report, "dry.json"))
+
     def test_build_payload_sorts_reports_and_computes_summary(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)

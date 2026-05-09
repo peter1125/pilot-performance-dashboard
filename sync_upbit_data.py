@@ -56,12 +56,15 @@ def _execution_fee(execution: dict[str, Any]) -> float:
 
 
 def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str, Any] | None:
-    if report.get("mode") != "live":
+    mode = report.get("mode")
+    observed_nav = report.get("observed_nav_after_krw") is not None
+    live_reflective_modes = {"live", "risk_freeze", "pending_orders", "frozen_trading_disabled"}
+    if mode not in live_reflective_modes or (mode != "live" and not observed_nav):
         return None
     ts = report.get("timestamp_kst")
     if not ts:
         return None
-    nav_before = _round_krw(report.get("observed_nav_before_krw"))
+    nav_before = _round_krw(report.get("observed_nav_before_krw") or report.get("observed_nav_after_krw"))
     nav_after = _round_krw(report.get("observed_nav_after_krw"))
     weights_after = report.get("weights_after") or {}
     weights_before = report.get("weights_before") or {}
@@ -108,6 +111,8 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
         "time": ts,
         "date": ts[:10],
         "sourceFile": source_file,
+        "status": report.get("status") or report.get("mode") or "live",
+        "reason": report.get("reason") or report.get("target_reason") or "",
         "regime": report.get("regime"),
         "regimeNote": report.get("regime_note") or "",
         "targetReason": report.get("target_reason") or "",
@@ -228,10 +233,11 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         "totalPnlKrw": total_pnl,
         "totalReturnPct": total_return,
         "latestTime": latest["time"] if latest else None,
+        "latestStatus": latest.get("status") if latest else None,
         "currentAllocation": latest["allocationText"] if latest else "None",
         "targetAllocation": latest["targetText"] if latest else "None",
         "latestRegime": latest["regimeNote"] if latest else "No live reports found",
-        "latestReason": latest["targetReason"] if latest else "",
+        "latestReason": (latest.get("reason") or latest.get("targetReason") or "") if latest else "",
         "reportCount": len(points),
         "tradeCount": len(executions),
         "cumulativeFeesKrw": cumulative_fees,
