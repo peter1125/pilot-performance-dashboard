@@ -1,6 +1,6 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-10T13:08:49.133033+00:00",
+  "refreshedAt": "2026-05-10T13:38:15.781109+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Full Upbit KRW Breakout Rotation",
@@ -8,11 +8,11 @@
     "startingNav": 1000247,
     "totalPnlKrw": -215426,
     "totalReturnPct": -21.53728029176793,
-    "latestTime": "2026-05-10T22:04:05+09:00",
+    "latestTime": "2026-05-10T22:34:11+09:00",
     "latestStatus": "risk_freeze",
     "currentAllocation": "Cash 100.0%",
     "targetAllocation": "Cash 100.0%",
-    "latestRegime": "normal; 24h breadth 60%, 7d breadth 80%; 7d leaders ONDO +46.7%, LINK +14.0%, SOL +10.3%",
+    "latestRegime": "normal; 24h breadth 70%, 7d breadth 80%; 7d leaders ONDO +47.6%, LINK +14.7%, SOL +10.7%",
     "latestReason": "risk freeze active: daily loss -9.02% breached max 8.00%",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
@@ -24,7 +24,7 @@
     "warningCount": 2,
     "eligibilityWarningCount": 1,
     "rejectionWarningCount": 0,
-    "reportCount": 156,
+    "reportCount": 157,
     "tradeCount": 131,
     "cumulativeFeesKrw": 13036.492051989124,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
@@ -19574,6 +19574,108 @@
       "freezeMode": "cash",
       "freezeModeReason": "already at Cash 100% target or no eligible non-cash exposure",
       "riskFreezeReason": "risk freeze active: daily loss -9.02% breached max 8.00%"
+    },
+    {
+      "time": "2026-05-10T22:34:11+09:00",
+      "date": "2026-05-10",
+      "sourceFile": "pilot3_live_executor_20260510_223411.json",
+      "status": "risk_freeze",
+      "reason": "risk freeze active: daily loss -9.02% breached max 8.00%",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 70%, 7d breadth 80%; 7d leaders ONDO +47.6%, LINK +14.7%, SOL +10.7%",
+      "targetReason": "risk freeze active; target Cash 100%; buys disabled; guarded sells may de-risk existing exposure",
+      "targetWeights": {
+        "Cash": 1.0
+      },
+      "targetText": "Cash 100.0%",
+      "weightsBefore": {
+        "Cash": 1.0
+      },
+      "weightsAfter": {
+        "Cash": 1.0
+      },
+      "allocationText": "Cash 100.0%",
+      "navBefore": 784821,
+      "navAfter": 784821,
+      "pnlKrw": 0,
+      "returnPct": 0.0,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 13036.492051989124,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "ONDO",
+          "r24Pct": -3.185,
+          "r7Pct": 47.573,
+          "scorePct": 6.33
+        },
+        {
+          "symbol": "LINK",
+          "r24Pct": 1.5,
+          "r7Pct": 14.665,
+          "scorePct": 4.433
+        },
+        {
+          "symbol": "AAVE",
+          "r24Pct": 2.355,
+          "r7Pct": 4.519,
+          "scorePct": 3.259
+        },
+        {
+          "symbol": "AVAX",
+          "r24Pct": 1.163,
+          "r7Pct": 9.963,
+          "scorePct": 3.155
+        },
+        {
+          "symbol": "SOL",
+          "r24Pct": 0.145,
+          "r7Pct": 10.746,
+          "scorePct": 2.294
+        },
+        {
+          "symbol": "BTC",
+          "r24Pct": 0.584,
+          "r7Pct": 2.198,
+          "scorePct": 1.024
+        },
+        {
+          "symbol": "XRP",
+          "r24Pct": 0.621,
+          "r7Pct": 1.885,
+          "scorePct": 0.998
+        },
+        {
+          "symbol": "PEPE",
+          "r24Pct": -0.633,
+          "r7Pct": 6.985,
+          "scorePct": 0.764
+        }
+      ],
+      "warnings": [
+        "risk preflight: risk freeze active: daily loss -9.02% breached max 8.00%",
+        "risk-freeze de-risk target staged/deferred; no eligible sell orders after safeguards"
+      ],
+      "warningCount": 2,
+      "rejectionWarningCount": 0,
+      "eligibilityWarningCount": 1,
+      "safety": {
+        "orders_submitted": false,
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false,
+        "risk_freeze_buys_blocked": true
+      },
+      "ordersSubmitted": false,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": "cash",
+      "freezeModeReason": "already at Cash 100% target or no eligible non-cash exposure",
+      "riskFreezeReason": "risk freeze active: daily loss -9.02% breached max 8.00%"
     }
   ],
   "transactions": [
@@ -21806,13 +21908,13 @@
     }
   ],
   "latest": {
-    "time": "2026-05-10T22:04:05+09:00",
+    "time": "2026-05-10T22:34:11+09:00",
     "date": "2026-05-10",
-    "sourceFile": "pilot3_live_executor_20260510_220405.json",
+    "sourceFile": "pilot3_live_executor_20260510_223411.json",
     "status": "risk_freeze",
     "reason": "risk freeze active: daily loss -9.02% breached max 8.00%",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 60%, 7d breadth 80%; 7d leaders ONDO +46.7%, LINK +14.0%, SOL +10.3%",
+    "regimeNote": "normal; 24h breadth 70%, 7d breadth 80%; 7d leaders ONDO +47.6%, LINK +14.7%, SOL +10.7%",
     "targetReason": "risk freeze active; target Cash 100%; buys disabled; guarded sells may de-risk existing exposure",
     "targetWeights": {
       "Cash": 1.0
@@ -21838,51 +21940,51 @@
     "rankedCandidates": [
       {
         "symbol": "ONDO",
-        "r24Pct": -3.503,
-        "r7Pct": 46.731,
-        "scorePct": 5.843
+        "r24Pct": -3.185,
+        "r7Pct": 47.573,
+        "scorePct": 6.33
       },
       {
         "symbol": "LINK",
-        "r24Pct": 0.716,
-        "r7Pct": 13.991,
-        "scorePct": 3.514
+        "r24Pct": 1.5,
+        "r7Pct": 14.665,
+        "scorePct": 4.433
       },
       {
         "symbol": "AAVE",
-        "r24Pct": 1.924,
-        "r7Pct": 3.548,
-        "scorePct": 2.634
+        "r24Pct": 2.355,
+        "r7Pct": 4.519,
+        "scorePct": 3.259
       },
       {
         "symbol": "AVAX",
-        "r24Pct": 0.545,
-        "r7Pct": 9.503,
-        "scorePct": 2.446
+        "r24Pct": 1.163,
+        "r7Pct": 9.963,
+        "scorePct": 3.155
       },
       {
         "symbol": "SOL",
-        "r24Pct": -0.073,
-        "r7Pct": 10.265,
-        "scorePct": 1.98
+        "r24Pct": 0.145,
+        "r7Pct": 10.746,
+        "scorePct": 2.294
       },
       {
         "symbol": "BTC",
-        "r24Pct": 0.496,
-        "r7Pct": 2.229,
-        "scorePct": 0.942
+        "r24Pct": 0.584,
+        "r7Pct": 2.198,
+        "scorePct": 1.024
       },
       {
         "symbol": "XRP",
-        "r24Pct": 0.191,
-        "r7Pct": 1.452,
-        "scorePct": 0.482
+        "r24Pct": 0.621,
+        "r7Pct": 1.885,
+        "scorePct": 0.998
       },
       {
         "symbol": "PEPE",
-        "r24Pct": -0.948,
-        "r7Pct": 6.997,
-        "scorePct": 0.451
+        "r24Pct": -0.633,
+        "r7Pct": 6.985,
+        "scorePct": 0.764
       }
     ],
     "warnings": [
@@ -21921,7 +22023,7 @@
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 2,
-    "reportCount": 35,
+    "reportCount": 36,
     "turnoverKrw": 586275,
     "actualFeesKrw": 292.568006974328,
     "estimatedFeesKrw": 0.0,
@@ -21939,14 +22041,14 @@
   "governance": {
     "status": "frozen",
     "severity": 2,
-    "updatedAt": "2026-05-10T22:08:49.108882+09:00",
-    "latestReportAgeMinutes": 4.735148033333333,
+    "updatedAt": "2026-05-10T22:38:15.756426+09:00",
+    "latestReportAgeMinutes": 4.079273766666667,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": true,
     "riskFreezeReason": "daily loss -9.02% breached max 8.00%",
     "lastRunStatus": "risk_freeze",
-    "lastRunId": "69d160e8-1c99-43c7-90d2-3b6c21216712",
+    "lastRunId": "324b6d37-7c38-4a5e-9947-44cc5a4d4143",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": [
@@ -21971,8 +22073,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-05-10T22:00:00",
-        "priceSnapshot=2026-05-10T22:04:05+09:00"
+        "signalCandle=2026-05-10T22:30:00",
+        "priceSnapshot=2026-05-10T22:34:11+09:00"
       ]
     },
     "phase3": {
