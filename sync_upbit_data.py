@@ -317,14 +317,23 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         latest_freeze_mode = latest.get("freezeMode")
         if not latest_freeze_mode:
             target_weights = latest.get("targetWeights") or {}
-            if latest.get("status") == "risk_freeze" and _num(target_weights.get("Cash")) >= 0.999:
-                latest_freeze_mode = "cash"
+            if latest.get("status") == "risk_freeze":
+                latest_freeze_mode = "cash" if _num(target_weights.get("Cash")) >= 0.999 else "holding"
             else:
-                latest_freeze_mode = "holding"
+                latest_freeze_mode = "normal"
+
+    strategy_mode = latest.get("strategyMode") if latest else "paper-aligned"
+    live_extension_enabled = latest.get("liveExtensionEnabled") if latest else False
+    if live_extension_enabled or strategy_mode == "full-universe":
+        strategy_label = "Full Upbit KRW Breakout Rotation"
+        universe_label = "Full Upbit KRW spot universe"
+    else:
+        strategy_label = "Core Liquid v2 Breakout Rotation"
+        universe_label = "Core liquid v2 universe: BTC, ETH, SOL, XRP, LINK, DOGE, AVAX"
 
     summary = {
         "name": "Pilot 3 Upbit Live",
-        "strategy": "Full Upbit KRW Breakout Rotation",
+        "strategy": strategy_label,
         "currentNav": current_nav,
         "startingNav": starting_nav,
         "totalPnlKrw": total_pnl,
@@ -335,8 +344,8 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         "targetAllocation": latest["targetText"] if latest else "None",
         "latestRegime": latest["regimeNote"] if latest else "No live reports found",
         "latestReason": (latest.get("reason") or latest.get("targetReason") or "") if latest else "",
-        "strategyMode": latest.get("strategyMode") if latest else "paper-aligned",
-        "liveExtensionEnabled": latest.get("liveExtensionEnabled") if latest else False,
+        "strategyMode": strategy_mode,
+        "liveExtensionEnabled": live_extension_enabled,
         "freezeMode": latest_freeze_mode,
         "freezeModeReason": latest.get("freezeModeReason") if latest else None,
         "riskFreezeReason": latest.get("riskFreezeReason") if latest else None,
@@ -381,7 +390,7 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         "governance": governance,
         "phaseAssessment": phase_assessment,
         "guardrails": {
-            "universe": "Full Upbit KRW spot universe",
+            "universe": universe_label,
             "minThirtyMinuteCandles": 337,
             "min24hQuoteVolumeKrw": 1_000_000_000,
             "excluded": ["stable/fiat proxies", "Upbit CAUTION markets", "operator blacklist"],

@@ -224,7 +224,7 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual(payload["summary"]["strategyMode"], "full-universe")
         self.assertTrue(payload["summary"]["liveExtensionEnabled"])
         self.assertTrue(payload["summary"]["latestOrdersSubmitted"])
-        self.assertEqual(payload["summary"]["freezeMode"], "holding")
+        self.assertEqual(payload["summary"]["freezeMode"], "normal")
         self.assertEqual(payload["summary"]["warningCount"], 2)
         self.assertEqual(payload["summary"]["eligibilityWarningCount"], 1)
         self.assertEqual(payload["summary"]["rejectionWarningCount"], 2)

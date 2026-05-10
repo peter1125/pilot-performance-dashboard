@@ -95,7 +95,7 @@ function renderSummary() {
   const cards = [
     ['Current NAV', formatCurrency(s.currentNav), `Latest ${formatTime(s.latestTime)}`],
     ['Strategy mode', formatMode(s.strategyMode || 'paper-aligned'), strategyNote],
-    ['Freeze mode', formatMode(s.freezeMode || 'holding'), compactReason(freezeReason)],
+    ['Freeze mode', formatMode(s.freezeMode || 'normal'), compactReason(freezeReason)],
     ['Operating status', String(s.governanceStatus || s.latestStatus || 'unknown').toUpperCase(), `${s.pendingOrderCount || 0} pending · orders ${formatMode(s.latestOrdersSubmitted ?? s.ordersSubmitted).toLowerCase()}`],
     ['Daily P&L', `<span class="${(s.dailyPnlKrw || 0) >= 0 ? 'positive' : 'negative'}">${formatCurrency(s.dailyPnlKrw || 0)}</span>`, formatPercent(s.dailyReturnPct || 0)],
     ['Total return', `<span class="${totalClass}">${formatPercent(s.totalReturnPct)}</span>`, `${formatCurrency(Math.abs(s.totalPnlKrw || 0))} ${s.totalPnlKrw >= 0 ? 'gain' : 'loss'}`],
@@ -238,7 +238,7 @@ function renderAllocation() {
   els.allocation.innerHTML = `
     <article class="note-card mode-card">
       <div class="note-meta"><span>Strategy mode</span><span>${formatMode(state.payload.summary?.strategyMode || 'paper-aligned')}</span></div>
-      <div class="note-meta"><span>Freeze mode</span><span>${formatMode(state.payload.summary?.freezeMode || 'holding')}</span></div>
+      <div class="note-meta"><span>Freeze mode</span><span>${formatMode(state.payload.summary?.freezeMode || 'normal')}</span></div>
       <div class="note-meta"><span>Freeze reason</span><span>${state.payload.summary?.freezeModeReason || state.payload.summary?.riskFreezeReason || '—'}</span></div>
       <div class="note-meta"><span>Latest status</span><span>${state.payload.summary?.latestStatus || '—'}</span></div>
     </article>
@@ -260,7 +260,7 @@ function renderAllocation() {
 function renderGuardrails() {
   const g = state.payload.guardrails || {};
   els.guardrails.innerHTML = `<article class="note-card"><ul class="guardrail-list">
-    <li>${g.universe || 'Full Upbit KRW spot universe'}</li>
+    <li>${g.universe || 'Core liquid v2 universe: BTC, ETH, SOL, XRP, LINK, DOGE, AVAX'}</li>
     <li>Min ${g.minThirtyMinuteCandles || 337} 30-minute candles</li>
     <li>Min ${formatCurrency(g.min24hQuoteVolumeKrw || 1000000000)} 24h quote volume</li>
     <li>Excluded: ${(g.excluded || []).join(', ')}</li>
