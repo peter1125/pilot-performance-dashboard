@@ -34,6 +34,79 @@ def format_allocation(weights: dict[str, Any] | None) -> str:
     return ", ".join(f"{symbol} {weight * 100:.1f}%" for symbol, weight in ordered)
 
 
+def _first_present(*values: Any) -> Any:
+    for value in values:
+        if value is not None:
+            return value
+    return None
+
+
+def _get_nested(mapping: dict[str, Any] | None, *path: str) -> Any:
+    current: Any = mapping or {}
+    for key in path:
+        if not isinstance(current, dict):
+            return None
+        current = current.get(key)
+    return current
+
+
+def _derive_strategy_mode(report: dict[str, Any]) -> str:
+    """Return the v2 strategy mode label; default public dashboard to paper-aligned."""
+    methodology = report.get("methodology") or {}
+    config = report.get("config") or {}
+    raw = _first_present(
+        report.get("strategy_mode"),
+        report.get("strategyMode"),
+        methodology.get("strategy_mode"),
+        methodology.get("strategyMode"),
+        config.get("strategy_mode"),
+        config.get("strategyMode"),
+    )
+    if raw is None:
+        return "paper-aligned"
+    normalized = str(raw).strip().replace("_", "-").lower()
+    return normalized or "paper-aligned"
+
+
+def _derive_live_extension_enabled(report: dict[str, Any]) -> bool | None:
+    methodology = report.get("methodology") or {}
+    config = report.get("config") or {}
+    value = _first_present(
+        report.get("live_extension_enabled"),
+        report.get("liveExtensionEnabled"),
+        methodology.get("live_extension_enabled"),
+        methodology.get("liveExtensionEnabled"),
+        config.get("live_extension_enabled"),
+        config.get("liveExtensionEnabled"),
+    )
+    if value is None:
+        mode = _derive_strategy_mode(report)
+        if mode in {"paper-aligned", "paper", "paper-aligned-default"}:
+            return False
+        if mode in {"full-universe", "full-upbit", "live-extension", "extended"}:
+            return True
+        return None
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "on", "enabled"}
+    return bool(value)
+
+
+def _latest_warning_counts(report: dict[str, Any]) -> dict[str, int]:
+    warnings = [str(w) for w in (report.get("warnings") or [])]
+    methodology = report.get("methodology") or {}
+    order_controls = methodology.get("order_controls") or {}
+    liquidity_rejections = 0
+    for side in ("sells", "buys"):
+        liquidity_rejections += len(((order_controls.get(side) or {}).get("liquidity_rejected") or []))
+    rejection_count = sum(1 for warning in warnings if "reject" in warning.lower()) + liquidity_rejections
+    eligibility_count = sum(1 for warning in warnings if "eligib" in warning.lower())
+    return {
+        "warningCount": len(warnings),
+        "rejectionWarningCount": rejection_count,
+        "eligibilityWarningCount": eligibility_count,
+    }
+
+
 def _execution_notional(execution: dict[str, Any]) -> int:
     request = execution.get("request") or {}
     side = str(request.get("side") or "").upper()
@@ -68,6 +141,11 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
     nav_after = _round_krw(report.get("observed_nav_after_krw"))
     weights_after = report.get("weights_after") or {}
     weights_before = report.get("weights_before") or {}
+
+    risk_freeze = report.get("risk_freeze") or report.get("riskFreeze") or {}
+    safety = report.get("safety") or {}
+    warning_counts = _latest_warning_counts(report)
+    orders_submitted = safety.get("orders_submitted")
 
     executions = []
     for execution in report.get("executions") or []:
@@ -133,7 +211,16 @@ def parse_execution_report(report: dict[str, Any], source_file: str) -> dict[str
         "tradeCount": len(executions),
         "rankedCandidates": ranked,
         "warnings": report.get("warnings") or [],
-        "safety": report.get("safety") or {},
+        "warningCount": warning_counts["warningCount"],
+        "rejectionWarningCount": warning_counts["rejectionWarningCount"],
+        "eligibilityWarningCount": warning_counts["eligibilityWarningCount"],
+        "safety": safety,
+        "ordersSubmitted": orders_submitted,
+        "strategyMode": _derive_strategy_mode(report),
+        "liveExtensionEnabled": _derive_live_extension_enabled(report),
+        "freezeMode": _first_present(report.get("freeze_mode"), report.get("freezeMode"), risk_freeze.get("freeze_mode"), risk_freeze.get("freezeMode")),
+        "freezeModeReason": _first_present(report.get("freeze_mode_reason"), report.get("freezeModeReason"), risk_freeze.get("freeze_mode_reason"), risk_freeze.get("freezeModeReason")),
+        "riskFreezeReason": _first_present(report.get("risk_freeze_reason"), report.get("riskFreezeReason"), risk_freeze.get("reason"), risk_freeze.get("risk_freeze_reason"), risk_freeze.get("riskFreezeReason")),
     }
 
 
@@ -225,6 +312,16 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
     total_pnl = current_nav - starting_nav
     total_return = (total_pnl / starting_nav * 100) if starting_nav else 0
 
+    latest_freeze_mode = None
+    if latest:
+        latest_freeze_mode = latest.get("freezeMode")
+        if not latest_freeze_mode:
+            target_weights = latest.get("targetWeights") or {}
+            if latest.get("status") == "risk_freeze" and _num(target_weights.get("Cash")) >= 0.999:
+                latest_freeze_mode = "cash"
+            else:
+                latest_freeze_mode = "holding"
+
     summary = {
         "name": "Pilot 3 Upbit Live",
         "strategy": "Full Upbit KRW Breakout Rotation",
@@ -238,6 +335,16 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         "targetAllocation": latest["targetText"] if latest else "None",
         "latestRegime": latest["regimeNote"] if latest else "No live reports found",
         "latestReason": (latest.get("reason") or latest.get("targetReason") or "") if latest else "",
+        "strategyMode": latest.get("strategyMode") if latest else "paper-aligned",
+        "liveExtensionEnabled": latest.get("liveExtensionEnabled") if latest else False,
+        "freezeMode": latest_freeze_mode,
+        "freezeModeReason": latest.get("freezeModeReason") if latest else None,
+        "riskFreezeReason": latest.get("riskFreezeReason") if latest else None,
+        "ordersSubmitted": latest.get("ordersSubmitted") if latest else None,
+        "latestOrdersSubmitted": latest.get("ordersSubmitted") if latest else None,
+        "warningCount": latest.get("warningCount", 0) if latest else 0,
+        "eligibilityWarningCount": latest.get("eligibilityWarningCount", 0) if latest else 0,
+        "rejectionWarningCount": latest.get("rejectionWarningCount", 0) if latest else 0,
         "reportCount": len(points),
         "tradeCount": len(executions),
         "cumulativeFeesKrw": cumulative_fees,
@@ -255,6 +362,10 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
     if governance:
         summary["pendingOrderCount"] = governance.get("pendingOrderCount", 0)
         summary["governanceStatus"] = governance.get("status", "unknown")
+        if not summary.get("riskFreezeReason"):
+            summary["riskFreezeReason"] = governance.get("riskFreezeReason")
+        if governance.get("riskFreezeActive") and not summary.get("freezeMode"):
+            summary["freezeMode"] = "holding"
     summary["phase1Status"] = phase_assessment["phase1"]["status"]
     summary["phase2Status"] = phase_assessment["phase2"]["status"]
     summary["phase3Status"] = phase_assessment["phase3"]["status"]

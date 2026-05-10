@@ -75,7 +75,12 @@ class UpbitDataTests(unittest.TestCase):
             "weights_after": {"SAHARA": 0.6, "Cash": 0.25, "ICP": 0.15},
             "target_weights": {"SAHARA": 0.6, "AKT": 0.25, "ICP": 0.15},
             "executions": [],
-            "warnings": ["daily loss -9.02% breached max 8.00%"],
+            "warnings": ["daily loss -9.02% breached max 8.00%", "risk-freeze sells rejected AKT: spread too wide"],
+            "safety": {"orders_submitted": False},
+            "risk_freeze_reason": "daily loss -9.02% breached max 8.00%",
+            "freeze_mode": "cash",
+            "freeze_mode_reason": "no guarded sells available",
+            "methodology": {"strategy_mode": "paper_aligned", "live_extension_enabled": False},
             "ranked_candidates": [],
         }
 
@@ -86,6 +91,14 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual(parsed["reason"], "daily loss -9.02% breached max 8.00%")
         self.assertEqual(parsed["navAfter"], 801555)
         self.assertEqual(parsed["tradeCount"], 0)
+        self.assertEqual(parsed["strategyMode"], "paper-aligned")
+        self.assertFalse(parsed["liveExtensionEnabled"])
+        self.assertEqual(parsed["freezeMode"], "cash")
+        self.assertEqual(parsed["freezeModeReason"], "no guarded sells available")
+        self.assertEqual(parsed["riskFreezeReason"], "daily loss -9.02% breached max 8.00%")
+        self.assertFalse(parsed["ordersSubmitted"])
+        self.assertEqual(parsed["warningCount"], 2)
+        self.assertEqual(parsed["rejectionWarningCount"], 1)
 
     def test_build_payload_uses_newer_risk_freeze_nav_as_current_live_state(self):
         with tempfile.TemporaryDirectory() as td:
@@ -123,6 +136,12 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual(payload["summary"]["latestTime"], "2026-05-09T19:02:57+09:00")
         self.assertEqual(payload["summary"]["latestStatus"], "risk_freeze")
         self.assertEqual(payload["summary"]["latestReason"], "daily loss -9.02% breached max 8.00%")
+        self.assertEqual(payload["summary"]["strategyMode"], "paper-aligned")
+        self.assertFalse(payload["summary"]["liveExtensionEnabled"])
+        self.assertEqual(payload["summary"]["freezeMode"], "holding")
+        self.assertIsNone(payload["summary"]["ordersSubmitted"])
+        self.assertEqual(payload["summary"]["warningCount"], 1)
+        self.assertEqual(payload["summary"]["rejectionWarningCount"], 0)
         self.assertEqual([p["navAfter"] for p in payload["equitySeries"]], [803457, 801555])
 
     def test_parse_execution_report_ignores_dry_run_even_with_observed_nav(self):
@@ -176,6 +195,39 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual([p["cumulativeFeesKrw"] for p in payload["equitySeries"]], [0, 300])
         self.assertEqual(payload["transactions"][0]["cumulativeFeesKrw"], 300)
         self.assertEqual(payload["summary"]["currentAllocation"], "JTO 60.0%, FLOCK 25.0%, CFG 15.0%")
+
+    def test_build_payload_surfaces_full_universe_mode_and_latest_safety_counts(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            report = {
+                "timestamp_kst": "2026-05-08T05:00:00+09:00",
+                "mode": "live",
+                "status": "live",
+                "observed_nav_before_krw": 1000000,
+                "observed_nav_after_krw": 1005000,
+                "weights_after": {"ONDO": 0.8, "Cash": 0.2},
+                "target_weights": {"ONDO": 0.8, "Cash": 0.2},
+                "executions": [],
+                "warnings": ["eligibility rejected XYZ: low volume", "guardrail warning"],
+                "safety": {"orders_submitted": True},
+                "methodology": {
+                    "strategyMode": "full_universe",
+                    "liveExtensionEnabled": True,
+                    "order_controls": {"buys": {"liquidity_rejected": [{"symbol": "XYZ"}]}, "sells": {"liquidity_rejected": []}},
+                },
+                "ranked_candidates": [],
+            }
+            (root / "a.json").write_text(json.dumps(report))
+
+            payload = build_upbit_payload(root)
+
+        self.assertEqual(payload["summary"]["strategyMode"], "full-universe")
+        self.assertTrue(payload["summary"]["liveExtensionEnabled"])
+        self.assertTrue(payload["summary"]["latestOrdersSubmitted"])
+        self.assertEqual(payload["summary"]["freezeMode"], "holding")
+        self.assertEqual(payload["summary"]["warningCount"], 2)
+        self.assertEqual(payload["summary"]["eligibilityWarningCount"], 1)
+        self.assertEqual(payload["summary"]["rejectionWarningCount"], 2)
     def test_build_payload_includes_daily_summary_and_governance_when_present(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)

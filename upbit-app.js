@@ -48,6 +48,19 @@ function formatTime(value) {
   }
 }
 
+function formatMode(value) {
+  if (value === true) return 'Enabled';
+  if (value === false) return 'Disabled';
+  if (value == null || value === '') return '—';
+  return String(value).replace(/[_-]/g, ' ').replace(/\b\w/g, (ch) => ch.toUpperCase());
+}
+
+function compactReason(value) {
+  if (!value) return '—';
+  const text = String(value);
+  return text.length > 92 ? `${text.slice(0, 89)}…` : text;
+}
+
 function setStatus(kind, text, meta = '') {
   els.status.textContent = text;
   els.status.className = `status-pill ${kind}`;
@@ -77,15 +90,20 @@ function renderSummary() {
   const latest = state.payload.latest || {};
   const pollClass = (latest.pnlKrw || 0) >= 0 ? 'positive' : 'negative';
   const totalClass = (s.totalPnlKrw || 0) >= 0 ? 'positive' : 'negative';
+  const strategyNote = s.liveExtensionEnabled == null ? 'Live extension unknown' : `Live extension ${formatMode(s.liveExtensionEnabled).toLowerCase()}`;
+  const freezeReason = s.freezeModeReason || s.riskFreezeReason || s.latestReason;
   const cards = [
     ['Current NAV', formatCurrency(s.currentNav), `Latest ${formatTime(s.latestTime)}`],
-    ['Operating status', String(s.governanceStatus || 'unknown').toUpperCase(), `${s.pendingOrderCount || 0} pending orders`],
+    ['Strategy mode', formatMode(s.strategyMode || 'paper-aligned'), strategyNote],
+    ['Freeze mode', formatMode(s.freezeMode || 'holding'), compactReason(freezeReason)],
+    ['Operating status', String(s.governanceStatus || s.latestStatus || 'unknown').toUpperCase(), `${s.pendingOrderCount || 0} pending · orders ${formatMode(s.latestOrdersSubmitted ?? s.ordersSubmitted).toLowerCase()}`],
     ['Daily P&L', `<span class="${(s.dailyPnlKrw || 0) >= 0 ? 'positive' : 'negative'}">${formatCurrency(s.dailyPnlKrw || 0)}</span>`, formatPercent(s.dailyReturnPct || 0)],
     ['Total return', `<span class="${totalClass}">${formatPercent(s.totalReturnPct)}</span>`, `${formatCurrency(Math.abs(s.totalPnlKrw || 0))} ${s.totalPnlKrw >= 0 ? 'gain' : 'loss'}`],
     ['Latest poll P&L', `<span class="${pollClass}">${formatCurrency(latest.pnlKrw || 0)}</span>`, formatPercent(latest.returnPct || 0)],
     ['Cumulative fees', formatCurrency(s.cumulativeFeesKrw || 0), s.feeNote || 'Recorded/estimated Upbit fees'],
     ['Fee drag today', formatCurrency(s.feeDragTodayKrw || 0), 'Actual + estimated daily fees'],
     ['Phase status', `1 ${s.phase1Status || '—'} · 2 ${s.phase2Status || '—'} · 3 ${s.phase3Status || '—'}`, 'Assessment rollout'],
+    ['Warnings', `${s.warningCount || 0} latest`, `${s.rejectionWarningCount || 0} rejection · ${s.eligibilityWarningCount || 0} eligibility`],
     ['Trades / reports', `${s.tradeCount || 0} / ${s.reportCount || 0}`, s.strategy || 'Breakout Rotation'],
   ];
   els.summaryGrid.innerHTML = cards.map(([label, value, note]) => `
@@ -218,8 +236,15 @@ function renderAllocation() {
   const weights = state.payload.latest?.weightsAfter || {};
   const rows = Object.entries(weights).filter(([, v]) => Number(v) > 0.0001).sort((a,b) => b[1] - a[1]);
   els.allocation.innerHTML = `
+    <article class="note-card mode-card">
+      <div class="note-meta"><span>Strategy mode</span><span>${formatMode(state.payload.summary?.strategyMode || 'paper-aligned')}</span></div>
+      <div class="note-meta"><span>Freeze mode</span><span>${formatMode(state.payload.summary?.freezeMode || 'holding')}</span></div>
+      <div class="note-meta"><span>Freeze reason</span><span>${state.payload.summary?.freezeModeReason || state.payload.summary?.riskFreezeReason || '—'}</span></div>
+      <div class="note-meta"><span>Latest status</span><span>${state.payload.summary?.latestStatus || '—'}</span></div>
+    </article>
     <article class="note-card">
       <div class="note-meta"><span>Target</span><span>${state.payload.summary?.targetAllocation || '—'}</span></div>
+      <div class="note-meta"><span>Current</span><span>${state.payload.summary?.currentAllocation || '—'}</span></div>
       <div class="note-meta"><span>Reason</span><span>${state.payload.summary?.latestReason || '—'}</span></div>
     </article>
     ${rows.map(([symbol, weight]) => `
