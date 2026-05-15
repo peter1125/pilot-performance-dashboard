@@ -1,18 +1,18 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-15T09:08:58.070006+00:00",
+  "refreshedAt": "2026-05-15T09:38:12.504858+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Paper-Aligned Pilot 3 Breakout Rotation",
-    "currentNav": 767963,
+    "currentNav": 766273,
     "startingNav": 1000247,
-    "totalPnlKrw": -232284,
-    "totalReturnPct": -23.222664001991507,
-    "latestTime": "2026-05-15T18:05:14+09:00",
+    "totalPnlKrw": -233974,
+    "totalReturnPct": -23.391622269299482,
+    "latestTime": "2026-05-15T18:32:58+09:00",
     "latestStatus": "live",
-    "currentAllocation": "XRP 80.1%, Cash 19.9%",
+    "currentAllocation": "XRP 80.0%, Cash 20.0%",
     "targetAllocation": "XRP 80.0%, Cash 20.0%",
-    "latestRegime": "normal; 24h breadth 50%, 7d breadth 80%; 7d leaders SUI +17.2%, XRP +6.2%, AAVE +4.4%",
+    "latestRegime": "normal; 24h breadth 50%, 7d breadth 70%; 7d leaders SUI +16.9%, XRP +6.2%, AAVE +4.6%",
     "latestReason": "one convincing breakout -> 80% / 20% cash; Phase 2 hysteresis adjusted target",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
@@ -24,12 +24,12 @@
     "warningCount": 3,
     "eligibilityWarningCount": 0,
     "rejectionWarningCount": 1,
-    "reportCount": 278,
+    "reportCount": 279,
     "tradeCount": 143,
     "cumulativeFeesKrw": 15247.361672627452,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": 820,
-    "dailyReturnPct": 0.10689011044876902,
+    "dailyPnlKrw": -870,
+    "dailyReturnPct": -0.11340780011027932,
     "feeDragTodayKrw": 306.85699998938,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
@@ -29404,6 +29404,104 @@
       "freezeMode": null,
       "freezeModeReason": null,
       "riskFreezeReason": null
+    },
+    {
+      "time": "2026-05-15T18:32:58+09:00",
+      "date": "2026-05-15",
+      "sourceFile": "pilot3_live_executor_20260515_183258.json",
+      "status": "live",
+      "reason": "one convincing breakout -> 80% / 20% cash; Phase 2 hysteresis adjusted target",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 50%, 7d breadth 70%; 7d leaders SUI +16.9%, XRP +6.2%, AAVE +4.6%",
+      "targetReason": "one convincing breakout -> 80% / 20% cash; Phase 2 hysteresis adjusted target",
+      "targetWeights": {
+        "XRP": 0.8,
+        "Cash": 0.19999999999999996
+      },
+      "targetText": "XRP 80.0%, Cash 20.0%",
+      "weightsBefore": {
+        "Cash": 0.19982723971027685,
+        "XRP": 0.8001727602897232
+      },
+      "weightsAfter": {
+        "Cash": 0.19982723971027685,
+        "XRP": 0.8001727602897232
+      },
+      "allocationText": "XRP 80.0%, Cash 20.0%",
+      "navBefore": 766273,
+      "navAfter": 766273,
+      "pnlKrw": 0,
+      "returnPct": 0.0,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 15247.361672627452,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "XRP",
+          "r24Pct": 2.544,
+          "r7Pct": 6.195,
+          "scorePct": 3.783
+        },
+        {
+          "symbol": "LINK",
+          "r24Pct": 0.727,
+          "r7Pct": 4.309,
+          "scorePct": 1.588
+        },
+        {
+          "symbol": "BTC",
+          "r24Pct": 1.068,
+          "r7Pct": 1.11,
+          "scorePct": 1.29
+        },
+        {
+          "symbol": "AVAX",
+          "r24Pct": 0.765,
+          "r7Pct": 2.332,
+          "scorePct": 1.232
+        },
+        {
+          "symbol": "SOL",
+          "r24Pct": 0.371,
+          "r7Pct": 3.52,
+          "scorePct": 1.075
+        },
+        {
+          "symbol": "AAVE",
+          "r24Pct": -0.07,
+          "r7Pct": 4.612,
+          "scorePct": 0.852
+        },
+        {
+          "symbol": "SUI",
+          "r24Pct": -4.794,
+          "r7Pct": 16.898,
+          "scorePct": -1.415
+        }
+      ],
+      "warnings": [
+        "market data warning: universe guardrails rejected 249 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 0 orders within limit 6"
+      ],
+      "warningCount": 3,
+      "rejectionWarningCount": 1,
+      "eligibilityWarningCount": 0,
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      },
+      "ordersSubmitted": null,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": null,
+      "freezeModeReason": null,
+      "riskFreezeReason": null
     }
   ],
   "transactions": [
@@ -31840,13 +31938,13 @@
     }
   ],
   "latest": {
-    "time": "2026-05-15T18:05:14+09:00",
+    "time": "2026-05-15T18:32:58+09:00",
     "date": "2026-05-15",
-    "sourceFile": "pilot3_live_executor_20260515_180514.json",
+    "sourceFile": "pilot3_live_executor_20260515_183258.json",
     "status": "live",
     "reason": "one convincing breakout -> 80% / 20% cash; Phase 2 hysteresis adjusted target",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 50%, 7d breadth 80%; 7d leaders SUI +17.2%, XRP +6.2%, AAVE +4.4%",
+    "regimeNote": "normal; 24h breadth 50%, 7d breadth 70%; 7d leaders SUI +16.9%, XRP +6.2%, AAVE +4.6%",
     "targetReason": "one convincing breakout -> 80% / 20% cash; Phase 2 hysteresis adjusted target",
     "targetWeights": {
       "XRP": 0.8,
@@ -31854,16 +31952,16 @@
     },
     "targetText": "XRP 80.0%, Cash 20.0%",
     "weightsBefore": {
-      "Cash": 0.19938752139141852,
-      "XRP": 0.8006124786085815
+      "Cash": 0.19982723971027685,
+      "XRP": 0.8001727602897232
     },
     "weightsAfter": {
-      "Cash": 0.19938752139141852,
-      "XRP": 0.8006124786085815
+      "Cash": 0.19982723971027685,
+      "XRP": 0.8001727602897232
     },
-    "allocationText": "XRP 80.1%, Cash 19.9%",
-    "navBefore": 767963,
-    "navAfter": 767963,
+    "allocationText": "XRP 80.0%, Cash 20.0%",
+    "navBefore": 766273,
+    "navAfter": 766273,
     "pnlKrw": 0,
     "returnPct": 0.0,
     "plannedSells": [],
@@ -31875,51 +31973,45 @@
     "rankedCandidates": [
       {
         "symbol": "XRP",
-        "r24Pct": 2.681,
-        "r7Pct": 6.229,
-        "scorePct": 3.927
+        "r24Pct": 2.544,
+        "r7Pct": 6.195,
+        "scorePct": 3.783
       },
       {
         "symbol": "LINK",
-        "r24Pct": 0.724,
-        "r7Pct": 4.294,
-        "scorePct": 1.583
-      },
-      {
-        "symbol": "AVAX",
-        "r24Pct": 0.903,
-        "r7Pct": 2.182,
-        "scorePct": 1.34
+        "r24Pct": 0.727,
+        "r7Pct": 4.309,
+        "scorePct": 1.588
       },
       {
         "symbol": "BTC",
-        "r24Pct": 0.978,
-        "r7Pct": 1.132,
-        "scorePct": 1.205
+        "r24Pct": 1.068,
+        "r7Pct": 1.11,
+        "scorePct": 1.29
+      },
+      {
+        "symbol": "AVAX",
+        "r24Pct": 0.765,
+        "r7Pct": 2.332,
+        "scorePct": 1.232
       },
       {
         "symbol": "SOL",
-        "r24Pct": 0.222,
-        "r7Pct": 3.206,
-        "scorePct": 0.864
+        "r24Pct": 0.371,
+        "r7Pct": 3.52,
+        "scorePct": 1.075
       },
       {
         "symbol": "AAVE",
         "r24Pct": -0.07,
-        "r7Pct": 4.449,
-        "scorePct": 0.82
-      },
-      {
-        "symbol": "ONDO",
-        "r24Pct": -1.056,
-        "r7Pct": 0.898,
-        "scorePct": -0.877
+        "r7Pct": 4.612,
+        "scorePct": 0.852
       },
       {
         "symbol": "SUI",
-        "r24Pct": -4.438,
-        "r7Pct": 17.229,
-        "scorePct": -0.992
+        "r24Pct": -4.794,
+        "r7Pct": 16.898,
+        "scorePct": -1.415
       }
     ],
     "warnings": [
@@ -31946,18 +32038,18 @@
   "dailySummary": {
     "dateKst": "2026-05-15",
     "navStart": 767143,
-    "navEnd": 767963,
-    "pnlKrw": 820,
-    "returnPct": 0.10689011044876902,
+    "navEnd": 766273,
+    "pnlKrw": -870,
+    "returnPct": -0.11340780011027932,
     "highNav": 767963,
     "lowNav": 765991,
-    "maxIntradayDrawdownPct": -0.15016756980119741,
+    "maxIntradayDrawdownPct": -0.22006268531166215,
     "orderCount": 1,
     "filledOrderCount": 1,
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 1,
-    "reportCount": 4,
+    "reportCount": 5,
     "turnoverKrw": 613714,
     "actualFeesKrw": 306.85699998938,
     "estimatedFeesKrw": 0.0,
@@ -31972,14 +32064,14 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-05-15T18:08:58.039795+09:00",
-    "latestReportAgeMinutes": 3.7339965833333335,
+    "updatedAt": "2026-05-15T18:38:12.473684+09:00",
+    "latestReportAgeMinutes": 4.241228066666666,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
-    "lastRunStatus": "ok",
-    "lastRunId": "9bab36e7-0b7a-4941-b7f3-2ed12b063ad3",
+    "lastRunStatus": "skipped_recent_run",
+    "lastRunId": "07855647-eb07-40c9-b6af-85c88bdd26ef",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -31990,7 +32082,7 @@
       "status": "complete_active",
       "summary": "Fail-closed trading gate, pending-order block, duplicate-run guard, order polling/reporting, and risk limit checks are active.",
       "evidence": [
-        "last_run_status=ok",
+        "last_run_status=skipped_recent_run",
         "pendingOrderCount=0",
         "trading gate is enabled for live execution"
       ]
@@ -32002,8 +32094,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-05-15T18:00:00",
-        "priceSnapshot=2026-05-15T18:05:14+09:00"
+        "signalCandle=2026-05-15T18:30:00",
+        "priceSnapshot=2026-05-15T18:32:58+09:00"
       ]
     },
     "phase3": {
