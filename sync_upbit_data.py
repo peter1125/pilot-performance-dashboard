@@ -328,8 +328,8 @@ def build_upbit_payload(report_dir: Path = REPORT_DIR) -> dict[str, Any]:
         strategy_label = "Full Upbit KRW Breakout Rotation"
         universe_label = "Full Upbit KRW spot universe"
     else:
-        strategy_label = "Core Liquid v2 Breakout Rotation"
-        universe_label = "Core liquid v2 universe: BTC, ETH, SOL, XRP, LINK, DOGE, AVAX"
+        strategy_label = "Paper-Aligned Pilot 3 Breakout Rotation"
+        universe_label = "Paper-aligned Upbit-compatible Pilot 3 universe: BTC, ETH, SOL, XRP, SUI, LINK, DOGE, AVAX, AAVE, ONDO, PEPE"
 
     summary = {
         "name": "Pilot 3 Upbit Live",

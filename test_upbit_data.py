@@ -195,6 +195,7 @@ class UpbitDataTests(unittest.TestCase):
         self.assertEqual([p["cumulativeFeesKrw"] for p in payload["equitySeries"]], [0, 300])
         self.assertEqual(payload["transactions"][0]["cumulativeFeesKrw"], 300)
         self.assertEqual(payload["summary"]["currentAllocation"], "JTO 60.0%, FLOCK 25.0%, CFG 15.0%")
+        self.assertIn("BTC, ETH, SOL, XRP, SUI, LINK, DOGE, AVAX, AAVE, ONDO, PEPE", payload["guardrails"]["universe"])
 
     def test_build_payload_surfaces_full_universe_mode_and_latest_safety_counts(self):
         with tempfile.TemporaryDirectory() as td:
