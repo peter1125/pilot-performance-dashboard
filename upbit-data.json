@@ -1,19 +1,19 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-23T21:08:57.594601+00:00",
+  "refreshedAt": "2026-05-23T21:32:54.214184+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Paper-Aligned Pilot 3 Breakout Rotation",
-    "currentNav": 764437,
+    "currentNav": 759954,
     "startingNav": 1000247,
-    "totalPnlKrw": -235810,
-    "totalReturnPct": -23.57517693129797,
-    "latestTime": "2026-05-24T06:01:33+09:00",
+    "totalPnlKrw": -240293,
+    "totalReturnPct": -24.02336622854155,
+    "latestTime": "2026-05-24T06:31:40+09:00",
     "latestStatus": "live",
-    "currentAllocation": "ONDO 60.0%, AVAX 25.0%, Cash 15.0%",
-    "targetAllocation": "ONDO 60.0%, AVAX 25.0%, SUI 15.0%",
-    "latestRegime": "caution; 24h breadth 91%, 7d breadth 45%; 7d leaders ONDO +22.2%, SUI +3.1%, AVAX +2.8%",
-    "latestReason": "three strong breakouts -> 60% / 25% / 15%",
+    "currentAllocation": "Cash 100.0%",
+    "targetAllocation": "Cash 100.0%",
+    "latestRegime": "risk_off; 24h breadth 82%, 7d breadth 27%; 7d leaders ONDO +22.1%, AVAX +1.5%, SUI +0.8%",
+    "latestReason": "risk_off -> Cash 100%",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
     "freezeMode": "normal",
@@ -21,16 +21,16 @@
     "riskFreezeReason": null,
     "ordersSubmitted": null,
     "latestOrdersSubmitted": null,
-    "warningCount": 4,
+    "warningCount": 3,
     "eligibilityWarningCount": 0,
     "rejectionWarningCount": 1,
-    "reportCount": 682,
-    "tradeCount": 146,
-    "cumulativeFeesKrw": 15879.100873789432,
+    "reportCount": 683,
+    "tradeCount": 148,
+    "cumulativeFeesKrw": 16201.969692460721,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": -1318,
-    "dailyReturnPct": -0.17211771389021294,
-    "feeDragTodayKrw": 325.44549993348,
+    "dailyPnlKrw": -5801,
+    "dailyReturnPct": -0.7575530032451633,
+    "feeDragTodayKrw": 648.31431860477,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
     "phase1Status": "complete_active",
@@ -50990,6 +50990,112 @@
       "freezeMode": null,
       "freezeModeReason": null,
       "riskFreezeReason": null
+    },
+    {
+      "time": "2026-05-24T06:31:40+09:00",
+      "date": "2026-05-24",
+      "sourceFile": "pilot3_live_executor_20260524_063140.json",
+      "status": "live",
+      "reason": "risk_off -> Cash 100%",
+      "regime": "risk_off",
+      "regimeNote": "risk_off; 24h breadth 82%, 7d breadth 27%; 7d leaders ONDO +22.1%, AVAX +1.5%, SUI +0.8%",
+      "targetReason": "risk_off -> Cash 100%",
+      "targetWeights": {
+        "Cash": 1.0
+      },
+      "targetText": "Cash 100.0%",
+      "weightsBefore": {
+        "Cash": 0.15051558246691132,
+        "AVAX": 0.24857391646702215,
+        "ONDO": 0.6009105010660666
+      },
+      "weightsAfter": {
+        "Cash": 1.0
+      },
+      "allocationText": "Cash 100.0%",
+      "navBefore": 760977,
+      "navAfter": 759954,
+      "pnlKrw": -1023,
+      "returnPct": -0.1344324467099531,
+      "plannedSells": [
+        {
+          "side": "SELL",
+          "symbol": "AVAX",
+          "market": "KRW-AVAX",
+          "volume": 13.4060224,
+          "notional_krw_est": 189158.976064,
+          "ref_price": 14110.0
+        },
+        {
+          "side": "SELL",
+          "symbol": "ONDO",
+          "market": "KRW-ONDO",
+          "volume": 724.68927444,
+          "notional_krw_est": 457278.93217164,
+          "ref_price": 631.0
+        }
+      ],
+      "plannedBuys": [],
+      "executions": [
+        {
+          "time": "2026-05-24T06:31:40+09:00",
+          "side": "SELL",
+          "symbol": "AVAX",
+          "market": "KRW-AVAX",
+          "notionalKrw": 189159,
+          "feeKrw": 94.51245792,
+          "uuid": "f8871629-c168-4a2b-94e7-7779031b0cde",
+          "state": "filled",
+          "finalState": "done",
+          "executionStatus": "filled",
+          "executedVolume": 13.4060224,
+          "remainingVolume": "0",
+          "actualFeeKrw": 94.51245792,
+          "feeSource": "actual",
+          "cumulativeFeesKrw": 16201.969692460721
+        },
+        {
+          "time": "2026-05-24T06:31:40+09:00",
+          "side": "SELL",
+          "symbol": "ONDO",
+          "market": "KRW-ONDO",
+          "notionalKrw": 457279,
+          "feeKrw": 228.35636075129,
+          "uuid": "ee57cd22-f085-4d3d-bc61-7bac5f8fd5be",
+          "state": "filled",
+          "finalState": "done",
+          "executionStatus": "filled",
+          "executedVolume": 724.68927444,
+          "remainingVolume": "0",
+          "actualFeeKrw": 228.35636075129,
+          "feeSource": "actual",
+          "cumulativeFeesKrw": 16201.969692460721
+        }
+      ],
+      "feesKrw": 322.86881867129,
+      "cumulativeFeesKrw": 16201.969692460721,
+      "tradeCount": 2,
+      "rankedCandidates": [],
+      "warnings": [
+        "market data warning: universe guardrails rejected 250 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 2 orders within limit 6"
+      ],
+      "warningCount": 3,
+      "rejectionWarningCount": 1,
+      "eligibilityWarningCount": 0,
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      },
+      "ordersSubmitted": null,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": null,
+      "freezeModeReason": null,
+      "riskFreezeReason": null
     }
   ],
   "transactions": [
@@ -53474,131 +53580,133 @@
       "actualFeeKrw": 95.718999936,
       "feeSource": "actual",
       "cumulativeFeesKrw": 15879.100873789432
+    },
+    {
+      "time": "2026-05-24T06:31:40+09:00",
+      "side": "SELL",
+      "symbol": "AVAX",
+      "market": "KRW-AVAX",
+      "notionalKrw": 189159,
+      "feeKrw": 94.51245792,
+      "uuid": "f8871629-c168-4a2b-94e7-7779031b0cde",
+      "state": "filled",
+      "finalState": "done",
+      "executionStatus": "filled",
+      "executedVolume": 13.4060224,
+      "remainingVolume": "0",
+      "actualFeeKrw": 94.51245792,
+      "feeSource": "actual",
+      "cumulativeFeesKrw": 16201.969692460721
+    },
+    {
+      "time": "2026-05-24T06:31:40+09:00",
+      "side": "SELL",
+      "symbol": "ONDO",
+      "market": "KRW-ONDO",
+      "notionalKrw": 457279,
+      "feeKrw": 228.35636075129,
+      "uuid": "ee57cd22-f085-4d3d-bc61-7bac5f8fd5be",
+      "state": "filled",
+      "finalState": "done",
+      "executionStatus": "filled",
+      "executedVolume": 724.68927444,
+      "remainingVolume": "0",
+      "actualFeeKrw": 228.35636075129,
+      "feeSource": "actual",
+      "cumulativeFeesKrw": 16201.969692460721
     }
   ],
   "latest": {
-    "time": "2026-05-24T06:01:33+09:00",
+    "time": "2026-05-24T06:31:40+09:00",
     "date": "2026-05-24",
-    "sourceFile": "pilot3_live_executor_20260524_060133.json",
+    "sourceFile": "pilot3_live_executor_20260524_063140.json",
     "status": "live",
-    "reason": "three strong breakouts -> 60% / 25% / 15%",
-    "regime": "caution",
-    "regimeNote": "caution; 24h breadth 91%, 7d breadth 45%; 7d leaders ONDO +22.2%, SUI +3.1%, AVAX +2.8%",
-    "targetReason": "three strong breakouts -> 60% / 25% / 15%",
+    "reason": "risk_off -> Cash 100%",
+    "regime": "risk_off",
+    "regimeNote": "risk_off; 24h breadth 82%, 7d breadth 27%; 7d leaders ONDO +22.1%, AVAX +1.5%, SUI +0.8%",
+    "targetReason": "risk_off -> Cash 100%",
     "targetWeights": {
-      "ONDO": 0.6,
-      "AVAX": 0.25,
-      "SUI": 0.15
-    },
-    "targetText": "ONDO 60.0%, AVAX 25.0%, SUI 15.0%",
-    "weightsBefore": {
       "Cash": 1.0
     },
-    "weightsAfter": {
-      "Cash": 0.14983426234290448,
-      "AVAX": 0.25007929553116853,
-      "ONDO": 0.600086442125927
+    "targetText": "Cash 100.0%",
+    "weightsBefore": {
+      "Cash": 0.15051558246691132,
+      "AVAX": 0.24857391646702215,
+      "ONDO": 0.6009105010660666
     },
-    "allocationText": "ONDO 60.0%, AVAX 25.0%, Cash 15.0%",
-    "navBefore": 765755,
-    "navAfter": 764437,
-    "pnlKrw": -1318,
-    "returnPct": -0.17211771389021294,
-    "plannedSells": [],
-    "plannedBuys": [
+    "weightsAfter": {
+      "Cash": 1.0
+    },
+    "allocationText": "Cash 100.0%",
+    "navBefore": 760977,
+    "navAfter": 759954,
+    "pnlKrw": -1023,
+    "returnPct": -0.1344324467099531,
+    "plannedSells": [
       {
-        "side": "BUY",
+        "side": "SELL",
         "symbol": "AVAX",
         "market": "KRW-AVAX",
-        "price_krw": 191438.826787515,
-        "ref_price": 14290.0
+        "volume": 13.4060224,
+        "notional_krw_est": 189158.976064,
+        "ref_price": 14110.0
       },
       {
-        "side": "BUY",
+        "side": "SELL",
         "symbol": "ONDO",
         "market": "KRW-ONDO",
-        "price_krw": 459453.184290036,
-        "ref_price": 633.0
+        "volume": 724.68927444,
+        "notional_krw_est": 457278.93217164,
+        "ref_price": 631.0
       }
     ],
+    "plannedBuys": [],
     "executions": [
       {
-        "time": "2026-05-24T06:01:33+09:00",
-        "side": "BUY",
-        "symbol": "ONDO",
-        "market": "KRW-ONDO",
-        "notionalKrw": 459453,
-        "feeKrw": 229.72649999748,
-        "uuid": "3a7195d3-1f38-4de9-bde6-92ec9f9b571a",
-        "state": "filled",
-        "finalState": "cancel",
-        "executionStatus": "filled",
-        "executedVolume": 724.68927444,
-        "remainingVolume": null,
-        "actualFeeKrw": 229.72649999748,
-        "feeSource": "actual",
-        "cumulativeFeesKrw": 15879.100873789432
-      },
-      {
-        "time": "2026-05-24T06:01:33+09:00",
-        "side": "BUY",
+        "time": "2026-05-24T06:31:40+09:00",
+        "side": "SELL",
         "symbol": "AVAX",
         "market": "KRW-AVAX",
-        "notionalKrw": 191438,
-        "feeKrw": 95.718999936,
-        "uuid": "9ca0ac92-ab5f-4416-9f21-34ac5e2962fe",
+        "notionalKrw": 189159,
+        "feeKrw": 94.51245792,
+        "uuid": "f8871629-c168-4a2b-94e7-7779031b0cde",
         "state": "filled",
-        "finalState": "cancel",
+        "finalState": "done",
         "executionStatus": "filled",
         "executedVolume": 13.4060224,
-        "remainingVolume": null,
-        "actualFeeKrw": 95.718999936,
+        "remainingVolume": "0",
+        "actualFeeKrw": 94.51245792,
         "feeSource": "actual",
-        "cumulativeFeesKrw": 15879.100873789432
-      }
-    ],
-    "feesKrw": 325.44549993348,
-    "cumulativeFeesKrw": 15879.100873789432,
-    "tradeCount": 2,
-    "rankedCandidates": [
+        "cumulativeFeesKrw": 16201.969692460721
+      },
       {
+        "time": "2026-05-24T06:31:40+09:00",
+        "side": "SELL",
         "symbol": "ONDO",
-        "r24Pct": 7.836,
-        "r7Pct": 22.201,
-        "scorePct": 12.277
-      },
-      {
-        "symbol": "AVAX",
-        "r24Pct": 2.954,
-        "r7Pct": 2.806,
-        "scorePct": 3.515
-      },
-      {
-        "symbol": "SUI",
-        "r24Pct": 2.632,
-        "r7Pct": 3.084,
-        "scorePct": 3.248
-      },
-      {
-        "symbol": "SOL",
-        "r24Pct": 2.038,
-        "r7Pct": 0.696,
-        "scorePct": 2.177
-      },
-      {
-        "symbol": "LINK",
-        "r24Pct": 1.746,
-        "r7Pct": 0.275,
-        "scorePct": 1.801
+        "market": "KRW-ONDO",
+        "notionalKrw": 457279,
+        "feeKrw": 228.35636075129,
+        "uuid": "ee57cd22-f085-4d3d-bc61-7bac5f8fd5be",
+        "state": "filled",
+        "finalState": "done",
+        "executionStatus": "filled",
+        "executedVolume": 724.68927444,
+        "remainingVolume": "0",
+        "actualFeeKrw": 228.35636075129,
+        "feeSource": "actual",
+        "cumulativeFeesKrw": 16201.969692460721
       }
     ],
+    "feesKrw": 322.86881867129,
+    "cumulativeFeesKrw": 16201.969692460721,
+    "tradeCount": 2,
+    "rankedCandidates": [],
     "warnings": [
       "market data warning: universe guardrails rejected 250 KRW markets",
       "risk preflight: risk checks passed",
-      "order count preflight: planned 2 orders within limit 6",
-      "Phase 2 buys skipped SUI: within rebalance band (15.00% drift)"
+      "order count preflight: planned 2 orders within limit 6"
     ],
-    "warningCount": 4,
+    "warningCount": 3,
     "rejectionWarningCount": 1,
     "eligibilityWarningCount": 0,
     "safety": {
@@ -53617,22 +53725,22 @@
   "dailySummary": {
     "dateKst": "2026-05-24",
     "navStart": 765755,
-    "navEnd": 764437,
-    "pnlKrw": -1318,
-    "returnPct": -0.17211771389021294,
+    "navEnd": 759954,
+    "pnlKrw": -5801,
+    "returnPct": -0.7575530032451633,
     "highNav": 765755,
-    "lowNav": 764437,
-    "maxIntradayDrawdownPct": -0.17211771389021294,
-    "orderCount": 2,
-    "filledOrderCount": 2,
+    "lowNav": 759954,
+    "maxIntradayDrawdownPct": -0.7575530032451633,
+    "orderCount": 4,
+    "filledOrderCount": 4,
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
-    "tradeRuns": 1,
-    "reportCount": 12,
-    "turnoverKrw": 650891,
-    "actualFeesKrw": 325.44549993348,
+    "tradeRuns": 2,
+    "reportCount": 13,
+    "turnoverKrw": 1297329,
+    "actualFeesKrw": 648.31431860477,
     "estimatedFeesKrw": 0.0,
-    "feeDragPctOfStartNav": 0.04249995102003643,
+    "feeDragPctOfStartNav": 0.08466341305048873,
     "targetChanges": 1,
     "riskEvents": [],
     "methodologyEvents": [
@@ -53644,14 +53752,14 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-05-24T06:08:57.554425+09:00",
-    "latestReportAgeMinutes": 7.409240416666666,
+    "updatedAt": "2026-05-24T06:32:54.160199+09:00",
+    "latestReportAgeMinutes": 1.2360033166666669,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "ok",
-    "lastRunId": "25814709-d1f6-4424-8434-07df14d7fdc4",
+    "lastRunId": "8eb56d9c-3c77-420a-9f04-990b09cdeee6",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -53674,8 +53782,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-05-24T06:00:00",
-        "priceSnapshot=2026-05-24T06:01:33+09:00"
+        "signalCandle=2026-05-24T06:30:00",
+        "priceSnapshot=2026-05-24T06:31:40+09:00"
       ]
     },
     "phase3": {
