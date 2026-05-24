@@ -1,6 +1,6 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-05-24T00:09:06.314298+00:00",
+  "refreshedAt": "2026-05-24T00:38:31.709386+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Paper-Aligned Pilot 3 Breakout Rotation",
@@ -8,12 +8,12 @@
     "startingNav": 1000247,
     "totalPnlKrw": -240249,
     "totalReturnPct": -24.018967315073176,
-    "latestTime": "2026-05-24T09:02:12+09:00",
+    "latestTime": "2026-05-24T09:32:53+09:00",
     "latestStatus": "live",
     "currentAllocation": "Cash 100.0%",
     "targetAllocation": "Cash 100.0%",
-    "latestRegime": "risk_off; 24h breadth 100%, 7d breadth 27%; 7d leaders ONDO +23.4%, AVAX +1.7%, SUI +0.3%",
-    "latestReason": "risk_off -> Cash 100%",
+    "latestRegime": "caution; 24h breadth 100%, 7d breadth 36%; 7d leaders ONDO +23.0%, AVAX +2.1%, SUI +1.3%",
+    "latestReason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
     "freezeMode": "normal",
@@ -24,7 +24,7 @@
     "warningCount": 3,
     "eligibilityWarningCount": 0,
     "rejectionWarningCount": 1,
-    "reportCount": 688,
+    "reportCount": 689,
     "tradeCount": 148,
     "cumulativeFeesKrw": 16201.969692460721,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
@@ -51356,6 +51356,83 @@
       "freezeMode": null,
       "freezeModeReason": null,
       "riskFreezeReason": null
+    },
+    {
+      "time": "2026-05-24T09:32:53+09:00",
+      "date": "2026-05-24",
+      "sourceFile": "pilot3_live_executor_20260524_093253.json",
+      "status": "live",
+      "reason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
+      "regime": "caution",
+      "regimeNote": "caution; 24h breadth 100%, 7d breadth 36%; 7d leaders ONDO +23.0%, AVAX +2.1%, SUI +1.3%",
+      "targetReason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
+      "targetWeights": {
+        "Cash": 1.0
+      },
+      "targetText": "Cash 100.0%",
+      "weightsBefore": {
+        "Cash": 1.0
+      },
+      "weightsAfter": {
+        "Cash": 1.0
+      },
+      "allocationText": "Cash 100.0%",
+      "navBefore": 759998,
+      "navAfter": 759998,
+      "pnlKrw": 0,
+      "returnPct": 0.0,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 16201.969692460721,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "ONDO",
+          "r24Pct": 10.526,
+          "r7Pct": 23.047,
+          "scorePct": 15.136
+        },
+        {
+          "symbol": "AVAX",
+          "r24Pct": 2.179,
+          "r7Pct": 2.104,
+          "scorePct": 2.6
+        },
+        {
+          "symbol": "SUI",
+          "r24Pct": 2.105,
+          "r7Pct": 1.265,
+          "scorePct": 2.358
+        },
+        {
+          "symbol": "SOL",
+          "r24Pct": 1.42,
+          "r7Pct": 0.078,
+          "scorePct": 1.435
+        }
+      ],
+      "warnings": [
+        "market data warning: universe guardrails rejected 250 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 0 orders within limit 6"
+      ],
+      "warningCount": 3,
+      "rejectionWarningCount": 1,
+      "eligibilityWarningCount": 0,
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      },
+      "ordersSubmitted": null,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": null,
+      "freezeModeReason": null,
+      "riskFreezeReason": null
     }
   ],
   "transactions": [
@@ -53877,14 +53954,14 @@
     }
   ],
   "latest": {
-    "time": "2026-05-24T09:02:12+09:00",
+    "time": "2026-05-24T09:32:53+09:00",
     "date": "2026-05-24",
-    "sourceFile": "pilot3_live_executor_20260524_090212.json",
+    "sourceFile": "pilot3_live_executor_20260524_093253.json",
     "status": "live",
-    "reason": "risk_off -> Cash 100%",
-    "regime": "risk_off",
-    "regimeNote": "risk_off; 24h breadth 100%, 7d breadth 27%; 7d leaders ONDO +23.4%, AVAX +1.7%, SUI +0.3%",
-    "targetReason": "risk_off -> Cash 100%",
+    "reason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
+    "regime": "caution",
+    "regimeNote": "caution; 24h breadth 100%, 7d breadth 36%; 7d leaders ONDO +23.0%, AVAX +2.1%, SUI +1.3%",
+    "targetReason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
     "targetWeights": {
       "Cash": 1.0
     },
@@ -53906,7 +53983,32 @@
     "feesKrw": 0,
     "cumulativeFeesKrw": 16201.969692460721,
     "tradeCount": 0,
-    "rankedCandidates": [],
+    "rankedCandidates": [
+      {
+        "symbol": "ONDO",
+        "r24Pct": 10.526,
+        "r7Pct": 23.047,
+        "scorePct": 15.136
+      },
+      {
+        "symbol": "AVAX",
+        "r24Pct": 2.179,
+        "r7Pct": 2.104,
+        "scorePct": 2.6
+      },
+      {
+        "symbol": "SUI",
+        "r24Pct": 2.105,
+        "r7Pct": 1.265,
+        "scorePct": 2.358
+      },
+      {
+        "symbol": "SOL",
+        "r24Pct": 1.42,
+        "r7Pct": 0.078,
+        "scorePct": 1.435
+      }
+    ],
     "warnings": [
       "market data warning: universe guardrails rejected 250 KRW markets",
       "risk preflight: risk checks passed",
@@ -53942,7 +54044,7 @@
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 2,
-    "reportCount": 18,
+    "reportCount": 19,
     "turnoverKrw": 1297329,
     "actualFeesKrw": 648.31431860477,
     "estimatedFeesKrw": 0.0,
@@ -53951,21 +54053,22 @@
     "riskEvents": [],
     "methodologyEvents": [
       "risk_off -> Cash 100%",
-      "three strong breakouts -> 60% / 25% / 15%"
+      "three strong breakouts -> 60% / 25% / 15%",
+      "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target"
     ],
     "notes": []
   },
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-05-24T09:09:06.273408+09:00",
-    "latestReportAgeMinutes": 6.9045568,
+    "updatedAt": "2026-05-24T09:38:31.669085+09:00",
+    "latestReportAgeMinutes": 5.64448475,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "ok",
-    "lastRunId": "021c1363-9e34-459f-8046-18620c45f403",
+    "lastRunId": "bfc58789-20bd-4454-b3fb-8673110e4e6d",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -53988,8 +54091,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-05-24T09:00:00",
-        "priceSnapshot=2026-05-24T09:02:12+09:00"
+        "signalCandle=2026-05-24T09:30:00",
+        "priceSnapshot=2026-05-24T09:32:53+09:00"
       ]
     },
     "phase3": {
