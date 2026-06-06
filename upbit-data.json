@@ -1,18 +1,18 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-06-06T21:38:42.798351+00:00",
+  "refreshedAt": "2026-06-06T22:08:33.392399+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Paper-Aligned Pilot 3 Breakout Rotation",
-    "currentNav": 771427,
+    "currentNav": 771386,
     "startingNav": 1000247,
-    "totalPnlKrw": -228820,
-    "totalReturnPct": -22.87634954166321,
-    "latestTime": "2026-06-07T06:30:09+09:00",
+    "totalPnlKrw": -228861,
+    "totalReturnPct": -22.880448529213286,
+    "latestTime": "2026-06-07T07:00:58+09:00",
     "latestStatus": "live",
     "currentAllocation": "Cash 97.8%, BTC 2.2%",
     "targetAllocation": "Cash 100.0%",
-    "latestRegime": "risk_off; 24h breadth 0%, 7d breadth 0%; 7d leaders ONDO -9.7%, BTC -15.6%, XRP -17.2%",
+    "latestRegime": "risk_off; 24h breadth 10%, 7d breadth 0%; 7d leaders ONDO -11.7%, BTC -15.7%, XRP -17.1%",
     "latestReason": "risk_off -> Cash 100%",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
@@ -24,12 +24,12 @@
     "warningCount": 4,
     "eligibilityWarningCount": 0,
     "rejectionWarningCount": 1,
-    "reportCount": 1292,
+    "reportCount": 1293,
     "tradeCount": 152,
     "cumulativeFeesKrw": 17260.356952417576,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": 16,
-    "dailyReturnPct": 0.002074121317948538,
+    "dailyPnlKrw": -25,
+    "dailyReturnPct": -0.0032408145592945914,
     "feeDragTodayKrw": 0,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
@@ -85876,6 +85876,61 @@
       "freezeMode": null,
       "freezeModeReason": null,
       "riskFreezeReason": null
+    },
+    {
+      "time": "2026-06-07T07:00:58+09:00",
+      "date": "2026-06-07",
+      "sourceFile": "pilot3_live_executor_20260607_070058.json",
+      "status": "live",
+      "reason": "risk_off -> Cash 100%",
+      "regime": "risk_off",
+      "regimeNote": "risk_off; 24h breadth 10%, 7d breadth 0%; 7d leaders ONDO -11.7%, BTC -15.7%, XRP -17.1%",
+      "targetReason": "risk_off -> Cash 100%",
+      "targetWeights": {
+        "Cash": 1.0
+      },
+      "targetText": "Cash 100.0%",
+      "weightsBefore": {
+        "Cash": 0.9781574701412336,
+        "BTC": 0.021842529858766557
+      },
+      "weightsAfter": {
+        "Cash": 0.9781512170190959,
+        "BTC": 0.021848782980904088
+      },
+      "allocationText": "Cash 97.8%, BTC 2.2%",
+      "navBefore": 771381,
+      "navAfter": 771386,
+      "pnlKrw": 5,
+      "returnPct": 0.000648188119748866,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 17260.356952417576,
+      "tradeCount": 0,
+      "rankedCandidates": [],
+      "warnings": [
+        "market data warning: universe guardrails rejected 253 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 0 orders within limit 6",
+        "Phase 2 sells skipped BTC: within rebalance band (2.18% drift)"
+      ],
+      "warningCount": 4,
+      "rejectionWarningCount": 1,
+      "eligibilityWarningCount": 0,
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      },
+      "ordersSubmitted": null,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": null,
+      "freezeModeReason": null,
+      "riskFreezeReason": null
     }
   ],
   "transactions": [
@@ -88465,31 +88520,31 @@
     }
   ],
   "latest": {
-    "time": "2026-06-07T06:30:09+09:00",
+    "time": "2026-06-07T07:00:58+09:00",
     "date": "2026-06-07",
-    "sourceFile": "pilot3_live_executor_20260607_063009.json",
+    "sourceFile": "pilot3_live_executor_20260607_070058.json",
     "status": "live",
     "reason": "risk_off -> Cash 100%",
     "regime": "risk_off",
-    "regimeNote": "risk_off; 24h breadth 0%, 7d breadth 0%; 7d leaders ONDO -9.7%, BTC -15.6%, XRP -17.2%",
+    "regimeNote": "risk_off; 24h breadth 10%, 7d breadth 0%; 7d leaders ONDO -11.7%, BTC -15.7%, XRP -17.1%",
     "targetReason": "risk_off -> Cash 100%",
     "targetWeights": {
       "Cash": 1.0
     },
     "targetText": "Cash 100.0%",
     "weightsBefore": {
-      "Cash": 0.9781011949200258,
-      "BTC": 0.021898805079974222
+      "Cash": 0.9781574701412336,
+      "BTC": 0.021842529858766557
     },
     "weightsAfter": {
-      "Cash": 0.9780988792060191,
-      "BTC": 0.021901120793980888
+      "Cash": 0.9781512170190959,
+      "BTC": 0.021848782980904088
     },
     "allocationText": "Cash 97.8%, BTC 2.2%",
-    "navBefore": 771425,
-    "navAfter": 771427,
-    "pnlKrw": 2,
-    "returnPct": 0.0002592604595391645,
+    "navBefore": 771381,
+    "navAfter": 771386,
+    "pnlKrw": 5,
+    "returnPct": 0.000648188119748866,
     "plannedSells": [],
     "plannedBuys": [],
     "executions": [],
@@ -88501,7 +88556,7 @@
       "market data warning: universe guardrails rejected 253 KRW markets",
       "risk preflight: risk checks passed",
       "order count preflight: planned 0 orders within limit 6",
-      "Phase 2 sells skipped BTC: within rebalance band (2.19% drift)"
+      "Phase 2 sells skipped BTC: within rebalance band (2.18% drift)"
     ],
     "warningCount": 4,
     "rejectionWarningCount": 1,
@@ -88522,9 +88577,9 @@
   "dailySummary": {
     "dateKst": "2026-06-07",
     "navStart": 771411,
-    "navEnd": 771427,
-    "pnlKrw": 16,
-    "returnPct": 0.002074121317948538,
+    "navEnd": 771386,
+    "pnlKrw": -25,
+    "returnPct": -0.0032408145592945914,
     "highNav": 771427,
     "lowNav": 771336,
     "maxIntradayDrawdownPct": -0.009722443677883774,
@@ -88533,7 +88588,7 @@
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 0,
-    "reportCount": 14,
+    "reportCount": 15,
     "turnoverKrw": 0,
     "actualFeesKrw": 0.0,
     "estimatedFeesKrw": 0.0,
@@ -88548,14 +88603,14 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-06-07T06:38:42.734008+09:00",
-    "latestReportAgeMinutes": 8.562233466666667,
+    "updatedAt": "2026-06-07T07:08:33.332692+09:00",
+    "latestReportAgeMinutes": 7.5888782,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "ok",
-    "lastRunId": "2f26842e-4a72-47f5-97d3-364d983e2933",
+    "lastRunId": "4f007ad4-8b4f-46fb-b03d-d335c9189c5d",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -88578,8 +88633,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-06-07T06:30:00",
-        "priceSnapshot=2026-06-07T06:30:09+09:00"
+        "signalCandle=2026-06-07T07:00:00",
+        "priceSnapshot=2026-06-07T07:00:58+09:00"
       ]
     },
     "phase3": {
