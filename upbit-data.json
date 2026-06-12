@@ -1,18 +1,18 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-06-12T02:38:55.541206+00:00",
+  "refreshedAt": "2026-06-12T03:09:00.658159+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Paper-Aligned Pilot 3 Breakout Rotation",
-    "currentNav": 771861,
+    "currentNav": 769811,
     "startingNav": 1000247,
-    "totalPnlKrw": -228386,
-    "totalReturnPct": -22.832960258816072,
-    "latestTime": "2026-06-12T11:30:55+09:00",
+    "totalPnlKrw": -230436,
+    "totalReturnPct": -23.037909636319828,
+    "latestTime": "2026-06-12T12:00:10+09:00",
     "latestStatus": "live",
-    "currentAllocation": "ONDO 60.0%, LINK 25.0%, Cash 12.7%, BTC 2.3%",
-    "targetAllocation": "ONDO 60.0%, LINK 25.0%, XRP 15.0%",
-    "latestRegime": "normal; 24h breadth 100%, 7d breadth 50%; 7d leaders SUI +3.0%, ONDO +2.4%, BTC +1.8%",
+    "currentAllocation": "ONDO 60.0%, LINK 25.0%, XRP 12.7%, BTC 2.3%, Cash 0.0%",
+    "targetAllocation": "ONDO 60.0%, XRP 25.0%, LINK 15.0%",
+    "latestRegime": "normal; 24h breadth 100%, 7d breadth 50%; 7d leaders SUI +3.3%, BTC +1.8%, ONDO +1.7%",
     "latestReason": "three strong breakouts -> 60% / 25% / 15%",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
@@ -24,13 +24,13 @@
     "warningCount": 5,
     "eligibilityWarningCount": 0,
     "rejectionWarningCount": 1,
-    "reportCount": 1542,
-    "tradeCount": 154,
-    "cumulativeFeesKrw": 17588.5369523876,
+    "reportCount": 1543,
+    "tradeCount": 155,
+    "cumulativeFeesKrw": 17637.4914523796,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": -131,
-    "dailyReturnPct": -0.01696908776256749,
-    "feeDragTodayKrw": 328.179999970025,
+    "dailyPnlKrw": -2181,
+    "dailyReturnPct": -0.28251588099358543,
+    "feeDragTodayKrw": 377.134499962025,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
     "phase1Status": "complete_active",
@@ -99712,6 +99712,126 @@
       "freezeMode": null,
       "freezeModeReason": null,
       "riskFreezeReason": null
+    },
+    {
+      "time": "2026-06-12T12:00:10+09:00",
+      "date": "2026-06-12",
+      "sourceFile": "pilot3_live_executor_20260612_120010.json",
+      "status": "live",
+      "reason": "three strong breakouts -> 60% / 25% / 15%",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 100%, 7d breadth 50%; 7d leaders SUI +3.3%, BTC +1.8%, ONDO +1.7%",
+      "targetReason": "three strong breakouts -> 60% / 25% / 15%",
+      "targetWeights": {
+        "ONDO": 0.6,
+        "XRP": 0.25,
+        "LINK": 0.15
+      },
+      "targetText": "ONDO 60.0%, XRP 25.0%, LINK 15.0%",
+      "weightsBefore": {
+        "Cash": 0.12737186523863783,
+        "BTC": 0.02265620497611494,
+        "LINK": 0.2503343414440773,
+        "ONDO": 0.5996375883411701
+      },
+      "weightsAfter": {
+        "Cash": 0.00013071850266827595,
+        "BTC": 0.022657413870937625,
+        "XRP": 0.12718568405219371,
+        "LINK": 0.25035032030885207,
+        "ONDO": 0.5996758632653483
+      },
+      "allocationText": "ONDO 60.0%, LINK 25.0%, XRP 12.7%, BTC 2.3%, Cash 0.0%",
+      "navBefore": 769861,
+      "navAfter": 769811,
+      "pnlKrw": -50,
+      "returnPct": -0.00649467890956939,
+      "plannedSells": [],
+      "plannedBuys": [
+        {
+          "side": "BUY",
+          "symbol": "XRP",
+          "market": "KRW-XRP",
+          "price_krw": 192465.15489231498,
+          "ref_price": 1720.0
+        }
+      ],
+      "executions": [
+        {
+          "time": "2026-06-12T12:00:10+09:00",
+          "side": "BUY",
+          "symbol": "XRP",
+          "market": "KRW-XRP",
+          "notionalKrw": 97909,
+          "feeKrw": 48.954499992,
+          "uuid": "bc0f8aa2-1944-413b-ad17-26f52b6fcd9b",
+          "state": "filled",
+          "finalState": "cancel",
+          "executionStatus": "filled",
+          "executedVolume": 56.9238372,
+          "remainingVolume": null,
+          "actualFeeKrw": 48.954499992,
+          "feeSource": "actual",
+          "cumulativeFeesKrw": 17637.4914523796
+        }
+      ],
+      "feesKrw": 48.954499992,
+      "cumulativeFeesKrw": 17637.4914523796,
+      "tradeCount": 1,
+      "rankedCandidates": [
+        {
+          "symbol": "ONDO",
+          "r24Pct": 8.465,
+          "r7Pct": 1.661,
+          "scorePct": 8.797
+        },
+        {
+          "symbol": "XRP",
+          "r24Pct": 3.241,
+          "r7Pct": 0.526,
+          "scorePct": 3.346
+        },
+        {
+          "symbol": "LINK",
+          "r24Pct": 2.857,
+          "r7Pct": 1.625,
+          "scorePct": 3.182
+        },
+        {
+          "symbol": "SUI",
+          "r24Pct": 2.154,
+          "r7Pct": 3.267,
+          "scorePct": 2.808
+        },
+        {
+          "symbol": "BTC",
+          "r24Pct": 2.28,
+          "r7Pct": 1.773,
+          "scorePct": 2.635
+        }
+      ],
+      "warnings": [
+        "market data warning: universe guardrails rejected 253 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 1 orders within limit 6",
+        "Phase 2 sells skipped BTC: within rebalance band (2.27% drift)",
+        "Phase 2 sells skipped LINK: within rebalance band (10.03% drift)"
+      ],
+      "warningCount": 5,
+      "rejectionWarningCount": 1,
+      "eligibilityWarningCount": 0,
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      },
+      "ordersSubmitted": null,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": null,
+      "freezeModeReason": null,
+      "riskFreezeReason": null
     }
   ],
   "transactions": [
@@ -102332,132 +102452,128 @@
       "actualFeeKrw": 96.5234999715,
       "feeSource": "actual",
       "cumulativeFeesKrw": 17588.5369523876
+    },
+    {
+      "time": "2026-06-12T12:00:10+09:00",
+      "side": "BUY",
+      "symbol": "XRP",
+      "market": "KRW-XRP",
+      "notionalKrw": 97909,
+      "feeKrw": 48.954499992,
+      "uuid": "bc0f8aa2-1944-413b-ad17-26f52b6fcd9b",
+      "state": "filled",
+      "finalState": "cancel",
+      "executionStatus": "filled",
+      "executedVolume": 56.9238372,
+      "remainingVolume": null,
+      "actualFeeKrw": 48.954499992,
+      "feeSource": "actual",
+      "cumulativeFeesKrw": 17637.4914523796
     }
   ],
   "latest": {
-    "time": "2026-06-12T11:30:55+09:00",
+    "time": "2026-06-12T12:00:10+09:00",
     "date": "2026-06-12",
-    "sourceFile": "pilot3_live_executor_20260612_113055.json",
+    "sourceFile": "pilot3_live_executor_20260612_120010.json",
     "status": "live",
     "reason": "three strong breakouts -> 60% / 25% / 15%",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 100%, 7d breadth 50%; 7d leaders SUI +3.0%, ONDO +2.4%, BTC +1.8%",
+    "regimeNote": "normal; 24h breadth 100%, 7d breadth 50%; 7d leaders SUI +3.3%, BTC +1.8%, ONDO +1.7%",
     "targetReason": "three strong breakouts -> 60% / 25% / 15%",
     "targetWeights": {
       "ONDO": 0.6,
-      "LINK": 0.25,
-      "XRP": 0.15
+      "XRP": 0.25,
+      "LINK": 0.15
     },
-    "targetText": "ONDO 60.0%, LINK 25.0%, XRP 15.0%",
+    "targetText": "ONDO 60.0%, XRP 25.0%, LINK 15.0%",
     "weightsBefore": {
-      "Cash": 0.9774118756461493,
-      "BTC": 0.022588124353850672
+      "Cash": 0.12737186523863783,
+      "BTC": 0.02265620497611494,
+      "LINK": 0.2503343414440773,
+      "ONDO": 0.5996375883411701
     },
     "weightsAfter": {
-      "Cash": 0.12704178292879859,
-      "BTC": 0.022597728378082774,
-      "LINK": 0.2501059498251932,
-      "ONDO": 0.6002545388679256
+      "Cash": 0.00013071850266827595,
+      "BTC": 0.022657413870937625,
+      "XRP": 0.12718568405219371,
+      "LINK": 0.25035032030885207,
+      "ONDO": 0.5996758632653483
     },
-    "allocationText": "ONDO 60.0%, LINK 25.0%, Cash 12.7%, BTC 2.3%",
-    "navBefore": 772189,
-    "navAfter": 771861,
-    "pnlKrw": -328,
-    "returnPct": -0.042476647556492,
+    "allocationText": "ONDO 60.0%, LINK 25.0%, XRP 12.7%, BTC 2.3%, Cash 0.0%",
+    "navBefore": 769861,
+    "navAfter": 769811,
+    "pnlKrw": -50,
+    "returnPct": -0.00649467890956939,
     "plannedSells": [],
     "plannedBuys": [
       {
         "side": "BUY",
-        "symbol": "LINK",
-        "market": "KRW-LINK",
-        "price_krw": 193047.26641708252,
-        "ref_price": 11900.0
-      },
-      {
-        "side": "BUY",
-        "symbol": "ONDO",
-        "market": "KRW-ONDO",
-        "price_krw": 463313.439400998,
-        "ref_price": 553.0
+        "symbol": "XRP",
+        "market": "KRW-XRP",
+        "price_krw": 192465.15489231498,
+        "ref_price": 1720.0
       }
     ],
     "executions": [
       {
-        "time": "2026-06-12T11:30:55+09:00",
+        "time": "2026-06-12T12:00:10+09:00",
         "side": "BUY",
-        "symbol": "ONDO",
-        "market": "KRW-ONDO",
-        "notionalKrw": 463313,
-        "feeKrw": 231.656499998525,
-        "uuid": "7607fa3f-8069-483b-ab1f-7d2a0247dbd6",
+        "symbol": "XRP",
+        "market": "KRW-XRP",
+        "notionalKrw": 97909,
+        "feeKrw": 48.954499992,
+        "uuid": "bc0f8aa2-1944-413b-ad17-26f52b6fcd9b",
         "state": "filled",
         "finalState": "cancel",
         "executionStatus": "filled",
-        "executedVolume": 837.81735985,
+        "executedVolume": 56.9238372,
         "remainingVolume": null,
-        "actualFeeKrw": 231.656499998525,
+        "actualFeeKrw": 48.954499992,
         "feeSource": "actual",
-        "cumulativeFeesKrw": 17588.5369523876
-      },
-      {
-        "time": "2026-06-12T11:30:55+09:00",
-        "side": "BUY",
-        "symbol": "LINK",
-        "market": "KRW-LINK",
-        "notionalKrw": 193047,
-        "feeKrw": 96.5234999715,
-        "uuid": "e64724ad-0c8f-4755-ab4f-0fb2931d0623",
-        "state": "filled",
-        "finalState": "cancel",
-        "executionStatus": "filled",
-        "executedVolume": 16.22243697,
-        "remainingVolume": null,
-        "actualFeeKrw": 96.5234999715,
-        "feeSource": "actual",
-        "cumulativeFeesKrw": 17588.5369523876
+        "cumulativeFeesKrw": 17637.4914523796
       }
     ],
-    "feesKrw": 328.179999970025,
-    "cumulativeFeesKrw": 17588.5369523876,
-    "tradeCount": 2,
+    "feesKrw": 48.954499992,
+    "cumulativeFeesKrw": 17637.4914523796,
+    "tradeCount": 1,
     "rankedCandidates": [
       {
         "symbol": "ONDO",
-        "r24Pct": 8.858,
-        "r7Pct": 2.407,
-        "scorePct": 9.34
-      },
-      {
-        "symbol": "LINK",
-        "r24Pct": 3.03,
-        "r7Pct": 1.796,
-        "scorePct": 3.39
+        "r24Pct": 8.465,
+        "r7Pct": 1.661,
+        "scorePct": 8.797
       },
       {
         "symbol": "XRP",
-        "r24Pct": 2.934,
-        "r7Pct": 1.058,
-        "scorePct": 3.146
+        "r24Pct": 3.241,
+        "r7Pct": 0.526,
+        "scorePct": 3.346
+      },
+      {
+        "symbol": "LINK",
+        "r24Pct": 2.857,
+        "r7Pct": 1.625,
+        "scorePct": 3.182
       },
       {
         "symbol": "SUI",
-        "r24Pct": 2.065,
-        "r7Pct": 2.989,
-        "scorePct": 2.662
+        "r24Pct": 2.154,
+        "r7Pct": 3.267,
+        "scorePct": 2.808
       },
       {
         "symbol": "BTC",
-        "r24Pct": 2.127,
-        "r7Pct": 1.816,
-        "scorePct": 2.49
+        "r24Pct": 2.28,
+        "r7Pct": 1.773,
+        "scorePct": 2.635
       }
     ],
     "warnings": [
       "market data warning: universe guardrails rejected 253 KRW markets",
       "risk preflight: risk checks passed",
-      "order count preflight: planned 2 orders within limit 6",
-      "Phase 2 sells skipped BTC: within rebalance band (2.26% drift)",
-      "Phase 2 buys skipped XRP: within rebalance band (15.00% drift)"
+      "order count preflight: planned 1 orders within limit 6",
+      "Phase 2 sells skipped BTC: within rebalance band (2.27% drift)",
+      "Phase 2 sells skipped LINK: within rebalance band (10.03% drift)"
     ],
     "warningCount": 5,
     "rejectionWarningCount": 1,
@@ -102478,23 +102594,23 @@
   "dailySummary": {
     "dateKst": "2026-06-12",
     "navStart": 771992,
-    "navEnd": 771861,
-    "pnlKrw": -131,
-    "returnPct": -0.01696908776256749,
+    "navEnd": 769811,
+    "pnlKrw": -2181,
+    "returnPct": -0.28251588099358543,
     "highNav": 772227,
-    "lowNav": 771861,
-    "maxIntradayDrawdownPct": -0.04739539021557133,
-    "orderCount": 2,
-    "filledOrderCount": 2,
+    "lowNav": 769811,
+    "maxIntradayDrawdownPct": -0.3128613736634435,
+    "orderCount": 3,
+    "filledOrderCount": 3,
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
-    "tradeRuns": 1,
-    "reportCount": 24,
-    "turnoverKrw": 656360,
-    "actualFeesKrw": 328.179999970025,
+    "tradeRuns": 2,
+    "reportCount": 25,
+    "turnoverKrw": 754269,
+    "actualFeesKrw": 377.134499962025,
     "estimatedFeesKrw": 0.0,
-    "feeDragPctOfStartNav": 0.042510803216875954,
-    "targetChanges": 1,
+    "feeDragPctOfStartNav": 0.04885212540570692,
+    "targetChanges": 2,
     "riskEvents": [],
     "methodologyEvents": [
       "risk_off -> Cash 100%",
@@ -102505,14 +102621,14 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-06-12T11:38:55.476524+09:00",
-    "latestReportAgeMinutes": 8.007942066666667,
+    "updatedAt": "2026-06-12T12:09:00.592764+09:00",
+    "latestReportAgeMinutes": 8.843212733333333,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "ok",
-    "lastRunId": "0ea3dec3-645d-4625-9e60-7da822b2ccda",
+    "lastRunId": "b3a75c2b-ffc2-448c-83c6-8bf7d1f03beb",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -102535,8 +102651,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-06-12T11:30:00",
-        "priceSnapshot=2026-06-12T11:30:55+09:00"
+        "signalCandle=2026-06-12T12:00:00",
+        "priceSnapshot=2026-06-12T12:00:10+09:00"
       ]
     },
     "phase3": {
@@ -102545,7 +102661,7 @@
       "summary": "Daily summary, governance status, dashboard schema, public UI cards, and dashboard publisher are active/reporting-only.",
       "evidence": [
         "governanceStatus=ok",
-        "targetChangesToday=1",
+        "targetChangesToday=2",
         "legacyUnresolvedOrderCount=0"
       ]
     }
