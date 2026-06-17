@@ -1,18 +1,18 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-06-17T05:38:14.886090+00:00",
+  "refreshedAt": "2026-06-17T06:08:08.469391+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Paper-Aligned Pilot 3 Breakout Rotation",
-    "currentNav": 759967,
+    "currentNav": 760106,
     "startingNav": 1000247,
-    "totalPnlKrw": -240280,
-    "totalReturnPct": -24.022066549562258,
-    "latestTime": "2026-06-17T14:30:36+09:00",
+    "totalPnlKrw": -240141,
+    "totalReturnPct": -24.008169982014444,
+    "latestTime": "2026-06-17T15:00:33+09:00",
     "latestStatus": "live",
     "currentAllocation": "Cash 82.4%, ETH 15.2%, BTC 2.4%",
     "targetAllocation": "Cash 100.0%",
-    "latestRegime": "normal; 24h breadth 70%, 7d breadth 100%; 7d leaders AAVE +23.9%, SOL +15.2%, ETH +10.3%",
+    "latestRegime": "normal; 24h breadth 60%, 7d breadth 100%; 7d leaders AAVE +24.2%, SOL +15.1%, ETH +10.5%",
     "latestReason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
@@ -24,12 +24,12 @@
     "warningCount": 5,
     "eligibilityWarningCount": 0,
     "rejectionWarningCount": 1,
-    "reportCount": 1788,
+    "reportCount": 1789,
     "tradeCount": 195,
     "cumulativeFeesKrw": 25040.059803990644,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": -2557,
-    "dailyReturnPct": -0.33533370752920566,
+    "dailyPnlKrw": -2418,
+    "dailyReturnPct": -0.31710477309566654,
     "feeDragTodayKrw": 1066.04250607308,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
@@ -127745,6 +127745,115 @@
       "freezeMode": null,
       "freezeModeReason": null,
       "riskFreezeReason": null
+    },
+    {
+      "time": "2026-06-17T15:00:33+09:00",
+      "date": "2026-06-17",
+      "sourceFile": "pilot3_live_executor_20260617_150033.json",
+      "status": "live",
+      "reason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
+      "regime": "normal",
+      "regimeNote": "normal; 24h breadth 60%, 7d breadth 100%; 7d leaders AAVE +24.2%, SOL +15.1%, ETH +10.5%",
+      "targetReason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
+      "targetWeights": {
+        "Cash": 1.0
+      },
+      "targetText": "Cash 100.0%",
+      "weightsBefore": {
+        "Cash": 0.8237192113919799,
+        "BTC": 0.023781462322375484,
+        "ETH": 0.15249932628564478,
+        "PEPE": 5.90707199311579e-17
+      },
+      "weightsAfter": {
+        "Cash": 0.8237192113919799,
+        "BTC": 0.023781462322375484,
+        "ETH": 0.15249932628564478,
+        "PEPE": 5.90707199311579e-17
+      },
+      "allocationText": "Cash 82.4%, ETH 15.2%, BTC 2.4%",
+      "navBefore": 760106,
+      "navAfter": 760106,
+      "pnlKrw": 0,
+      "returnPct": 0.0,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 25040.059803990644,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "AAVE",
+          "r24Pct": 2.873,
+          "r7Pct": 24.16,
+          "scorePct": 7.705
+        },
+        {
+          "symbol": "SUI",
+          "r24Pct": 2.365,
+          "r7Pct": 9.091,
+          "scorePct": 4.183
+        },
+        {
+          "symbol": "ETH",
+          "r24Pct": 1.429,
+          "r7Pct": 10.488,
+          "scorePct": 3.527
+        },
+        {
+          "symbol": "LINK",
+          "r24Pct": 1.378,
+          "r7Pct": 8.312,
+          "scorePct": 3.04
+        },
+        {
+          "symbol": "AVAX",
+          "r24Pct": 1.558,
+          "r7Pct": 6.701,
+          "scorePct": 2.898
+        },
+        {
+          "symbol": "SOL",
+          "r24Pct": -0.449,
+          "r7Pct": 15.117,
+          "scorePct": 2.574
+        },
+        {
+          "symbol": "ONDO",
+          "r24Pct": 0.71,
+          "r7Pct": 9.249,
+          "scorePct": 2.56
+        },
+        {
+          "symbol": "XRP",
+          "r24Pct": -0.973,
+          "r7Pct": 9.838,
+          "scorePct": 0.994
+        }
+      ],
+      "warnings": [
+        "market data warning: universe guardrails rejected 254 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 0 orders within limit 6",
+        "Phase 2 sells skipped BTC: within rebalance band (2.38% drift)",
+        "Phase 2 sells skipped ETH: within rebalance band (15.25% drift)"
+      ],
+      "warningCount": 5,
+      "rejectionWarningCount": 1,
+      "eligibilityWarningCount": 0,
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      },
+      "ordersSubmitted": null,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": null,
+      "freezeModeReason": null,
+      "riskFreezeReason": null
     }
   ],
   "transactions": [
@@ -131065,33 +131174,33 @@
     }
   ],
   "latest": {
-    "time": "2026-06-17T14:30:36+09:00",
+    "time": "2026-06-17T15:00:33+09:00",
     "date": "2026-06-17",
-    "sourceFile": "pilot3_live_executor_20260617_143036.json",
+    "sourceFile": "pilot3_live_executor_20260617_150033.json",
     "status": "live",
     "reason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
     "regime": "normal",
-    "regimeNote": "normal; 24h breadth 70%, 7d breadth 100%; 7d leaders AAVE +23.9%, SOL +15.2%, ETH +10.3%",
+    "regimeNote": "normal; 24h breadth 60%, 7d breadth 100%; 7d leaders AAVE +24.2%, SOL +15.1%, ETH +10.5%",
     "targetReason": "two convincing breakouts -> 60% / 40%; Phase 2 hysteresis adjusted target",
     "targetWeights": {
       "Cash": 1.0
     },
     "targetText": "Cash 100.0%",
     "weightsBefore": {
-      "Cash": 0.8238700521006587,
-      "BTC": 0.02377235894563065,
-      "ETH": 0.15235758895371063,
-      "PEPE": 5.90815370507945e-17
+      "Cash": 0.8237192113919799,
+      "BTC": 0.023781462322375484,
+      "ETH": 0.15249932628564478,
+      "PEPE": 5.90707199311579e-17
     },
     "weightsAfter": {
-      "Cash": 0.8238700521006587,
-      "BTC": 0.02377235894563065,
-      "ETH": 0.15235758895371063,
-      "PEPE": 5.90815370507945e-17
+      "Cash": 0.8237192113919799,
+      "BTC": 0.023781462322375484,
+      "ETH": 0.15249932628564478,
+      "PEPE": 5.90707199311579e-17
     },
     "allocationText": "Cash 82.4%, ETH 15.2%, BTC 2.4%",
-    "navBefore": 759967,
-    "navAfter": 759967,
+    "navBefore": 760106,
+    "navAfter": 760106,
     "pnlKrw": 0,
     "returnPct": 0.0,
     "plannedSells": [],
@@ -131103,51 +131212,51 @@
     "rankedCandidates": [
       {
         "symbol": "AAVE",
-        "r24Pct": 3.714,
-        "r7Pct": 23.851,
-        "scorePct": 8.484
+        "r24Pct": 2.873,
+        "r7Pct": 24.16,
+        "scorePct": 7.705
       },
       {
         "symbol": "SUI",
-        "r24Pct": 2.971,
-        "r7Pct": 9.083,
-        "scorePct": 4.788
+        "r24Pct": 2.365,
+        "r7Pct": 9.091,
+        "scorePct": 4.183
       },
       {
         "symbol": "ETH",
-        "r24Pct": 1.66,
-        "r7Pct": 10.319,
-        "scorePct": 3.724
-      },
-      {
-        "symbol": "ONDO",
-        "r24Pct": 1.789,
-        "r7Pct": 9.423,
-        "scorePct": 3.674
-      },
-      {
-        "symbol": "SOL",
-        "r24Pct": 0.271,
-        "r7Pct": 15.221,
-        "scorePct": 3.315
-      },
-      {
-        "symbol": "AVAX",
-        "r24Pct": 1.859,
-        "r7Pct": 6.496,
-        "scorePct": 3.158
+        "r24Pct": 1.429,
+        "r7Pct": 10.488,
+        "scorePct": 3.527
       },
       {
         "symbol": "LINK",
         "r24Pct": 1.378,
-        "r7Pct": 8.406,
-        "scorePct": 3.059
+        "r7Pct": 8.312,
+        "scorePct": 3.04
+      },
+      {
+        "symbol": "AVAX",
+        "r24Pct": 1.558,
+        "r7Pct": 6.701,
+        "scorePct": 2.898
+      },
+      {
+        "symbol": "SOL",
+        "r24Pct": -0.449,
+        "r7Pct": 15.117,
+        "scorePct": 2.574
+      },
+      {
+        "symbol": "ONDO",
+        "r24Pct": 0.71,
+        "r7Pct": 9.249,
+        "scorePct": 2.56
       },
       {
         "symbol": "XRP",
-        "r24Pct": -0.543,
-        "r7Pct": 9.898,
-        "scorePct": 1.437
+        "r24Pct": -0.973,
+        "r7Pct": 9.838,
+        "scorePct": 0.994
       }
     ],
     "warnings": [
@@ -131155,7 +131264,7 @@
       "risk preflight: risk checks passed",
       "order count preflight: planned 0 orders within limit 6",
       "Phase 2 sells skipped BTC: within rebalance band (2.38% drift)",
-      "Phase 2 sells skipped ETH: within rebalance band (15.24% drift)"
+      "Phase 2 sells skipped ETH: within rebalance band (15.25% drift)"
     ],
     "warningCount": 5,
     "rejectionWarningCount": 1,
@@ -131176,9 +131285,9 @@
   "dailySummary": {
     "dateKst": "2026-06-17",
     "navStart": 762524,
-    "navEnd": 759967,
-    "pnlKrw": -2557,
-    "returnPct": -0.33533370752920566,
+    "navEnd": 760106,
+    "pnlKrw": -2418,
+    "returnPct": -0.31710477309566654,
     "highNav": 763858,
     "lowNav": 759967,
     "maxIntradayDrawdownPct": -0.509387870520437,
@@ -131187,7 +131296,7 @@
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 4,
-    "reportCount": 30,
+    "reportCount": 31,
     "turnoverKrw": 2132085,
     "actualFeesKrw": 1066.04250607308,
     "estimatedFeesKrw": 0.0,
@@ -131205,14 +131314,14 @@
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-06-17T14:38:14.811131+09:00",
-    "latestReportAgeMinutes": 7.646852183333333,
+    "updatedAt": "2026-06-17T15:08:08.394795+09:00",
+    "latestReportAgeMinutes": 7.5899132499999995,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "ok",
-    "lastRunId": "b2ecb25c-459c-44df-9714-681994a80820",
+    "lastRunId": "98939d20-e206-48c3-97e8-97d15f990f96",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -131235,8 +131344,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-06-17T14:30:00",
-        "priceSnapshot=2026-06-17T14:30:36+09:00"
+        "signalCandle=2026-06-17T15:00:00",
+        "priceSnapshot=2026-06-17T15:00:33+09:00"
       ]
     },
     "phase3": {
