@@ -1,19 +1,19 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-06-30T06:38:16.442277+00:00",
+  "refreshedAt": "2026-06-30T07:01:55.785160+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Paper-Aligned Pilot 3 Breakout Rotation",
-    "currentNav": 729595,
+    "currentNav": 728894,
     "startingNav": 1000247,
-    "totalPnlKrw": -270652,
-    "totalReturnPct": -27.058516546413035,
-    "latestTime": "2026-06-30T15:30:04+09:00",
+    "totalPnlKrw": -271353,
+    "totalReturnPct": -27.12859923598871,
+    "latestTime": "2026-06-30T16:00:35+09:00",
     "latestStatus": "live",
-    "currentAllocation": "Cash 85.7%, ETH 14.3%",
-    "targetAllocation": "Cash 100.0%",
-    "latestRegime": "risk_off; 24h breadth 45%, 7d breadth 45%; 7d leaders AAVE +28.3%, AVAX +9.1%, SOL +6.3%",
-    "latestReason": "risk_off -> Cash 100%",
+    "currentAllocation": "SOL 60.0%, ONDO 25.7%, ETH 14.3%, Cash 0.0%",
+    "targetAllocation": "SOL 60.0%, ONDO 40.0%",
+    "latestRegime": "caution; 24h breadth 73%, 7d breadth 45%; 7d leaders AAVE +28.0%, AVAX +7.8%, SOL +6.1%",
+    "latestReason": "two convincing breakouts -> 60% / 40%",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
     "freezeMode": "normal",
@@ -24,13 +24,13 @@
     "warningCount": 4,
     "eligibilityWarningCount": 0,
     "rejectionWarningCount": 1,
-    "reportCount": 2411,
-    "tradeCount": 223,
-    "cumulativeFeesKrw": 29753.81130089192,
+    "reportCount": 2412,
+    "tradeCount": 225,
+    "cumulativeFeesKrw": 30066.397300611436,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
-    "dailyPnlKrw": 1410,
-    "dailyReturnPct": 0.1936321127186086,
-    "feeDragTodayKrw": 0,
+    "dailyPnlKrw": 709,
+    "dailyReturnPct": 0.09736536731737128,
+    "feeDragTodayKrw": 312.58599971951503,
     "pendingOrderCount": 0,
     "governanceStatus": "ok",
     "phase1Status": "complete_active",
@@ -172056,6 +172056,147 @@
       "freezeMode": null,
       "freezeModeReason": null,
       "riskFreezeReason": null
+    },
+    {
+      "time": "2026-06-30T16:00:35+09:00",
+      "date": "2026-06-30",
+      "sourceFile": "pilot3_live_executor_20260630_160035.json",
+      "status": "live",
+      "reason": "two convincing breakouts -> 60% / 40%",
+      "regime": "caution",
+      "regimeNote": "caution; 24h breadth 73%, 7d breadth 45%; 7d leaders AAVE +28.0%, AVAX +7.8%, SOL +6.1%",
+      "targetReason": "two convincing breakouts -> 60% / 40%",
+      "targetWeights": {
+        "SOL": 0.6,
+        "ONDO": 0.4
+      },
+      "targetText": "SOL 60.0%, ONDO 40.0%",
+      "weightsBefore": {
+        "Cash": 0.8574410047221795,
+        "ETH": 0.14255899527782057,
+        "PEPE": 4.8931262384727554e-17
+      },
+      "weightsAfter": {
+        "Cash": 0.00013720468314242775,
+        "ETH": 0.1426961010398234,
+        "SOL": 0.6000428517541477,
+        "ONDO": 0.25712384252288645,
+        "PEPE": 4.884112772660102e-17
+      },
+      "allocationText": "SOL 60.0%, ONDO 25.7%, ETH 14.3%, Cash 0.0%",
+      "navBefore": 729595,
+      "navAfter": 728894,
+      "pnlKrw": -701,
+      "returnPct": -0.09608070230744455,
+      "plannedSells": [],
+      "plannedBuys": [
+        {
+          "side": "BUY",
+          "symbol": "ONDO",
+          "market": "KRW-ONDO",
+          "price_krw": 291837.96419806,
+          "ref_price": 481.0
+        },
+        {
+          "side": "BUY",
+          "symbol": "SOL",
+          "market": "KRW-SOL",
+          "price_krw": 437756.9462970899,
+          "ref_price": 112600.0
+        }
+      ],
+      "executions": [
+        {
+          "time": "2026-06-30T16:00:35+09:00",
+          "side": "BUY",
+          "symbol": "SOL",
+          "market": "KRW-SOL",
+          "notionalKrw": 437756,
+          "feeKrw": 218.8779997215,
+          "uuid": "d085f0ec-9f69-4755-aec0-da0af893925d",
+          "state": "filled",
+          "finalState": "cancel",
+          "executionStatus": "filled",
+          "executedVolume": 3.88425909,
+          "remainingVolume": null,
+          "actualFeeKrw": 218.8779997215,
+          "feeSource": "actual",
+          "cumulativeFeesKrw": 30066.397300611436
+        },
+        {
+          "time": "2026-06-30T16:00:35+09:00",
+          "side": "BUY",
+          "symbol": "ONDO",
+          "market": "KRW-ONDO",
+          "notionalKrw": 187416,
+          "feeKrw": 93.707999998015,
+          "uuid": "9e9d6048-dadd-47e0-9a6b-ee28ade59d63",
+          "state": "filled",
+          "finalState": "cancel",
+          "executionStatus": "filled",
+          "executedVolume": 389.63825363,
+          "remainingVolume": null,
+          "actualFeeKrw": 93.707999998015,
+          "feeSource": "actual",
+          "cumulativeFeesKrw": 30066.397300611436
+        }
+      ],
+      "feesKrw": 312.58599971951503,
+      "cumulativeFeesKrw": 30066.397300611436,
+      "tradeCount": 2,
+      "rankedCandidates": [
+        {
+          "symbol": "AAVE",
+          "r24Pct": -1.427,
+          "r7Pct": 27.963,
+          "scorePct": 4.166
+        },
+        {
+          "symbol": "SOL",
+          "r24Pct": 2.644,
+          "r7Pct": 6.126,
+          "scorePct": 3.869
+        },
+        {
+          "symbol": "AVAX",
+          "r24Pct": 1.212,
+          "r7Pct": 7.8,
+          "scorePct": 2.772
+        },
+        {
+          "symbol": "ONDO",
+          "r24Pct": 2.123,
+          "r7Pct": 1.477,
+          "scorePct": 2.419
+        },
+        {
+          "symbol": "SUI",
+          "r24Pct": 0.858,
+          "r7Pct": 1.536,
+          "scorePct": 1.165
+        }
+      ],
+      "warnings": [
+        "market data warning: universe guardrails rejected 256 KRW markets",
+        "risk preflight: risk checks passed",
+        "order count preflight: planned 2 orders within limit 6",
+        "Phase 2 sells skipped ETH: within rebalance band (14.26% drift)"
+      ],
+      "warningCount": 4,
+      "rejectionWarningCount": 1,
+      "eligibilityWarningCount": 0,
+      "safety": {
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false
+      },
+      "ordersSubmitted": null,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": null,
+      "freezeModeReason": null,
+      "riskFreezeReason": null
     }
   ],
   "transactions": [
@@ -175849,47 +175990,165 @@
       "actualFeeKrw": 145.934998607805,
       "feeSource": "actual",
       "cumulativeFeesKrw": 29753.81130089192
+    },
+    {
+      "time": "2026-06-30T16:00:35+09:00",
+      "side": "BUY",
+      "symbol": "SOL",
+      "market": "KRW-SOL",
+      "notionalKrw": 437756,
+      "feeKrw": 218.8779997215,
+      "uuid": "d085f0ec-9f69-4755-aec0-da0af893925d",
+      "state": "filled",
+      "finalState": "cancel",
+      "executionStatus": "filled",
+      "executedVolume": 3.88425909,
+      "remainingVolume": null,
+      "actualFeeKrw": 218.8779997215,
+      "feeSource": "actual",
+      "cumulativeFeesKrw": 30066.397300611436
+    },
+    {
+      "time": "2026-06-30T16:00:35+09:00",
+      "side": "BUY",
+      "symbol": "ONDO",
+      "market": "KRW-ONDO",
+      "notionalKrw": 187416,
+      "feeKrw": 93.707999998015,
+      "uuid": "9e9d6048-dadd-47e0-9a6b-ee28ade59d63",
+      "state": "filled",
+      "finalState": "cancel",
+      "executionStatus": "filled",
+      "executedVolume": 389.63825363,
+      "remainingVolume": null,
+      "actualFeeKrw": 93.707999998015,
+      "feeSource": "actual",
+      "cumulativeFeesKrw": 30066.397300611436
     }
   ],
   "latest": {
-    "time": "2026-06-30T15:30:04+09:00",
+    "time": "2026-06-30T16:00:35+09:00",
     "date": "2026-06-30",
-    "sourceFile": "pilot3_live_executor_20260630_153004.json",
+    "sourceFile": "pilot3_live_executor_20260630_160035.json",
     "status": "live",
-    "reason": "risk_off -> Cash 100%",
-    "regime": "risk_off",
-    "regimeNote": "risk_off; 24h breadth 45%, 7d breadth 45%; 7d leaders AAVE +28.3%, AVAX +9.1%, SOL +6.3%",
-    "targetReason": "risk_off -> Cash 100%",
+    "reason": "two convincing breakouts -> 60% / 40%",
+    "regime": "caution",
+    "regimeNote": "caution; 24h breadth 73%, 7d breadth 45%; 7d leaders AAVE +28.0%, AVAX +7.8%, SOL +6.1%",
+    "targetReason": "two convincing breakouts -> 60% / 40%",
     "targetWeights": {
-      "Cash": 1.0
+      "SOL": 0.6,
+      "ONDO": 0.4
     },
-    "targetText": "Cash 100.0%",
+    "targetText": "SOL 60.0%, ONDO 40.0%",
     "weightsBefore": {
       "Cash": 0.8574410047221795,
       "ETH": 0.14255899527782057,
-      "PEPE": 4.8794200025106474e-17
+      "PEPE": 4.8931262384727554e-17
     },
     "weightsAfter": {
-      "Cash": 0.8574410047221795,
-      "ETH": 0.14255899527782057,
-      "PEPE": 4.8794200025106474e-17
+      "Cash": 0.00013720468314242775,
+      "ETH": 0.1426961010398234,
+      "SOL": 0.6000428517541477,
+      "ONDO": 0.25712384252288645,
+      "PEPE": 4.884112772660102e-17
     },
-    "allocationText": "Cash 85.7%, ETH 14.3%",
+    "allocationText": "SOL 60.0%, ONDO 25.7%, ETH 14.3%, Cash 0.0%",
     "navBefore": 729595,
-    "navAfter": 729595,
-    "pnlKrw": 0,
-    "returnPct": 0.0,
+    "navAfter": 728894,
+    "pnlKrw": -701,
+    "returnPct": -0.09608070230744455,
     "plannedSells": [],
-    "plannedBuys": [],
-    "executions": [],
-    "feesKrw": 0,
-    "cumulativeFeesKrw": 29753.81130089192,
-    "tradeCount": 0,
-    "rankedCandidates": [],
+    "plannedBuys": [
+      {
+        "side": "BUY",
+        "symbol": "ONDO",
+        "market": "KRW-ONDO",
+        "price_krw": 291837.96419806,
+        "ref_price": 481.0
+      },
+      {
+        "side": "BUY",
+        "symbol": "SOL",
+        "market": "KRW-SOL",
+        "price_krw": 437756.9462970899,
+        "ref_price": 112600.0
+      }
+    ],
+    "executions": [
+      {
+        "time": "2026-06-30T16:00:35+09:00",
+        "side": "BUY",
+        "symbol": "SOL",
+        "market": "KRW-SOL",
+        "notionalKrw": 437756,
+        "feeKrw": 218.8779997215,
+        "uuid": "d085f0ec-9f69-4755-aec0-da0af893925d",
+        "state": "filled",
+        "finalState": "cancel",
+        "executionStatus": "filled",
+        "executedVolume": 3.88425909,
+        "remainingVolume": null,
+        "actualFeeKrw": 218.8779997215,
+        "feeSource": "actual",
+        "cumulativeFeesKrw": 30066.397300611436
+      },
+      {
+        "time": "2026-06-30T16:00:35+09:00",
+        "side": "BUY",
+        "symbol": "ONDO",
+        "market": "KRW-ONDO",
+        "notionalKrw": 187416,
+        "feeKrw": 93.707999998015,
+        "uuid": "9e9d6048-dadd-47e0-9a6b-ee28ade59d63",
+        "state": "filled",
+        "finalState": "cancel",
+        "executionStatus": "filled",
+        "executedVolume": 389.63825363,
+        "remainingVolume": null,
+        "actualFeeKrw": 93.707999998015,
+        "feeSource": "actual",
+        "cumulativeFeesKrw": 30066.397300611436
+      }
+    ],
+    "feesKrw": 312.58599971951503,
+    "cumulativeFeesKrw": 30066.397300611436,
+    "tradeCount": 2,
+    "rankedCandidates": [
+      {
+        "symbol": "AAVE",
+        "r24Pct": -1.427,
+        "r7Pct": 27.963,
+        "scorePct": 4.166
+      },
+      {
+        "symbol": "SOL",
+        "r24Pct": 2.644,
+        "r7Pct": 6.126,
+        "scorePct": 3.869
+      },
+      {
+        "symbol": "AVAX",
+        "r24Pct": 1.212,
+        "r7Pct": 7.8,
+        "scorePct": 2.772
+      },
+      {
+        "symbol": "ONDO",
+        "r24Pct": 2.123,
+        "r7Pct": 1.477,
+        "scorePct": 2.419
+      },
+      {
+        "symbol": "SUI",
+        "r24Pct": 0.858,
+        "r7Pct": 1.536,
+        "scorePct": 1.165
+      }
+    ],
     "warnings": [
       "market data warning: universe guardrails rejected 256 KRW markets",
       "risk preflight: risk checks passed",
-      "order count preflight: planned 0 orders within limit 6",
+      "order count preflight: planned 2 orders within limit 6",
       "Phase 2 sells skipped ETH: within rebalance band (14.26% drift)"
     ],
     "warningCount": 4,
@@ -175911,40 +176170,41 @@
   "dailySummary": {
     "dateKst": "2026-06-30",
     "navStart": 728185,
-    "navEnd": 729595,
-    "pnlKrw": 1410,
-    "returnPct": 0.1936321127186086,
+    "navEnd": 728894,
+    "pnlKrw": 709,
+    "returnPct": 0.09736536731737128,
     "highNav": 731408,
     "lowNav": 728185,
-    "maxIntradayDrawdownPct": -0.3184269245072518,
-    "orderCount": 0,
-    "filledOrderCount": 0,
+    "maxIntradayDrawdownPct": -0.34372060464200554,
+    "orderCount": 2,
+    "filledOrderCount": 2,
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
-    "tradeRuns": 0,
-    "reportCount": 32,
-    "turnoverKrw": 0,
-    "actualFeesKrw": 0.0,
+    "tradeRuns": 1,
+    "reportCount": 33,
+    "turnoverKrw": 625172,
+    "actualFeesKrw": 312.58599971951503,
     "estimatedFeesKrw": 0.0,
-    "feeDragPctOfStartNav": 0.0,
-    "targetChanges": 0,
+    "feeDragPctOfStartNav": 0.04292672874606247,
+    "targetChanges": 1,
     "riskEvents": [],
     "methodologyEvents": [
-      "risk_off -> Cash 100%"
+      "risk_off -> Cash 100%",
+      "two convincing breakouts -> 60% / 40%"
     ],
     "notes": []
   },
   "governance": {
     "status": "ok",
     "severity": 0,
-    "updatedAt": "2026-06-30T15:38:16.346927+09:00",
-    "latestReportAgeMinutes": 8.205782116666667,
+    "updatedAt": "2026-06-30T16:01:55.661455+09:00",
+    "latestReportAgeMinutes": 1.3443575833333334,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": false,
     "riskFreezeReason": null,
     "lastRunStatus": "ok",
-    "lastRunId": "7fecc805-7b44-45a1-a1c9-9f48a19c5c05",
+    "lastRunId": "235450c9-1063-4fc8-b517-6bbee4b24cab",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": []
@@ -175967,8 +176227,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-06-30T15:30:00",
-        "priceSnapshot=2026-06-30T15:30:04+09:00"
+        "signalCandle=2026-06-30T16:00:00",
+        "priceSnapshot=2026-06-30T16:00:35+09:00"
       ]
     },
     "phase3": {
@@ -175977,7 +176237,7 @@
       "summary": "Daily summary, governance status, dashboard schema, public UI cards, and dashboard publisher are active/reporting-only.",
       "evidence": [
         "governanceStatus=ok",
-        "targetChangesToday=0",
+        "targetChangesToday=1",
         "legacyUnresolvedOrderCount=0"
       ]
     }
