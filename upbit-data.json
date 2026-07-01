@@ -1,6 +1,6 @@
 {
   "source": "local-upbit-live-execution-reports",
-  "refreshedAt": "2026-07-01T13:38:54.095383+00:00",
+  "refreshedAt": "2026-07-01T14:01:20.366945+00:00",
   "summary": {
     "name": "Pilot 3 Upbit Live",
     "strategy": "Paper-Aligned Pilot 3 Breakout Rotation",
@@ -8,11 +8,11 @@
     "startingNav": 1000247,
     "totalPnlKrw": -279633,
     "totalReturnPct": -27.956394770491688,
-    "latestTime": "2026-07-01T22:30:35+09:00",
+    "latestTime": "2026-07-01T23:00:13+09:00",
     "latestStatus": "risk_freeze",
     "currentAllocation": "Cash 100.0%",
     "targetAllocation": "Cash 100.0%",
-    "latestRegime": "caution; 24h breadth 55%, 7d breadth 45%; 7d leaders AAVE +15.8%, SOL +9.2%, AVAX +4.7%",
+    "latestRegime": "caution; 24h breadth 82%, 7d breadth 45%; 7d leaders AAVE +16.8%, SOL +10.5%, AVAX +5.5%",
     "latestReason": "risk freeze active: daily loss -8.12% breached max 8.00%",
     "strategyMode": "paper-aligned",
     "liveExtensionEnabled": false,
@@ -24,7 +24,7 @@
     "warningCount": 2,
     "eligibilityWarningCount": 1,
     "rejectionWarningCount": 0,
-    "reportCount": 2473,
+    "reportCount": 2474,
     "tradeCount": 232,
     "cumulativeFeesKrw": 31006.95210586696,
     "feeNote": "Fees use recorded paid/reserved Upbit fees when present; otherwise estimated at 0.05% of notional.",
@@ -176237,6 +176237,92 @@
       "freezeMode": "cash",
       "freezeModeReason": "already at Cash 100% target or no eligible non-cash exposure",
       "riskFreezeReason": "risk freeze active: daily loss -8.12% breached max 8.00%"
+    },
+    {
+      "time": "2026-07-01T23:00:13+09:00",
+      "date": "2026-07-01",
+      "sourceFile": "pilot3_live_executor_20260701_230013.json",
+      "status": "risk_freeze",
+      "reason": "risk freeze active: daily loss -8.12% breached max 8.00%",
+      "regime": "caution",
+      "regimeNote": "caution; 24h breadth 82%, 7d breadth 45%; 7d leaders AAVE +16.8%, SOL +10.5%, AVAX +5.5%",
+      "targetReason": "risk freeze active; target Cash 100%; buys disabled; guarded sells may de-risk existing exposure",
+      "targetWeights": {
+        "Cash": 1.0
+      },
+      "targetText": "Cash 100.0%",
+      "weightsBefore": {
+        "Cash": 1.0,
+        "PEPE": 4.843091714726839e-17
+      },
+      "weightsAfter": {
+        "Cash": 1.0,
+        "PEPE": 4.843091714726839e-17
+      },
+      "allocationText": "Cash 100.0%",
+      "navBefore": 720614,
+      "navAfter": 720614,
+      "pnlKrw": 0,
+      "returnPct": 0.0,
+      "plannedSells": [],
+      "plannedBuys": [],
+      "executions": [],
+      "feesKrw": 0,
+      "cumulativeFeesKrw": 31006.95210586696,
+      "tradeCount": 0,
+      "rankedCandidates": [
+        {
+          "symbol": "SOL",
+          "r24Pct": 3.03,
+          "r7Pct": 10.516,
+          "scorePct": 5.134
+        },
+        {
+          "symbol": "SUI",
+          "r24Pct": 2.467,
+          "r7Pct": 3.846,
+          "scorePct": 3.236
+        },
+        {
+          "symbol": "AVAX",
+          "r24Pct": 2.121,
+          "r7Pct": 5.477,
+          "scorePct": 3.217
+        },
+        {
+          "symbol": "AAVE",
+          "r24Pct": -0.227,
+          "r7Pct": 16.829,
+          "scorePct": 3.139
+        },
+        {
+          "symbol": "ONDO",
+          "r24Pct": 1.057,
+          "r7Pct": 3.688,
+          "scorePct": 1.795
+        }
+      ],
+      "warnings": [
+        "risk preflight: risk freeze active: daily loss -8.12% breached max 8.00%",
+        "risk-freeze de-risk target staged/deferred; no eligible sell orders after safeguards"
+      ],
+      "warningCount": 2,
+      "rejectionWarningCount": 0,
+      "eligibilityWarningCount": 1,
+      "safety": {
+        "orders_submitted": false,
+        "capital_policy": "full_available_account_nav_percent_targets_only",
+        "withdrawals_implemented": false,
+        "leverage_implemented": false,
+        "non_pilot3_discretionary_trades_allowed": false,
+        "risk_freeze_buys_blocked": true
+      },
+      "ordersSubmitted": false,
+      "strategyMode": "paper-aligned",
+      "liveExtensionEnabled": false,
+      "freezeMode": "cash",
+      "freezeModeReason": "already at Cash 100% target or no eligible non-cash exposure",
+      "riskFreezeReason": "risk freeze active: daily loss -8.12% breached max 8.00%"
     }
   ],
   "transactions": [
@@ -180186,13 +180272,13 @@
     }
   ],
   "latest": {
-    "time": "2026-07-01T22:30:35+09:00",
+    "time": "2026-07-01T23:00:13+09:00",
     "date": "2026-07-01",
-    "sourceFile": "pilot3_live_executor_20260701_223035.json",
+    "sourceFile": "pilot3_live_executor_20260701_230013.json",
     "status": "risk_freeze",
     "reason": "risk freeze active: daily loss -8.12% breached max 8.00%",
     "regime": "caution",
-    "regimeNote": "caution; 24h breadth 55%, 7d breadth 45%; 7d leaders AAVE +15.8%, SOL +9.2%, AVAX +4.7%",
+    "regimeNote": "caution; 24h breadth 82%, 7d breadth 45%; 7d leaders AAVE +16.8%, SOL +10.5%, AVAX +5.5%",
     "targetReason": "risk freeze active; target Cash 100%; buys disabled; guarded sells may de-risk existing exposure",
     "targetWeights": {
       "Cash": 1.0
@@ -180200,11 +180286,11 @@
     "targetText": "Cash 100.0%",
     "weightsBefore": {
       "Cash": 1.0,
-      "PEPE": 4.745952339359825e-17
+      "PEPE": 4.843091714726839e-17
     },
     "weightsAfter": {
       "Cash": 1.0,
-      "PEPE": 4.745952339359825e-17
+      "PEPE": 4.843091714726839e-17
     },
     "allocationText": "Cash 100.0%",
     "navBefore": 720614,
@@ -180220,33 +180306,33 @@
     "rankedCandidates": [
       {
         "symbol": "SOL",
-        "r24Pct": 2.793,
-        "r7Pct": 9.187,
-        "scorePct": 4.63
-      },
-      {
-        "symbol": "AVAX",
-        "r24Pct": 1.418,
-        "r7Pct": 4.707,
-        "scorePct": 2.36
-      },
-      {
-        "symbol": "AAVE",
-        "r24Pct": -1.135,
-        "r7Pct": 15.766,
-        "scorePct": 2.019
+        "r24Pct": 3.03,
+        "r7Pct": 10.516,
+        "scorePct": 5.134
       },
       {
         "symbol": "SUI",
-        "r24Pct": 1.434,
-        "r7Pct": 2.314,
-        "scorePct": 1.897
+        "r24Pct": 2.467,
+        "r7Pct": 3.846,
+        "scorePct": 3.236
+      },
+      {
+        "symbol": "AVAX",
+        "r24Pct": 2.121,
+        "r7Pct": 5.477,
+        "scorePct": 3.217
+      },
+      {
+        "symbol": "AAVE",
+        "r24Pct": -0.227,
+        "r7Pct": 16.829,
+        "scorePct": 3.139
       },
       {
         "symbol": "ONDO",
-        "r24Pct": 0.0,
-        "r7Pct": 2.845,
-        "scorePct": 0.569
+        "r24Pct": 1.057,
+        "r7Pct": 3.688,
+        "scorePct": 1.795
       }
     ],
     "warnings": [
@@ -180285,7 +180371,7 @@
     "pendingOrderCount": 0,
     "legacyUnresolvedOrderCount": 0,
     "tradeRuns": 4,
-    "reportCount": 46,
+    "reportCount": 47,
     "turnoverKrw": 1258944,
     "actualFeesKrw": 629.330114734455,
     "estimatedFeesKrw": 0.0,
@@ -180307,14 +180393,14 @@
   "governance": {
     "status": "frozen",
     "severity": 2,
-    "updatedAt": "2026-07-01T22:38:54.003388+09:00",
-    "latestReportAgeMinutes": 8.316723133333333,
+    "updatedAt": "2026-07-01T23:01:20.241072+09:00",
+    "latestReportAgeMinutes": 1.1206845333333333,
     "dashboardDataAgeMinutes": null,
     "pendingOrderCount": 0,
     "riskFreezeActive": true,
     "riskFreezeReason": "daily loss -8.12% breached max 8.00%",
     "lastRunStatus": "risk_freeze",
-    "lastRunId": "f8f93b9a-1eda-4624-9bed-8ceaf8421f01",
+    "lastRunId": "c04beef3-2e3a-4c98-ab8e-6ef44170f8c5",
     "tradingEnabled": true,
     "phase2Enabled": true,
     "alerts": [
@@ -180339,8 +180425,8 @@
       "evidence": [
         "phase2Enabled=True",
         "Phase 2 controls are active in live reports.",
-        "signalCandle=2026-07-01T22:30:00",
-        "priceSnapshot=2026-07-01T22:30:35+09:00"
+        "signalCandle=2026-07-01T23:00:00",
+        "priceSnapshot=2026-07-01T23:00:13+09:00"
       ]
     },
     "phase3": {
